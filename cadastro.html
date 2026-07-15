@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro | Descomplica Direito</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              crimson: '#5c0618',
+              graphite: '#1a1a1a',
+              offwhite: '#f9f9f9'
+            },
+            fontFamily: {
+              display: ['Playfair Display', 'Georgia', 'serif'],
+              sans: ['Inter', 'Helvetica', 'sans-serif']
+            }
+          }
+        }
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body class="bg-offwhite text-graphite antialiased">
+    <header class="sticky top-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+        <a href="index.html" class="font-display text-2xl font-semibold text-crimson">Descomplica Direito</a>
+        <div class="flex items-center gap-2">
+          <div class="flex items-center gap-2 rounded-full border border-gray-300 bg-white px-3 py-2 text-sm text-graphite">
+            <button id="searchToggle" type="button" class="text-gray-600" aria-label="Abrir busca"><i class="fas fa-search"></i></button>
+            <input id="searchInput" type="text" class="hidden w-24 bg-transparent text-sm outline-none placeholder:text-gray-400 sm:w-36" placeholder="Buscar" />
+            <button id="searchButton" type="button" class="hidden text-crimson">Ir</button>
+          </div>
+          <a href="cadastro.html" class="rounded-full border border-gray-300 px-4 py-2 text-sm font-medium text-graphite">Entrar</a>
+          <button id="menuToggle" class="rounded-full bg-crimson px-4 py-2 text-sm font-semibold text-white">MENU</button>
+        </div>
+        <button id="menuToggleMobile" class="rounded-full border border-gray-300 p-2 text-graphite md:hidden">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </header>
+
+    <div id="overlay" class="overlay fixed inset-0 z-40 bg-black/40"></div>
+
+    <aside id="drawer" class="drawer fixed right-0 top-0 z-50 h-full w-full max-w-md bg-[#1E0003] p-6 text-white shadow-2xl">
+      <div class="flex justify-end">
+        <button id="closeDrawer" class="rounded-full border border-white/20 px-3 py-2 text-sm">✕ FECHAR</button>
+      </div>
+      <nav class="mt-8 space-y-5">
+        <a href="index.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Início</span><span class="mt-1 block text-sm text-white/70">Retorne à página principal do portal.</span></a>
+        <a href="tradutor.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Tradutor de Juridiquês</span><span class="mt-1 block text-sm text-white/70">Transforme textos complexos em linguagem simples.</span></a>
+        <a href="dicionario.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Dicionário Jurídico</span><span class="mt-1 block text-sm text-white/70">Consulte termos e conceitos jurídicos de A a Z.</span></a>
+        <a href="gerador.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Gerador de Documentos</span><span class="mt-1 block text-sm text-white/70">Crie contratos e declarações simples rapidamente.</span></a>
+        <a href="linha-tempo.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Linha do Tempo Jurídica</span><span class="mt-1 block text-sm text-white/70">Entenda as etapas de um processo judicial.</span></a>
+        <a href="simulador.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Simulador de Custos</span><span class="mt-1 block text-sm text-white/70">Estime taxas judiciais e honorários.</span></a>
+        <a href="guia.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Guia de Direitos</span><span class="mt-1 block text-sm text-white/70">Direitos específicos para cada fase da vida.</span></a>
+        <a href="advogados.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Advogados Parceiros</span><span class="mt-1 block text-sm text-white/70">Conheça profissionais preparados para orientar seu caso.</span></a>
+        <a href="cadastro.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Cadastro / Login</span><span class="mt-1 block text-sm text-white/70">Acesse sua conta e gerencie seus documentos.</span></a>
+      </nav>
+    </aside>
+
+    <main class="px-6 py-16 lg:px-8">
+      <div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+        <section class="hero-bg rounded-[2rem] border border-gray-200 p-8 text-white shadow-[0_20px_60px_rgba(17,24,39,0.1)]">
+          <p class="text-sm uppercase tracking-[0.25em] text-white/80">Acesso institucional</p>
+          <h1 class="font-display mt-3 text-4xl">A informação jurídica precisa ser clara, elegante e segura.</h1>
+          <p class="mt-4 max-w-xl text-lg text-white/90">Crie sua conta para salvar conteúdos, acompanhar o seu progresso e acessar as ferramentas de forma personalizada.</p>
+          <div class="mt-8 space-y-3 text-sm text-white/85">
+            <div class="rounded-2xl border border-white/20 bg-white/10 p-4"><i class="fas fa-shield-alt mr-2"></i> Ambiente seguro e confiável</div>
+            <div class="rounded-2xl border border-white/20 bg-white/10 p-4"><i class="fas fa-book-open mr-2"></i> Conteúdos organizados por tema</div>
+            <div class="rounded-2xl border border-white/20 bg-white/10 p-4"><i class="fas fa-bolt mr-2"></i> Acesso rápido às ferramentas</div>
+          </div>
+        </section>
+
+        <section class="rounded-[2rem] border border-gray-200 bg-white p-8 shadow-[0_20px_60px_rgba(17,24,39,0.04)]">
+          <div class="flex rounded-full border border-gray-200 bg-gray-50 p-1">
+            <button type="button" class="tab-btn active flex-1 rounded-full px-4 py-2 text-sm font-semibold" data-tab="login">Entrar</button>
+            <button type="button" class="tab-btn flex-1 rounded-full px-4 py-2 text-sm font-semibold" data-tab="register">Cadastrar-se</button>
+          </div>
+
+          <form id="loginForm" class="mt-6 space-y-4">
+            <div>
+              <label class="mb-2 block text-sm font-semibold" for="email">E-mail</label>
+              <input id="email" type="email" class="w-full rounded-2xl border border-gray-300 px-4 py-3 outline-none focus:border-crimson" placeholder="seu@email.com" required />
+            </div>
+            <div>
+              <label class="mb-2 block text-sm font-semibold" for="password">Senha</label>
+              <input id="password" type="password" class="w-full rounded-2xl border border-gray-300 px-4 py-3 outline-none focus:border-crimson" placeholder="••••••••" required />
+            </div>
+            <button type="submit" class="w-full rounded-2xl bg-crimson px-4 py-3 font-semibold text-white">Entrar na conta</button>
+          </form>
+
+          <form id="registerForm" class="mt-6 hidden space-y-4">
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div>
+                <label class="mb-2 block text-sm font-semibold" for="name">Nome</label>
+                <input id="name" type="text" class="w-full rounded-2xl border border-gray-300 px-4 py-3 outline-none focus:border-crimson" placeholder="Seu nome" required />
+              </div>
+              <div>
+                <label class="mb-2 block text-sm font-semibold" for="phone">Telefone</label>
+                <input id="phone" type="tel" class="w-full rounded-2xl border border-gray-300 px-4 py-3 outline-none focus:border-crimson" placeholder="(00) 00000-0000" />
+              </div>
+            </div>
+            <div>
+              <label class="mb-2 block text-sm font-semibold" for="registerEmail">E-mail</label>
+              <input id="registerEmail" type="email" class="w-full rounded-2xl border border-gray-300 px-4 py-3 outline-none focus:border-crimson" placeholder="seu@email.com" required />
+            </div>
+            <div>
+              <label class="mb-2 block text-sm font-semibold" for="registerPassword">Senha</label>
+              <input id="registerPassword" type="password" class="w-full rounded-2xl border border-gray-300 px-4 py-3 outline-none focus:border-crimson" placeholder="Crie sua senha" required />
+            </div>
+            <button type="submit" class="w-full rounded-2xl bg-crimson px-4 py-3 font-semibold text-white">Criar conta</button>
+          </form>
+
+          <p id="formMessage" class="mt-4 text-sm text-gray-500">Use o formulário para entrar ou criar uma conta.</p>
+        </section>
+      </div>
+    </main>
+
+    <footer class="rodape">
+      <div class="rodape-container">
+        <div class="rodape-coluna">
+          <h3>Guia do Cidadão</h3>
+          <ul>
+            <li><a href="tradutor.html">Tradutor de Juridiquês</a></li>
+            <li><a href="dicionario.html">Glossário Jurídico</a></li>
+            <li><a href="guia.html">Guia de Direitos</a></li>
+          </ul>
+        </div>
+        <div class="rodape-coluna">
+          <h3>Sobre o Projeto</h3>
+          <ul>
+            <li><a href="index.html">Portal institucional</a></li>
+            <li><a href="cadastro.html">Acesso e cadastro</a></li>
+            <li><a href="advogados.html">Advogados parceiros</a></li>
+          </ul>
+        </div>
+        <div class="rodape-coluna">
+          <h3>Links Úteis</h3>
+          <ul>
+            <li><a href="https://www.cnj.jus.br/" target="_blank" rel="noreferrer">Portal do CNJ</a></li>
+            <li><a href="https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm" target="_blank" rel="noreferrer">Constituição Federal</a></li>
+            <li><a href="https://www.stf.jus.br/" target="_blank" rel="noreferrer">Supremo Tribunal Federal</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rodape-inferior">
+        <div class="copyright">
+          <p>Copyright © 2026 Descomplica Direito</p>
+        </div>
+        <div class="logo-rodape">
+          <img src="img/logo.png" alt="Logo Rodapé" />
+          <p>INSTITUTO FEDERAL CATARINENSE - SOMBRIO</p>
+        </div>
+        <div class="redes-sociais">
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const drawer = document.getElementById('drawer');
+      const overlay = document.getElementById('overlay');
+      const openButtons = [document.getElementById('menuToggle'), document.getElementById('menuToggleMobile')];
+      const closeButton = document.getElementById('closeDrawer');
+      const searchToggle = document.getElementById('searchToggle');
+      const searchInput = document.getElementById('searchInput');
+      const searchButton = document.getElementById('searchButton');
+      const storageKey = 'descomplicaUsers';
+
+      function getStoredUsers() {
+        try {
+          return JSON.parse(localStorage.getItem(storageKey) || '[]');
+        } catch (error) {
+          return [];
+        }
+      }
+
+      function saveUser(user) {
+        const users = getStoredUsers();
+        users.push(user);
+        localStorage.setItem(storageKey, JSON.stringify(users));
+      }
+
+      function openDrawer() {
+        drawer.classList.add('open');
+        overlay.classList.add('show');
+      }
+
+      function closeDrawer() {
+        drawer.classList.remove('open');
+        overlay.classList.remove('show');
+      }
+
+      openButtons.forEach((btn) => btn?.addEventListener('click', openDrawer));
+      closeButton?.addEventListener('click', closeDrawer);
+      overlay?.addEventListener('click', closeDrawer);
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeDrawer();
+      });
+
+      searchToggle?.addEventListener('click', () => {
+        searchInput.classList.toggle('hidden');
+        searchButton.classList.toggle('hidden');
+        if (!searchInput.classList.contains('hidden')) {
+          searchInput.focus();
+        }
+      });
+
+      function runSearch() {
+        const query = searchInput.value.trim().toLowerCase();
+        if (!query) return;
+        const target = document.querySelector(`[data-search-key*="${query}"]`);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+
+      searchButton?.addEventListener('click', runSearch);
+      searchInput?.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') runSearch();
+      });
+
+      const tabButtons = document.querySelectorAll('.tab-btn');
+      const loginForm = document.getElementById('loginForm');
+      const registerForm = document.getElementById('registerForm');
+      const formMessage = document.getElementById('formMessage');
+
+      tabButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          tabButtons.forEach((btn) => btn.classList.remove('active'));
+          button.classList.add('active');
+          const isRegister = button.dataset.tab === 'register';
+          loginForm.classList.toggle('hidden', isRegister);
+          registerForm.classList.toggle('hidden', !isRegister);
+          formMessage.innerHTML = isRegister ? '<span class="text-gray-500">Preencha seus dados para criar uma conta institucional.</span>' : '<span class="text-gray-500">Use o formulário para entrar ou recuperar o acesso.</span>';
+        });
+      });
+
+      loginForm?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        const users = getStoredUsers();
+        const user = users.find((item) => item.email === email);
+
+        if (!email || !password) {
+          formMessage.innerHTML = '<span class="text-crimson">Informe e-mail e senha para entrar.</span>';
+          return;
+        }
+
+        if (user && user.password === password) {
+          formMessage.innerHTML = `<span class="text-green-600">Login realizado com sucesso. Bem-vindo, ${user.name || 'usuário'}.</span>`;
+        } else {
+          formMessage.innerHTML = '<span class="text-crimson">E-mail ou senha incorretos. Crie uma conta ou verifique os dados.</span>';
+        }
+      });
+
+      registerForm?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const name = document.getElementById('name').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const email = document.getElementById('registerEmail').value.trim();
+        const password = document.getElementById('registerPassword').value;
+        const users = getStoredUsers();
+
+        if (!name || !email || password.length < 6) {
+          formMessage.innerHTML = '<span class="text-crimson">Informe nome, e-mail e uma senha com pelo menos 6 caracteres.</span>';
+          return;
+        }
+
+        if (users.some((item) => item.email === email)) {
+          formMessage.innerHTML = '<span class="text-crimson">Este e-mail já está cadastrado. Tente fazer login.</span>';
+          return;
+        }
+
+        saveUser({ name, phone, email, password });
+        formMessage.innerHTML = '<span class="text-green-600">Cadastro realizado com sucesso. Você já pode entrar na sua conta.</span>';
+        registerForm.reset();
+      });
+    </script>
+  </body>
+</html>
+

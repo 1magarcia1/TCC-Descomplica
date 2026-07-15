@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="pt-BR"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descomplica Direito</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        crimson: '#5c0618',
+                        graphite: '#1a1a1a',
+                        offwhite: '#f9f9f9'
+                    },
+                    fontFamily: {
+                        display: ['Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Inter', 'Helvetica', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="index.css">
+    <style>
+        .drawer {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .drawer.open {
+            transform: translateX(0);
+        }
+        .overlay {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body class="bg-offwhite text-graphite antialiased flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="site-header absolute left-0 top-0 z-50 w-full bg-transparent backdrop-blur-sm">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+            <a href="index.html" class="flex items-center gap-3 text-sm font-medium text-white transition hover:text-white/90">
+                <img src="img/logo.png" alt="Logo" class="h-10 w-10 rounded-full object-contain bg-white/10 p-1">
+                <span class="font-display text-xl tracking-wide text-white">Descomplica Direito</span>
+            </a>
+            
+            <div class="hidden items-center gap-6 md:flex">
+                <div class="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-2 text-sm text-white/90">
+                    <button id="searchToggle" type="button" class="text-white/90" aria-label="Abrir busca">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <input id="searchInput" type="text" class="hidden w-36 bg-transparent text-sm outline-none placeholder:text-white/60 text-white" placeholder="Buscar">
+                    <button id="searchButton" type="button" class="hidden text-white font-medium">Ir</button>
+                </div>
+                <a href="cadastro.html" class="rounded-full px-3 py-2 text-sm font-medium text-white/90 transition hover:bg-white/10 hover:text-white">Entrar</a>
+                <button id="menuToggle" class="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/20">Menu</button>
+            </div>
+            
+            <button id="menuToggleMobile" class="rounded-full border border-white/20 bg-white/10 p-2 text-white md:hidden" aria-label="Abrir menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Overlay e Drawer -->
+    <div id="overlay" class="overlay fixed inset-0 z-40 bg-black/40"></div>
+    <aside id="drawer" class="drawer fixed right-0 top-0 z-50 h-full w-full max-w-md bg-[#1E0003] p-6 text-white shadow-2xl overflow-y-auto">
+        <div class="flex justify-end">
+            <button id="closeDrawer" class="rounded-full border border-white/20 px-4 py-2 text-sm hover:bg-white/10 transition">X FECHAR</button>
+        </div>
+        <nav class="mt-8 space-y-5">
+            <a href="index.html" class="block border-b border-white/10 pb-4">
+                <span class="block text-lg font-semibold uppercase">Início</span>
+                <span class="mt-1 block text-sm text-white/70">Retorne à página principal do portal.</span>
+            </a>
+            <a href="tradutor.html" class="block border-b border-white/10 pb-4">
+                <span class="block text-lg font-semibold uppercase">Tradutor de Juridiquês</span>
+                <span class="mt-1 block text-sm text-white/70">Transforme textos complexos em linguagem simples.</span>
+            </a>
+            <a href="dicionario.html" class="block border-b border-white/10 pb-4">
+                <span class="block text-lg font-semibold uppercase">Dicionário Jurídico</span>
+                <span class="mt-1 block text-sm text-white/70">Consulte termos e conceitos jurídicos de A a Z.</span>
+            </a>
+            <a href="cadastro.html" class="block border-b border-white/10 pb-4">
+                <span class="block text-lg font-semibold uppercase">Cadastro / Login</span>
+                <span class="mt-1 block text-sm text-white/70">Acesse sua conta e gerencie seus documentos.</span>
+            </a>
+            <a href="gerador.html" class="block border-b border-white/10 pb-4">
+                <span class="block text-lg font-semibold uppercase">Gerador de Documentos</span>
+                <span class="mt-1 block text-sm text-white/70">Crie contratos e declarações simples rapidamente.</span>
+            </a>
+            <a href="linha-tempo.html" class="block border-b border-white/10 pb-4">
+                <span class="block text-lg font-semibold uppercase">Linha do Tempo Jurídica</span>
+                <span class="mt-1 block text-sm text-white/70">Entenda as etapas de um processo judicial.</span>
+            </a>
+            <a href="simulador.html" class="block border-b border-white/10 pb-4">
+                <span class="block text-lg font-semibold uppercase">Simulador de Custos</span>
+                <span class="mt-1 block text-sm text-white/70">Estime taxas judiciais e honorários.</span>
+            </a>
+            <a href="guia.html" class="block border-b border-white/10 pb-4">
+                <span class="block text-lg font-semibold uppercase">Guia de Direitos</span>
+                <span class="mt-1 block text-sm text-white/70">Direitos específicos para cada fase da vida.</span>
+            </a>
+            <a href="advogados.html" class="block border-b border-white/10 pb-4">
+                <span class="block text-lg font-semibold uppercase">Advogados Parceiros</span>
+                <span class="mt-1 block text-sm text-white/70">Conheça profissionais preparados para orientar seu caso.</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section class="relative isolate flex min-h-screen items-center justify-center overflow-hidden px-6 pb-24 pt-24 text-white lg:px-8">
+            <video autoplay muted loop playsinline class="absolute inset-0 h-full w-full object-cover opacity-30">
+                <source src="img/videoprincipal.mp4" type="video/mp4">
+            </video> 
+            <div class="absolute inset-0 bg-[linear-gradient(135deg,rgba(165,28,48,0.78),rgba(10,12,17,0.76))]"></div>
+            <div class="relative z-10 mx-auto flex max-w-4xl flex-col items-center text-center">
+                <img src="img/logo.png" alt="Logo Descomplica Direito" class="h-40 w-40 rounded-full object-contain bg-white/10 p-3 shadow-[0_0_0_1px_rgba(255,255,255,0.2),0_20px_60px_rgba(0,0,0,0.35)] sm:h-48 sm:w-48 lg:h-56 lg:w-56">
+                <p class="mt-8 text-sm uppercase tracking-[0.35em] text-white/80">Descomplica Direito</p>
+                <h1 class="mt-3 font-display text-4xl leading-tight sm:text-5xl lg:text-6xl">A informação jurídica, agora com clareza e elegância.</h1>
+                <p class="mt-5 max-w-3xl text-base leading-8 text-white/85 sm:text-lg">
+                    "Uma plataforma editorial e institucional para traduzir o direito em linguagem compreensível, segura e acessível para todos."
+                </p>
+                <div class="mt-8 flex flex-wrap justify-center gap-3">
+                    <a href="cadastro.html" class="rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Criar conta</a>
+                    <a href="tradutor.html" class="rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/20">Explorar ferramentas</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+            <div class="rounded-[2rem] border border-gray-200 bg-white/90 p-8 shadow-[0_20px_60px_rgba(17,24,39,0.04)]">
+                <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+                    <div>
+                        <p class="text-sm font-semibold uppercase tracking-[0.25em] text-crimson">Acesso rápido</p>
+                        <h2 class="font-display mt-2 text-2xl text-graphite">Entre ou cadastre-se em poucos segundos</h2>
+                        <p class="mt-3 max-w-2xl text-gray-600">
+                            "Acesse conteúdos acadêmicos, traduza textos de forma simples e acompanhe seu percurso jurídico com segurança."
+                        </p>
+                    </div>
+                    <a href="cadastro.html" class="inline-flex items-center justify-center rounded-full border border-crimson/20 bg-crimson px-6 py-3 font-semibold text-white transition hover:bg-[#8f1625]">
+                        Acessar conta
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools Section -->
+        <section class="mx-auto max-w-7xl px-6 pb-16 lg:px-8">
+            <div class="mb-8">
+                <p class="text-sm font-semibold uppercase tracking-[0.25em] text-crimson">Nossas principais ferramentas</p>
+                <h2 class="font-display text-3xl text-graphite">Recursos acadêmicos e institucionais</h2>
+            </div>
+            
+            <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                <!-- Tradutor -->
+                <a href="tradutor.html" class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="tradutor">
+                    <div class="mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3 class="font-display text-xl text-graphite">Tradutor de Juridiquês</h3>
+                    <p class="mt-2 text-sm text-gray-600">Entenda termos jurídicos em linguagem simples.</p>
+                    <span class="mt-4 inline-block font-semibold text-crimson">Explorar</span>
+                </a>
+
+                <!-- Dicionário -->
+                <a href="dicionario.html" class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="dicionario">
+                    <div class="mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="font-display text-xl text-graphite">Dicionário Jurídico</h3>
+                    <p class="mt-2 text-sm text-gray-600">Consulte conceitos jurídicos de A a Z.</p>
+                    <span class="mt-4 inline-block font-semibold text-crimson">Explorar</span>
+                </a>
+
+                <!-- Gerador -->
+                <a href="gerador.html" class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="gerador">
+                    <div class="mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <h3 class="font-display text-xl text-graphite">Gerador de Documentos</h3>
+                    <p class="mt-2 text-sm text-gray-600">Crie declarações e contratos de forma prática.</p>
+                    <span class="mt-4 inline-block font-semibold text-crimson">Explorar</span>
+                </a>
+
+                <!-- Linha do Tempo -->
+                <a href="linha-tempo.html" class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="linha do tempo">
+                    <div class="mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson">
+                        <i class="fas fa-stream"></i>
+                    </div>
+                    <h3 class="font-display text-xl text-graphite">Linha do Tempo Jurídica</h3>
+                    <p class="mt-2 text-sm text-gray-600">Entenda cada etapa de um processo com clareza.</p>
+                    <span class="mt-4 inline-block font-semibold text-crimson">Explorar</span>
+                </a>
+
+                <!-- Simulador -->
+                <a href="simulador.html" class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="simulador">
+                    <div class="mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3 class="font-display text-xl text-graphite">Simulador de Custos</h3>
+                    <p class="mt-2 text-sm text-gray-600">Faça estimativas simples de valores e taxas.</p>
+                    <span class="mt-4 inline-block font-semibold text-crimson">Explorar</span>
+                </a>
+
+                <!-- Guia -->
+                <a href="guia.html" class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="guia">
+                    <div class="mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3 class="font-display text-xl text-graphite">Guia de Direitos</h3>
+                    <p class="mt-2 text-sm text-gray-600">Consulte temas jurídicos por fase da vida.</p>
+                    <span class="mt-4 inline-block font-semibold text-crimson">Explorar</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Lawyers Section -->
+        <section class="mx-auto max-w-7xl px-6 pb-16 lg:px-8">
+            <div class="mb-8">
+                <p class="text-sm font-semibold uppercase tracking-[0.25em] text-crimson">Portal</p>
+                <h2 class="font-display text-3xl text-graphite">Advogados Parceiros</h2>
+                <p class="mt-3 max-w-3xl text-gray-600">Encontre profissionais por especialidade ou região para orientação jurídica inicial.</p>
+            </div>
+
+            <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                <article class="soft-card rounded-2xl p-6">
+                    <div class="flex items-center gap-4">
+                        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-crimson/10 text-lg font-semibold text-crimson">AL</div>
+                        <div>
+                            <h3 class="font-display text-xl text-graphite">Ana Lima</h3>
+                            <p class="text-sm text-gray-600">Direito Civil</p>
+                        </div>
+                    </div>
+                    <p class="mt-4 text-sm text-gray-700">Atua com contratos, consultas preventivas e mediação.</p>
+                    <a href="advogados.html" class="mt-4 inline-flex rounded-full border border-crimson px-4 py-2 text-sm font-medium text-crimson transition hover:bg-crimson hover:text-white">Entrar em contato</a>
+                </article>
+
+                <article class="soft-card rounded-2xl p-6">
+                    <div class="flex items-center gap-4">
+                        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-crimson/10 text-lg font-semibold text-crimson">RM</div>
+                        <div>
+                            <h3 class="font-display text-xl text-graphite">Rafael Mendes</h3>
+                            <p class="text-sm text-gray-600">Direito Trabalhista</p>
+                        </div>
+                    </div>
+                    <p class="mt-4 text-sm text-gray-700">Especialista em rescisão, assédio e direitos do trabalhador.</p>
+                    <a href="advogados.html" class="mt-4 inline-flex rounded-full border border-crimson px-4 py-2 text-sm font-medium text-crimson transition hover:bg-crimson hover:text-white">Entrar em contato</a>
+                </article>
+
+                <article class="soft-card rounded-2xl p-6">
+                    <div class="flex items-center gap-4">
+                        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-crimson/10 text-lg font-semibold text-crimson">CP</div>
+                        <div>
+                            <h3 class="font-display text-xl text-graphite">Carla Pereira</h3>
+                            <p class="text-sm text-gray-600">Direito Criminal</p>
+                        </div>
+                    </div>
+                    <p class="mt-4 text-sm text-gray-700">Atende casos de defesa preliminar e orientação processual.</p>
+                    <a href="advogados.html" class="mt-4 inline-flex rounded-full border border-crimson px-4 py-2 text-sm font-medium text-crimson transition hover:bg-crimson hover:text-white">Entrar em contato</a>
+                </article>
+            </div>
+        </section>
+
+        <!-- Quotes Section -->
+        <section class="mx-auto max-w-7xl px-6 pb-16 lg:px-8">
+            <div class="rounded-[2rem] border border-gray-200 bg-white p-8 lg:p-12 shadow-[0_20px_60px_rgba(17,24,39,0.04)]">
+                <div class="mb-10 max-w-4xl">
+                    <p class="text-sm font-semibold uppercase tracking-[0.25em] text-crimson">Citações de destaque</p>
+                    <h2 class="font-display text-3xl text-graphite">A força do direito como presença humana</h2>
+                </div>
+                
+                <div class="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+                    <div class="rounded-[2rem] border border-gray-200 bg-offwhite p-10">
+                        <div class="grid gap-6 md:grid-cols-[1fr_200px] md:items-center">
+                            <div>
+                                <p class="font-display text-2xl leading-[1.2] text-crimson italic sm:text-3xl">
+                                    "O direito não é um conjunto de regras frias; ele é a forma de organizar a paz e a convivência."
+                                </p>
+                                <p class="mt-6 text-sm uppercase tracking-[0.25em] text-graphite/70">Patrícia Vanzolini</p>
+                                <p class="mt-2 text-sm text-gray-500">Primeira mulher a presidir a OAB-SP.</p>
+                            </div>
+                            <img src="img/direitos.jpeg" alt="Imagem ilustrativa de direitos" class="h-56 w-full rounded-[1.5rem] object-cover shadow-sm md:h-72">
+                        </div>
+                    </div>
+                    
+                    <div class="rounded-[2rem] bg-graphite p-8 text-white">
+                        <p class="text-sm uppercase tracking-[0.3em] text-white/70">Editorial acadêmico</p>
+                        <p class="mt-4 font-display text-xl leading-snug">
+                            "O direito é como se fosse um grande amigo... em qualquer circunstância ele estará contigo para te defender."
+                        </p>
+                        <p class="mt-6 text-sm text-white/80">
+                            "A partir dessa leitura, a plataforma assume um papel de explicação e orientação para que cada cidadão entenda sua posição no sistema."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Articles Section -->
+        <section class="mx-auto max-w-7xl px-6 pb-16 lg:px-8">
+            <div class="grid gap-6 lg:grid-cols-[1fr_1fr]">
+                <article class="rounded-[2rem] overflow-hidden border border-gray-200 bg-white shadow-[0_20px_60px_rgba(17,24,39,0.04)]">
+                    <img src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=1200&q=80" alt="Sala de aula jurídica" class="h-64 w-full object-cover grayscale">
+                    <div class="p-8">
+                        <p class="text-sm font-semibold uppercase tracking-[0.25em] text-crimson">O direito no cotidiano</p>
+                        <h3 class="font-display mt-3 text-2xl text-graphite">Quando a lei toca a rotina das pessoas</h3>
+                        <p class="mt-3 text-gray-600">
+                            "Do contrato do dia a dia às regras de proteção do consumidor, o direito aparece em decisões simples e em respostas que impactam a vida social."
+                        </p>
+                    </div>
+                </article>
+                
+                <article class="rounded-[2rem] overflow-hidden border border-gray-200 bg-white shadow-[0_20px_60px_rgba(17,24,39,0.04)]">
+                    <div class="grid h-full gap-2 p-8 md:grid-cols-[1fr_1fr]">
+                        <div class="flex flex-col justify-between">
+                            <div>
+                                <p class="text-sm font-semibold uppercase tracking-[0.25em] text-crimson">Impacto prático</p>
+                                <h3 class="font-display mt-3 text-2xl text-graphite">Explicação clara para decisões reais</h3>
+                            </div>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=900&q=80" alt="Biblioteca acadêmica" class="h-44 w-full rounded-2xl object-cover grayscale md:h-full">
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- News Section -->
+        <section class="mx-auto max-w-7xl px-6 pb-16 lg:px-8">
+            <div class="mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+                <div>
+                    <p class="text-sm font-semibold uppercase tracking-[0.25em] text-crimson">Justiça em destaque</p>
+                    <h2 class="font-display text-3xl text-graphite">Notícias e contextos jurídicos</h2>
+                </div>
+                <p class="rounded-full bg-crimson/10 px-4 py-2 text-sm font-semibold text-crimson self-start md:self-auto">Atualização editorial a cada 2 dias</p>
+            </div>
+            
+            <div class="grid gap-6 lg:grid-cols-3">
+                <!-- Notícia 1 -->
+                <a href="https://www.cnj.jus.br/" target="_blank" rel="noreferrer" class="news-card overflow-hidden rounded-[2rem] border border-gray-200 bg-white shadow-[0_20px_60px_rgba(17,24,39,0.04)] transition hover:-translate-y-1">
+                    <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1200&q=80" alt="Notícia jurídica 1" class="h-52 w-full object-cover">
+                    <div class="p-6">
+                        <span class="rounded-full bg-crimson/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-crimson">Direito Público</span>
+                        <h3 class="mt-4 font-display text-2xl text-graphite">Acesso à justiça e tecnologia</h3>
+                        <p class="mt-2 text-sm text-gray-600 font-normal">
+                            "Leia atualizações do Conselho Nacional de Justiça sobre acesso, eficiência e transformação digital do sistema."
+                        </p>
+                        <span class="mt-4 inline-flex text-sm font-semibold text-crimson">Abrir matéria</span>
+                    </div>
+                </a>
+                
+                <!-- Notícia 2 -->
+                <a href="https://portal.stf.jus.br/" target="_blank" rel="noreferrer" class="news-card overflow-hidden rounded-[2rem] border border-gray-200 bg-white shadow-[0_20px_60px_rgba(17,24,39,0.04)] transition hover:-translate-y-1">
+                    <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80" alt="Notícia jurídica 2" class="h-52 w-full object-cover">
+                    <div class="p-6">
+                        <span class="rounded-full bg-crimson/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-crimson">Consumidor</span>
+                        <h3 class="mt-4 font-display text-2xl text-graphite">Direitos do consumidor em foco</h3>
+                        <p class="mt-2 text-sm text-gray-600">
+                            "Acompanhe decisões, orientações e notícias do Supremo Tribunal Federal relacionadas à proteção do consumidor."
+                        </p>
+                        <span class="mt-4 inline-flex text-sm font-semibold text-crimson">Abrir matéria</span>
+                    </div>
+                </a>
+                
+                <!-- Notícia 3 -->
+                <a href="https://www.oab.org.br/noticias" target="_blank" rel="noreferrer" class="news-card overflow-hidden rounded-[2rem] border border-gray-200 bg-white shadow-[0_20px_60px_rgba(17,24,39,0.04)] transition hover:-translate-y-1">
+                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80" alt="Notícia jurídica 3" class="h-52 w-full object-cover">
+                    <div class="p-6">
+                        <span class="rounded-full bg-crimson/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-crimson">Família</span>
+                        <h3 class="mt-4 font-display text-2xl text-graphite">Mediação familiar e conflito</h3>
+                        <p class="mt-2 text-sm text-gray-600 font-normal">
+                            "Consulte notícias e posicionamentos da OAB sobre mediação, família e resolução de conflitos com maior consciência jurídica."
+                        </p>
+                        <span class="mt-4 inline-flex text-sm font-semibold text-crimson">Abrir matéria</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="mx-auto max-w-7xl px-6 pb-16 lg:px-8">
+            <div class="mb-8">
+                <p class="text-sm font-semibold uppercase tracking-[0.25em] text-crimson">Depoimentos</p>
+                <h2 class="font-display text-3xl text-graphite">O que nossos usuários dizem</h2>
+            </div>
+            
+            <div class="overflow-hidden rounded-[2rem] border border-gray-200 bg-white p-6 shadow-[0_20px_60px_rgba(17,24,39,0.04)] lg:p-8">
+                <div class="mb-4 flex justify-end gap-2">
+                    <button type="button" class="rounded-full border border-gray-300 px-3 py-2 text-sm text-gray-600 hover:text-crimson" data-action="prev" aria-label="Depoimento anterior">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button type="button" class="rounded-full border border-gray-300 px-3 py-2 text-sm text-gray-600 hover:text-crimson" data-action="next" aria-label="Próximo depoimento">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <div class="overflow-hidden">
+                    <div id="testimonialTrack" class="flex transition-transform duration-500 ease-out" style="transform: translateX(0%);">
+                        <!-- Depoimento 1 -->
+                        <article class="testimonial-card min-w-full rounded-2xl border border-gray-200 bg-offwhite p-8 text-center">
+                            <p class="mx-auto max-w-2xl text-lg leading-8 text-gray-700 font-normal">
+                                "O Descomplica Direito tornou tudo mais claro e me ajudou a entender realmente meus direitos em uma situação difícil."
+                            </p>
+                            <div class="mt-6">
+                                <strong class="block text-crimson">Marina Torres</strong>
+                                <span class="mt-1 block text-sm text-gray-500">Advogada autônoma</span>
+                            </div>
+                        </article>
+                        <!-- Depoimento 2 -->
+                        <article class="testimonial-card min-w-full rounded-2xl border border-gray-200 bg-offwhite p-8 text-center">
+                            <p class="mx-auto max-w-2xl text-lg leading-8 text-gray-700 font-normal">
+                                "A plataforma é intuitiva e segura. Achei o simulador de custos muito útil para planejar meu processo."
+                            </p>
+                            <div class="mt-6">
+                                <strong class="block text-crimson">Lucas Almeida</strong>
+                                <span class="mt-1 block text-sm text-gray-500">Servidor Público</span>
+                            </div>
+                        </article>
+                        <!-- Depoimento 3 -->
+                        <article class="testimonial-card min-w-full rounded-2xl border border-gray-200 bg-offwhite p-8 text-center">
+                            <p class="mx-auto max-w-2xl text-lg leading-8 text-gray-700 font-normal">
+                                "Finalmente um site jurídico que fala a nossa língua. Os conteúdos são diretos e muito profissionais."
+                            </p>
+                            <div class="mt-6">
+                                <strong class="block text-crimson">Beatriz Silva</strong>
+                                <span class="mt-1 block text-sm text-gray-500">Empreendedora</span>
+                            </div>
+                        </article>
+                        <!-- Depoimento 4 -->
+                        <article class="testimonial-card min-w-full rounded-2xl border border-gray-200 bg-offwhite p-8 text-center">
+                            <p class="mx-auto max-w-2xl text-lg leading-8 text-gray-700 font-normal">
+                                "O tradutor de juridiquês salvou meu dia. Agora consigo entender documentos sem ficar perdida."
+                            </p>
+                            <div class="mt-6">
+                                <strong class="block text-crimson">Rafael Costa</strong>
+                                <span class="mt-1 block text-sm text-gray-500">Estudante de direito</span>
+                            </div>
+                        </article>
+                        <!-- Depoimento 5 -->
+                        <article class="testimonial-card min-w-full rounded-2xl border border-gray-200 bg-offwhite p-8 text-center">
+                            <p class="mx-auto max-w-2xl text-lg leading-8 text-gray-700 font-normal">
+                                "A experiência é suave e contínua. O design é elegante e a navegação é muito agradável."
+                            </p>
+                            <div class="mt-6">
+                                <strong class="block text-crimson">Fernanda Melo</strong>
+                                <span class="mt-1 block text-sm text-gray-500">Empresária</span>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                
+                <div class="mt-6 flex justify-center gap-2">
+                    <button type="button" class="testimonial-dot h-2.5 w-2.5 rounded-full bg-crimson" data-index="0"></button>
+                    <button type="button" class="testimonial-dot h-2.5 w-2.5 rounded-full bg-gray-300" data-index="1"></button>
+                    <button type="button" class="testimonial-dot h-2.5 w-2.5 rounded-full bg-gray-300" data-index="2"></button> 
+                    <button type="button" class="testimonial-dot h-2.5 w-2.5 rounded-full bg-gray-300" data-index="3"></button>
+                    <button type="button" class="testimonial-dot h-2.5 w-2.5 rounded-full bg-gray-300" data-index="4"></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pillars Section -->
+        <section class="mx-auto max-w-7xl px-6 pb-16 lg:px-8">
+            <div class="rounded-[2rem] border border-gray-200 bg-white p-8 lg:p-12 shadow-[0_20px_60px_rgba(17,24,39,0.04)]">
+                <div class="mb-10 max-w-4xl">
+                    <p class="text-sm font-semibold uppercase tracking-[0.25em] text-crimson">Benefícios numerados</p>
+                    <h2 class="font-display text-3xl text-graphite">Os pilares do conhecimento dos direitos</h2>
+                </div>
+                
+                <div class="grid gap-8 md:grid-cols-2 xl:grid-cols-4">
+                    <article>
+                        <p class="text-6xl font-light text-crimson">01</p>
+                        <h3 class="mt-4 font-display text-2xl text-graphite">Autonomia</h3>
+                        <p class="mt-2 text-sm text-gray-600">
+                            "Entender o que você pode fazer e como agir com mais segurança diante de um problema jurídico."
+                        </p>
+                    </article>
+                    <article>
+                        <p class="text-6xl font-light text-crimson">02</p>
+                        <h3 class="mt-4 font-display text-2xl text-graphite">Proteção</h3>
+                        <p class="mt-2 text-sm text-gray-600">
+                            "Reconhecer riscos, identificar abusos e fortalecer o seu posicionamento frente a situações delicadas."
+                        </p>
+                    </article>
+                    <article>
+                        <p class="text-6xl font-light text-crimson">03</p>
+                        <h3 class="mt-4 font-display text-2xl text-graphite">Economia</h3>
+                        <p class="mt-2 text-sm text-gray-600">
+                            "Evite decisões precipitadas, compreenda taxas e economize ao planejar com inteligência."
+                        </p>
+                    </article> 
+                    <article>
+                        <p class="text-6xl font-light text-crimson">04</p>
+                        <h3 class="mt-4 font-display text-2xl text-graphite">Empoderamento</h3>
+                        <p class="mt-2 text-sm text-gray-600">
+                            "Ganhe confiança para conversar com profissionais, pedir ajuda e buscar soluções com clareza."
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="rodape">
+        <div class="rodape-container">
+            <div class="rodape-coluna">
+                <h3>Guia do Cidadão</h3>
+                <ul>
+                    <li><a href="tradutor.html">Tradutor de Juridiquês</a></li>
+                    <li><a href="dicionario.html">Glossário Jurídico</a></li>
+                    <li><a href="guia.html">Guia de Direitos</a></li>
+                </ul>
+            </div>
+            <div class="rodape-coluna">
+                <h3>Sobre o Projeto</h3>
+                <ul>
+                    <li><a href="index.html">Portal Institucional</a></li>
+                    <li><a href="advogados.html">Advogados parceiros</a></li>
+                </ul>
+            </div>
+            <div class="rodape-coluna">
+                <h3>Links Úteis</h3>
+                <ul>
+                    <li><a href="https://www.cnj.jus.br/" target="_blank" rel="noreferrer">Portal do CNJ</a></li>
+                    <li><a href="https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm" target="_blank" rel="noreferrer">Constituição Federal</a></li>
+                    <li><a href="https://www.stf.jus.br/" target="_blank" rel="noreferrer">Supremo Tribunal Federal</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="rodape-inferior">
+            <div class="copyright">
+                <p>Copyright © 2026 Descomplica Direito</p>
+            </div>
+            <div class="logo-rodape">
+                <img src="img/logo.png" alt="Logo Rodapé" />
+                <p>INSTITUTO FEDERAL CATARINENSE - SOMBRIO</p>
+            </div>
+            <div class="redes-sociais">
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts de Interatividade -->
+    <script>
+        const drawer = document.getElementById('drawer');
+        const overlay = document.getElementById('overlay');
+        const openButtons = [document.getElementById('menuToggle'), document.getElementById('menuToggleMobile')];
+        const closeButton = document.getElementById('closeDrawer');
+        const searchToggle = document.getElementById('searchToggle');
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const testimonialTrack = document.getElementById('testimonialTrack');
+        const testimonialDots = Array.from(document.querySelectorAll('.testimonial-dot'));
+        const testimonialButtons = Array.from(document.querySelectorAll('[data-action]'));
+        const testimonialCards = Array.from(document.querySelectorAll('.testimonial-card'));
+        
+        let activeTestimonial = 0;
+        let testimonialTimer;
+
+        function openDrawer() {
+            drawer.classList.add('open');
+            overlay.classList.add('show');
+        }
+
+        function closeDrawer() {
+            drawer.classList.remove('open');
+            overlay.classList.remove('show');
+        }
+
+        openButtons.forEach((btn) => btn?.addEventListener('click', openDrawer));
+        closeButton?.addEventListener('click', closeDrawer);
+        overlay?.addEventListener('click', closeDrawer);
+        
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') closeDrawer();
+        });
+
+        searchToggle?.addEventListener('click', () => {
+            searchInput.classList.toggle('hidden');
+            searchButton.classList.toggle('hidden');
+            if (!searchInput.classList.contains('hidden')) {
+                searchInput.focus();
+            }
+        });
+
+        function runSearch() {
+            const query = searchInput.value.trim().toLowerCase();
+            if (!query) return;
+            const target = document.querySelector(`[data-search-key*="${query}"]`);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        searchButton?.addEventListener('click', runSearch);
+        searchInput?.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') runSearch();
+        });
+
+        function renderTestimonials() {
+            testimonialTrack.style.transform = `translateX(-${activeTestimonial * 100}%)`;
+            testimonialDots.forEach((dot, index) => {
+                dot.classList.toggle('bg-crimson', index === activeTestimonial);
+                dot.classList.toggle('bg-gray-300', index !== activeTestimonial);
+            });
+        }
+
+        function nextTestimonial() {
+            activeTestimonial = (activeTestimonial + 1) % testimonialCards.length;
+            renderTestimonials();
+        }
+
+        function prevTestimonial() {
+            activeTestimonial = (activeTestimonial - 1 + testimonialCards.length) % testimonialCards.length;
+            renderTestimonials();
+        }
+
+        testimonialButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                if (button.dataset.action === 'next') {
+                    nextTestimonial();
+                } else {
+                    prevTestimonial();
+                }
+                startAutoRotation();
+            });
+        });
+
+        testimonialDots.forEach((dot) => {
+            dot.addEventListener('click', () => {
+                activeTestimonial = Number(dot.dataset.index);
+                renderTestimonials();
+                startAutoRotation();
+            });
+        });
+
+        function startAutoRotation() {
+            clearInterval(testimonialTimer);
+            testimonialTimer = setInterval(nextTestimonial, 6000);
+        }
+
+        testimonialTrack?.addEventListener('mouseenter', () => clearInterval(testimonialTimer));
+        testimonialTrack?.addEventListener('mouseleave', startAutoRotation);
+        
+        startAutoRotation();
+        renderTestimonials();
+    </script>
+</body>
+</html>

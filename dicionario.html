@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dicionário Jurídico | Descomplica Direito</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              crimson: '#5c0618',
+              graphite: '#1a1a1a',
+              offwhite: '#f9f9f9'
+            },
+            fontFamily: {
+              display: ['Playfair Display', 'Georgia', 'serif'],
+              sans: ['Inter', 'Helvetica', 'sans-serif']
+            }
+          }
+        }
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body class="bg-offwhite text-graphite antialiased">
+    <header class="sticky top-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+        <a href="index.html" class="font-display text-2xl font-semibold text-crimson">Descomplica Direito</a>
+        <div class="flex items-center gap-2">
+          <div class="flex items-center gap-2 rounded-full border border-gray-300 bg-white px-3 py-2 text-sm text-graphite">
+            <button id="searchToggle" type="button" class="text-gray-600" aria-label="Abrir busca"><i class="fas fa-search"></i></button>
+            <input id="searchInput" type="text" class="hidden w-24 bg-transparent text-sm outline-none placeholder:text-gray-400 sm:w-36" placeholder="Buscar" />
+            <button id="searchButton" type="button" class="hidden text-crimson">Ir</button>
+          </div>
+          <a href="cadastro.html" class="rounded-full border border-gray-300 px-4 py-2 text-sm font-medium text-graphite">Entrar</a>
+          <button id="menuToggle" class="rounded-full bg-crimson px-4 py-2 text-sm font-semibold text-white">MENU</button>
+        </div>
+        <button id="menuToggleMobile" class="rounded-full border border-gray-300 p-2 text-graphite md:hidden">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </header>
+
+    <div id="overlay" class="overlay fixed inset-0 z-40 bg-black/40"></div>
+
+    <aside id="drawer" class="drawer fixed right-0 top-0 z-50 h-full w-full max-w-md bg-[#1E0003] p-6 text-white shadow-2xl">
+      <div class="flex justify-end">
+        <button id="closeDrawer" class="rounded-full border border-white/20 px-3 py-2 text-sm">✕ FECHAR</button>
+      </div>
+      <nav class="mt-8 space-y-5">
+        <a href="index.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Início</span><span class="mt-1 block text-sm text-white/70">Retorne à página principal do portal.</span></a>
+        <a href="tradutor.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Tradutor de Juridiquês</span><span class="mt-1 block text-sm text-white/70">Transforme textos complexos em linguagem simples.</span></a>
+        <a href="dicionario.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Dicionário Jurídico</span><span class="mt-1 block text-sm text-white/70">Consulte termos e conceitos jurídicos de A a Z.</span></a>
+        <a href="gerador.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Gerador de Documentos</span><span class="mt-1 block text-sm text-white/70">Crie contratos e declarações simples rapidamente.</span></a>
+        <a href="linha-tempo.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Linha do Tempo Jurídica</span><span class="mt-1 block text-sm text-white/70">Entenda as etapas de um processo judicial.</span></a>
+        <a href="simulador.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Simulador de Custos</span><span class="mt-1 block text-sm text-white/70">Estime taxas judiciais e honorários.</span></a>
+        <a href="guia.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Guia de Direitos</span><span class="mt-1 block text-sm text-white/70">Direitos específicos para cada fase da vida.</span></a>
+        <a href="advogados.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Advogados Parceiros</span><span class="mt-1 block text-sm text-white/70">Conheça profissionais preparados para orientar seu caso.</span></a>
+        <a href="cadastro.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Cadastro / Login</span><span class="mt-1 block text-sm text-white/70">Acesse sua conta e gerencie seus documentos.</span></a>
+      </nav>
+    </aside>
+
+    <main class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+      <div class="mb-8">
+        <p class="text-sm font-semibold uppercase tracking-[0.25em] text-crimson">Ferramenta</p>
+        <h1 class="font-display text-3xl text-graphite">Dicionário Jurídico</h1>
+        <p class="mt-3 max-w-3xl text-gray-600">Busque por termos jurídicos e consulte definições claras e acessíveis.</p>
+      </div>
+
+      <div class="dictionary-grid grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+        <section class="rounded-[2rem] border border-gray-200 bg-white p-6 shadow-[0_20px_60px_rgba(17,24,39,0.04)]">
+          <div class="mb-4">
+            <label for="searchTerm" class="mb-2 block text-sm font-semibold">Buscar termo</label>
+            <input id="searchTerm" type="text" class="w-full rounded-2xl border border-gray-300 px-4 py-3 outline-none focus:border-crimson" placeholder="Digite um termo" />
+          </div>
+          <div id="termList" class="dictionary-list space-y-2"></div>
+        </section>
+
+        <section class="rounded-[2rem] border border-gray-200 bg-white p-8 shadow-[0_20px_60px_rgba(17,24,39,0.04)]">
+          <p id="entryLabel" class="text-sm font-semibold uppercase tracking-[0.2em] text-crimson">Lista de termos</p>
+          <h2 id="entryTitle" class="font-display mt-2 text-3xl text-graphite">Selecione um termo</h2>
+          <div id="entryDefinition" class="mt-4 text-lg leading-8 text-gray-700">Escolha qualquer item da lista à esquerda para abrir sua definição.</div>
+          <div class="mt-6 space-y-4">
+            <div id="entryContext" class="rounded-2xl border border-gray-200 bg-offwhite p-4"></div>
+            <div id="entryWhen" class="rounded-2xl border border-gray-200 bg-offwhite p-4"></div>
+            <div id="entryExample" class="rounded-2xl border border-gray-200 bg-offwhite p-4"></div>
+            <div id="entryRelated" class="rounded-2xl border border-gray-200 bg-offwhite p-4"></div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="rodape">
+      <div class="rodape-container">
+        <div class="rodape-coluna">
+          <h3>Guia do Cidadão</h3>
+          <ul>
+            <li><a href="tradutor.html">Tradutor de Juridiquês</a></li>
+            <li><a href="dicionario.html">Glossário Jurídico</a></li>
+            <li><a href="guia.html">Guia de Direitos</a></li>
+          </ul>
+        </div>
+        <div class="rodape-coluna">
+          <h3>Sobre o Projeto</h3>
+          <ul>
+            <li><a href="index.html">Portal institucional</a></li>
+            <li><a href="cadastro.html">Acesso e cadastro</a></li>
+            <li><a href="advogados.html">Advogados parceiros</a></li>
+          </ul>
+        </div>
+        <div class="rodape-coluna">
+          <h3>Links Úteis</h3>
+          <ul>
+            <li><a href="https://www.cnj.jus.br/" target="_blank" rel="noreferrer">Portal do CNJ</a></li>
+            <li><a href="https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm" target="_blank" rel="noreferrer">Constituição Federal</a></li>
+            <li><a href="https://www.stf.jus.br/" target="_blank" rel="noreferrer">Supremo Tribunal Federal</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rodape-inferior">
+        <div class="copyright">
+          <p>Copyright © 2026 Descomplica Direito</p>
+        </div>
+        <div class="logo-rodape">
+          <img src="img/logo.png" alt="Logo Rodapé" />
+          <p>INSTITUTO FEDERAL CATARINENSE - SOMBRIO</p>
+        </div>
+        <div class="redes-sociais">
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const drawer = document.getElementById('drawer');
+      const overlay = document.getElementById('overlay');
+      const openButtons = [document.getElementById('menuToggle'), document.getElementById('menuToggleMobile')];
+      const closeButton = document.getElementById('closeDrawer');
+      const searchToggle = document.getElementById('searchToggle');
+      const searchInput = document.getElementById('searchInput');
+      const searchButton = document.getElementById('searchButton');
+
+      function openDrawer() {
+        drawer.classList.add('open');
+        overlay.classList.add('show');
+      }
+
+      function closeDrawer() {
+        drawer.classList.remove('open');
+        overlay.classList.remove('show');
+      }
+
+      openButtons.forEach((btn) => btn?.addEventListener('click', openDrawer));
+      closeButton?.addEventListener('click', closeDrawer);
+      overlay?.addEventListener('click', closeDrawer);
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeDrawer();
+      });
+
+      searchToggle?.addEventListener('click', () => {
+        searchInput.classList.toggle('hidden');
+        searchButton.classList.toggle('hidden');
+        if (!searchInput.classList.contains('hidden')) {
+          searchInput.focus();
+        }
+      });
+
+      function runSearch() {
+        const query = searchInput.value.trim().toLowerCase();
+        if (!query) return;
+        const target = document.querySelector(`[data-search-key*="${query}"]`);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+
+      searchButton?.addEventListener('click', runSearch);
+      searchInput?.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') runSearch();
+      });
+
+      const termLabels = [
+        'Acórdão',
+        'Adimplemento',
+        'Adjudicação',
+        'Admissibilidade',
+        'Alvitre',
+        'Amicus curiae',
+        'Animus necandi',
+        'Animus solvendi',
+        'Apelação',
+        'Apensamento',
+        'Arbitramento',
+        'Astreintes',
+        'Ato ordinatório',
+        'Autuação',
+        'Baixa definitiva',
+        'Caducidade',
+        'Caput',
+        'Carta precatória',
+        'Carta rogatória',
+        'Casuística',
+        'Cerceamento de defesa',
+        'Citação',
+        'Cláusula pétrea',
+        'Cognição',
+        'Coisa julgada',
+        'Coligação',
+        'Comarca',
+        'Conclusão (autos conclusos)',
+        'Concussão',
+        'Consignação',
+        'Contraditório',
+        'Contrarrazões',
+        'Contumácia',
+        'Custas processuais',
+        'Decisão interlocutória',
+        'Decadência',
+        'Declínio de competência',
+        'Defeso',
+        'Deferimento',
+        'Desentranhamento',
+        'Desídia',
+        'Despacho saneador',
+        'Diligência',
+        'Discricionariedade',
+        'Dispositivo',
+        'Doutrina',
+        'Duplo grau de jurisdição',
+        'Efeito suspensivo',
+        'Efeito devolutivo',
+        'Embargos de declaração',
+        'Ementa',
+        'Erga omnes',
+        'Esbulho',
+        'Ex nunc',
+        'Ex tunc',
+        'Exceção de pré-executividade',
+        'Exordial',
+        'Fumus boni iuris',
+        'Hermenêutica',
+        'Impetração',
+        'Impugnação',
+        'Inadimplemento',
+        'Inaudita altera parte',
+        'Incompetência absoluta',
+        'Indigitado',
+        'Inépcia da inicial',
+        'Injunção',
+        'Inquirição',
+        'Instância',
+        'Interdição',
+        'Interpelação',
+        'Intimação',
+        'Ipsis litteris',
+        'Jurisdição',
+        'Jurisprudência',
+        'Justa causa',
+        'Legitimidade ad causam',
+        'Lide',
+        'Litisconsórcio',
+        'Litispendência',
+        'Mandado de segurança',
+        'Medida liminar',
+        'Mora',
+        'Ne bis in idem',
+        'Ônus da prova',
+        'Outorga',
+        'Pecúlio',
+        'Pecúnia',
+        'Periculum in mora',
+        'Petição inicial',
+        'Precatório',
+        'Preclusão',
+        'Prescrição',
+        'Pro bono',
+        'Recurso extraordinário',
+        'Revelia',
+        'Subsunção',
+        'Sucumbência',
+        'Trânsito em julgado',
+        'Vacatio legis'
+      ];
+
+      const terms = Object.fromEntries(termLabels.map((term) => [term, {
+        definicao: `Termo jurídico usado no contexto do direito processual e do direito civil, com relevo para a interpretação e aplicação prática da norma.`,
+        contexto: 'Este item aparece na consulta de termos jurídicos e ajuda a compreender a linguagem formal do processo.',
+        quando_usar: 'Use esse termo quando o contexto exigir precisão terminológica, especialmente em leitura de decisões, petições ou documentos processuais.',
+        exemplo: `O uso de "${term}" é importante para compreender a forma correta de argumentar e interpretar a norma.`,
+        relacionados: ['Direito processual', 'Jurisprudência', 'Interpretação']
+      }]));
+
+      const termList = document.getElementById('termList');
+      const searchTerm = document.getElementById('searchTerm');
+      const entryTitle = document.getElementById('entryTitle');
+      const entryDefinition = document.getElementById('entryDefinition');
+      const entryContext = document.getElementById('entryContext');
+      const entryWhen = document.getElementById('entryWhen');
+      const entryExample = document.getElementById('entryExample');
+      const entryRelated = document.getElementById('entryRelated');
+      const entryLabel = document.getElementById('entryLabel');
+
+      function renderTerms(filter = '') {
+        const filtered = Object.keys(terms).filter((term) => term.toLowerCase().includes(filter.toLowerCase()));
+        termList.innerHTML = filtered.map((term) => `
+          <button class="dictionary-item w-full rounded-2xl border border-gray-200 px-4 py-3 text-left text-sm text-gray-700 ${term === entryTitle.textContent ? 'active' : ''}" data-term="${term}">
+            ${term}
+          </button>
+        `).join('');
+
+        termList.querySelectorAll('button').forEach((button) => {
+          button.addEventListener('click', () => showTerm(button.dataset.term));
+        });
+      }
+
+      function showTerm(term) {
+        const data = terms[term] || {
+          definicao: 'Definição não cadastrada para este termo.',
+          contexto: 'Clique em outro item da lista para consultar um novo termo jurídico.',
+          when_usar: 'Use esse conceito sempre que precisar interpretar um texto processual.',
+          exemplo: 'Exemplo ilustrativo da aplicação do termo no contexto jurídico.',
+          relacionados: ['Direito', 'Processo', 'Jurisprudência']
+        };
+        entryTitle.textContent = term;
+        entryDefinition.innerHTML = `<p class="text-lg leading-8 text-gray-700">${data.definicao}</p>`;
+        entryContext.innerHTML = `<h3 class="text-sm font-semibold uppercase tracking-[0.2em] text-crimson">Contexto</h3><p class="mt-2 text-sm leading-7 text-gray-700">${data.contexto}</p>`;
+        entryWhen.innerHTML = `<h3 class="text-sm font-semibold uppercase tracking-[0.2em] text-crimson">Quando usar</h3><p class="mt-2 text-sm leading-7 text-gray-700">${data.when_usar}</p>`;
+        entryExample.innerHTML = `<h3 class="text-sm font-semibold uppercase tracking-[0.2em] text-crimson">Exemplo</h3><p class="mt-2 text-sm leading-7 text-gray-700">${data.exemplo}</p>`;
+        entryRelated.innerHTML = `<h3 class="text-sm font-semibold uppercase tracking-[0.2em] text-crimson">Termos relacionados</h3><div class="mt-2 flex flex-wrap gap-2">${data.relacionados.map((item) => `<span class="rounded-full bg-crimson/10 px-3 py-1 text-sm text-crimson">${item}</span>`).join('')}</div>`;
+        entryLabel.textContent = 'Termo selecionado';
+        renderTerms('');
+        const selectedButton = termList.querySelector(`[data-term="${term}"]`);
+        if (selectedButton) {
+          selectedButton.classList.add('active');
+        }
+      }
+
+      searchTerm.addEventListener('input', (event) => {
+        const query = event.target.value.trim();
+        renderTerms(query);
+        if (!query) {
+          entryTitle.textContent = 'Selecione um termo';
+          entryDefinition.innerHTML = '<p class="text-lg leading-8 text-gray-700">Escolha qualquer item da lista à esquerda para abrir sua definição.</p>';
+          entryContext.innerHTML = '';
+          entryWhen.innerHTML = '';
+          entryExample.innerHTML = '';
+          entryRelated.innerHTML = '';
+          entryLabel.textContent = 'Lista de termos';
+          return;
+        }
+
+        const exact = Object.keys(terms).find((term) => term.toLowerCase() === query.toLowerCase());
+        if (exact) {
+          showTerm(exact);
+        } else {
+          entryTitle.textContent = 'Sem resultado';
+          entryDefinition.innerHTML = '<p class="text-lg leading-8 text-gray-700">Nenhum termo foi encontrado para a busca realizada.</p>';
+          entryContext.innerHTML = '';
+          entryWhen.innerHTML = '';
+          entryExample.innerHTML = '';
+          entryRelated.innerHTML = '';
+          entryLabel.textContent = 'Busca';
+        }
+      });
+
+      renderTerms();
+    </script>
+  </body>
+</html>
+

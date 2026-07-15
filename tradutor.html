@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tradutor de Juridiquês</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              crimson: '#5c0618',
+              graphite: '#1a1a1a',
+              offwhite: '#f9f9f9'
+            },
+            fontFamily: {
+              display: ['Playfair Display', 'Georgia', 'serif'],
+              sans: ['Inter', 'Helvetica', 'sans-serif']
+            }
+          }
+        }
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body class="bg-offwhite text-graphite antialiased">
+    <header class="sticky top-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+        <a href="index.html" class="font-display text-2xl font-semibold text-crimson">Descomplica Direito</a>
+        <div class="flex items-center gap-2">
+          <div class="flex items-center gap-2 rounded-full border border-gray-300 bg-white px-3 py-2 text-sm text-graphite">
+            <button id="searchToggle" type="button" class="text-gray-600" aria-label="Abrir busca"><i class="fas fa-search"></i></button>
+            <input id="searchInput" type="text" class="hidden w-24 bg-transparent text-sm outline-none placeholder:text-gray-400 sm:w-36" placeholder="Buscar" />
+            <button id="searchButton" type="button" class="hidden text-crimson">Ir</button>
+          </div>
+          <a href="cadastro.html" class="rounded-full border border-gray-300 px-4 py-2 text-sm font-medium text-graphite">Entrar</a>
+          <button id="menuToggle" class="rounded-full bg-crimson px-4 py-2 text-sm font-semibold text-white">MENU</button>
+        </div>
+        <button id="menuToggleMobile" class="rounded-full border border-gray-300 p-2 text-graphite md:hidden">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </header>
+
+    <div id="overlay" class="overlay fixed inset-0 z-40 bg-black/40"></div>
+
+    <aside id="drawer" class="drawer fixed right-0 top-0 z-50 h-full w-full max-w-md bg-[#1E0003] p-6 text-white shadow-2xl">
+      <div class="flex justify-end">
+        <button id="closeDrawer" class="rounded-full border border-white/20 px-3 py-2 text-sm">✕ FECHAR</button>
+      </div>
+      <nav class="mt-8 space-y-5">
+        <a href="index.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Início</span><span class="mt-1 block text-sm text-white/70">Retorne à página principal do portal.</span></a>
+        <a href="tradutor.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Tradutor de Juridiquês</span><span class="mt-1 block text-sm text-white/70">Transforme textos complexos em linguagem simples.</span></a>
+        <a href="dicionario.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Dicionário Jurídico</span><span class="mt-1 block text-sm text-white/70">Consulte termos e conceitos jurídicos de A a Z.</span></a>
+        <a href="gerador.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Gerador de Documentos</span><span class="mt-1 block text-sm text-white/70">Crie contratos e declarações simples rapidamente.</span></a>
+        <a href="linha-tempo.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Linha do Tempo Jurídica</span><span class="mt-1 block text-sm text-white/70">Entenda as etapas de um processo judicial.</span></a>
+        <a href="simulador.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Simulador de Custos</span><span class="mt-1 block text-sm text-white/70">Estime taxas judiciais e honorários.</span></a>
+        <a href="guia.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Guia de Direitos</span><span class="mt-1 block text-sm text-white/70">Direitos específicos para cada fase da vida.</span></a>
+        <a href="advogados.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Advogados Parceiros</span><span class="mt-1 block text-sm text-white/70">Conheça profissionais preparados para orientar seu caso.</span></a>
+        <a href="cadastro.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Cadastro / Login</span><span class="mt-1 block text-sm text-white/70">Acesse sua conta e gerencie seus documentos.</span></a>
+      </nav>
+    </aside>
+
+    <main class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+      <div class="mb-8">
+        <p class="text-sm font-semibold uppercase tracking-[0.25em] text-crimson">Ferramenta</p>
+        <h1 class="font-display text-3xl text-graphite">Tradutor de Juridiquês</h1>
+        <p class="mt-3 max-w-3xl text-gray-600">Cole um texto formal e veja uma versão em linguagem simples, clara e acessível.</p>
+      </div>
+
+      <div class="mb-6 grid gap-4 md:grid-cols-3">
+        <div class="rounded-[1.5rem] border border-gray-200 bg-white p-4 shadow-sm">
+          <p class="text-xs font-semibold uppercase tracking-[0.25em] text-crimson">Leitura</p>
+          <p id="readabilityScore" class="mt-2 text-2xl font-bold text-graphite">0%</p>
+        </div>
+        <div class="rounded-[1.5rem] border border-gray-200 bg-white p-4 shadow-sm">
+          <p class="text-xs font-semibold uppercase tracking-[0.25em] text-crimson">Palavras</p>
+          <p id="wordCount" class="mt-2 text-2xl font-bold text-graphite">0</p>
+        </div>
+        <div class="rounded-[1.5rem] border border-gray-200 bg-white p-4 shadow-sm">
+          <p class="text-xs font-semibold uppercase tracking-[0.25em] text-crimson">Status</p>
+          <p id="translationStatus" class="mt-2 text-sm font-semibold text-graphite">Pronto para traduzir</p>
+        </div>
+      </div>
+
+      <div class="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+        <section class="rounded-[2rem] border border-gray-200 bg-white p-6 shadow-[0_20px_60px_rgba(17,24,39,0.04)]">
+          <div class="flex items-center justify-between gap-3">
+            <label for="inputText" class="mb-2 block font-semibold text-graphite">Texto jurídico formal</label>
+            <span class="rounded-full bg-crimson/10 px-3 py-1 text-xs font-semibold text-crimson">Editor de texto</span>
+          </div>
+          <textarea id="inputText" rows="10" class="w-full rounded-2xl border border-gray-300 p-4 text-sm outline-none focus:border-crimson" placeholder="Ex.: Outorgante, por meio desta, declara, para todos os fins de direito...">Outorgante, por meio desta, declara que o presente instrumento se destina a comprovar a sua manifestação de vontade...</textarea>
+          <div class="mt-4 flex flex-wrap gap-3">
+            <button id="translateBtn" class="rounded-full bg-crimson px-5 py-3 font-semibold text-white">Traduzir Texto</button>
+            <button id="copyBtn" class="rounded-full border border-gray-300 px-5 py-3 font-semibold text-graphite">Copiar resposta</button>
+            <button id="clearBtn" class="rounded-full border border-gray-300 px-5 py-3 font-semibold text-graphite">Limpar</button>
+          </div>
+        </section>
+
+        <section class="rounded-[2rem] border border-gray-200 bg-white p-6 shadow-[0_20px_60px_rgba(17,24,39,0.04)]">
+          <div class="flex items-center justify-between gap-3">
+            <h2 class="font-display text-xl text-crimson">Tradução em linguagem simples</h2>
+            <span class="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">Resposta pronta</span>
+          </div>
+          <div class="mt-4 rounded-2xl bg-offwhite p-4">
+            <p id="outputText" class="text-sm leading-7 text-gray-700">A versão clara aparecerá aqui.</p>
+          </div>
+        </section>
+      </div>
+
+      <section class="mt-8 rounded-[2rem] border border-gray-200 bg-white p-6 shadow-[0_20px_60px_rgba(17,24,39,0.04)]">
+        <h2 class="font-display text-xl text-graphite">Consulta rápida</h2>
+        <div class="mt-4 flex flex-wrap gap-3">
+          <button class="term-btn rounded-full border border-gray-300 px-4 py-2 text-sm" data-term="Outorgante">Outorgante</button>
+          <button class="term-btn rounded-full border border-gray-300 px-4 py-2 text-sm" data-term="Julgado procedente">Julgado procedente</button>
+          <button class="term-btn rounded-full border border-gray-300 px-4 py-2 text-sm" data-term="Sub-rogar">Sub-rogar</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="rodape">
+      <div class="rodape-container">
+        <div class="rodape-coluna">
+          <h3>Guia do Cidadão</h3>
+          <ul>
+            <li><a href="tradutor.html">Tradutor de Juridiquês</a></li>
+            <li><a href="dicionario.html">Glossário Jurídico</a></li>
+            <li><a href="guia.html">Guia de Direitos</a></li>
+          </ul>
+        </div>
+        <div class="rodape-coluna">
+          <h3>Sobre o Projeto</h3>
+          <ul>
+            <li><a href="index.html">Portal institucional</a></li>
+            <li><a href="cadastro.html">Acesso e cadastro</a></li>
+            <li><a href="advogados.html">Advogados parceiros</a></li>
+          </ul>
+        </div>
+        <div class="rodape-coluna">
+          <h3>Links Úteis</h3>
+          <ul>
+            <li><a href="https://www.cnj.jus.br/" target="_blank" rel="noreferrer">Portal do CNJ</a></li>
+            <li><a href="https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm" target="_blank" rel="noreferrer">Constituição Federal</a></li>
+            <li><a href="https://www.stf.jus.br/" target="_blank" rel="noreferrer">Supremo Tribunal Federal</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rodape-inferior">
+        <div class="copyright">
+          <p>Copyright © 2026 Descomplica Direito</p>
+        </div>
+        <div class="logo-rodape">
+          <img src="img/logo.png" alt="Logo Rodapé" />
+          <p>INSTITUTO FEDERAL CATARINENSE - SOMBRIO</p>
+        </div>
+        <div class="redes-sociais">
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const drawer = document.getElementById('drawer');
+      const overlay = document.getElementById('overlay');
+      const openButtons = [document.getElementById('menuToggle'), document.getElementById('menuToggleMobile')];
+      const closeButton = document.getElementById('closeDrawer');
+      const searchToggle = document.getElementById('searchToggle');
+      const searchInput = document.getElementById('searchInput');
+      const searchButton = document.getElementById('searchButton');
+      const inputText = document.getElementById('inputText');
+      const outputText = document.getElementById('outputText');
+      const readabilityScore = document.getElementById('readabilityScore');
+      const wordCount = document.getElementById('wordCount');
+      const translationStatus = document.getElementById('translationStatus');
+      const translateBtn = document.getElementById('translateBtn');
+      const copyBtn = document.getElementById('copyBtn');
+      const clearBtn = document.getElementById('clearBtn');
+
+      function openDrawer() {
+        drawer.classList.add('open');
+        overlay.classList.add('show');
+      }
+
+      function closeDrawer() {
+        drawer.classList.remove('open');
+        overlay.classList.remove('show');
+      }
+
+      openButtons.forEach((btn) => btn?.addEventListener('click', openDrawer));
+      closeButton?.addEventListener('click', closeDrawer);
+      overlay?.addEventListener('click', closeDrawer);
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeDrawer();
+      });
+
+      searchToggle?.addEventListener('click', () => {
+        searchInput.classList.toggle('hidden');
+        searchButton.classList.toggle('hidden');
+        if (!searchInput.classList.contains('hidden')) {
+          searchInput.focus();
+        }
+      });
+
+      function runSearch() {
+        const query = searchInput.value.trim().toLowerCase();
+        if (!query) return;
+        const target = document.querySelector(`[data-search-key*="${query}"]`);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+
+      searchButton?.addEventListener('click', runSearch);
+      searchInput?.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') runSearch();
+      });
+
+      const translations = {
+        Outorgante: 'Pessoa que faz a declaração ou autoriza algo.',
+        'Julgado procedente': 'A decisão favoreceu a parte que pediu.',
+        'Sub-rogar': 'Substituir uma pessoa ou obrigação por outra.'
+      };
+
+      function countWords(value) {
+        return value.trim().split(/\s+/).filter(Boolean).length;
+      }
+
+      function updateMetrics(value) {
+        const words = countWords(value);
+        const score = Math.min(96, Math.max(40, 100 - Math.round(words * 0.8)));
+        wordCount.textContent = words;
+        readabilityScore.textContent = `${score}%`;
+        translationStatus.textContent = words > 0 ? 'Texto pronto para leitura' : 'Pronto para traduzir';
+      }
+
+      function simplifyText(value) {
+        return value
+          .replace(/Outorgante/gi, 'Pessoa que faz a declaração')
+          .replace(/por meio desta/gi, 'por este documento')
+          .replace(/declara/gi, 'afirma')
+          .replace(/manifestação de vontade/gi, 'decisão de querer')
+          .replace(/instrumento/gi, 'documento')
+          .replace(/para todos os fins de direito/gi, 'para todos os efeitos legais');
+      }
+
+      function translateCurrentText() {
+        const value = inputText.value.trim();
+        if (!value) {
+          outputText.textContent = 'Digite um texto para traduzir.';
+          translationStatus.textContent = 'Campo vazio';
+          return;
+        }
+
+        outputText.textContent = simplifyText(value);
+        translationStatus.textContent = 'Tradução concluída';
+        updateMetrics(value);
+      }
+
+      translateBtn.addEventListener('click', translateCurrentText);
+      inputText.addEventListener('input', () => updateMetrics(inputText.value));
+
+      copyBtn.addEventListener('click', async () => {
+        const text = outputText.textContent.trim();
+        if (!text || text.includes('A versão clara aparecerá aqui')) {
+          return;
+        }
+        await navigator.clipboard.writeText(text);
+        translationStatus.textContent = 'Resposta copiada';
+      });
+
+      clearBtn.addEventListener('click', () => {
+        inputText.value = '';
+        outputText.textContent = 'A versão clara aparecerá aqui.';
+        translationStatus.textContent = 'Pronto para traduzir';
+        updateMetrics('');
+      });
+
+      document.querySelectorAll('.term-btn').forEach((button) => {
+        button.addEventListener('click', () => {
+          outputText.textContent = translations[button.dataset.term];
+          translationStatus.textContent = 'Termo consultado';
+        });
+      });
+
+      updateMetrics(inputText.value);
+    </script>
+  </body>
+</html>
+

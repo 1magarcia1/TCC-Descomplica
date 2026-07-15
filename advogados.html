@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advogados Parceiros</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              crimson: '#5c0618',
+              primary: '#5c0618',
+              graphite: '#1a1a1a',
+              offwhite: '#f9f9f9'
+            },
+            fontFamily: {
+              display: ['Playfair Display', 'Georgia', 'serif'],
+              sans: ['Inter', 'sans-serif']
+            }
+          }
+        }
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body class="bg-offwhite text-graphite antialiased">
+    <header class="site-header sticky top-0 z-50 w-full border-b border-gray-200 bg-white/95 backdrop-blur">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+        <a href="index.html" class="flex items-center gap-3 text-sm font-medium transition hover:text-crimson">
+          <img src="img/logo.png" alt="Logo Descomplica Direito" class="h-10 w-10 rounded-full object-contain bg-white/10 p-1 ring-1 ring-gray-200" />
+          <span class="font-display text-xl tracking-wide text-crimson">Descomplica Direito</span>
+        </a>
+
+        <div class="hidden items-center gap-6 md:flex">
+          <div class="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 shadow-sm">
+            <button id="searchToggle" type="button" class="text-gray-700" aria-label="Abrir busca">
+              <i class="fas fa-search"></i>
+            </button>
+            <input id="searchInput" type="text" class="hidden w-36 bg-transparent text-sm outline-none placeholder:text-gray-400 text-gray-700" placeholder="Buscar" />
+            <button id="searchButton" type="button" class="hidden font-medium text-crimson">Ir</button>
+          </div>
+          <a href="cadastro.html" class="rounded-full px-3 py-2 text-sm font-medium text-crimson transition hover:bg-crimson/10">Entrar</a>
+          <button id="menuBtn" class="rounded-full border border-gray-300 px-4 py-2 text-sm font-medium text-graphite transition hover:bg-crimson hover:text-white">Menu</button>
+        </div>
+
+        <button id="menuBtnMobile" class="rounded-full border border-gray-300 p-2 text-graphite md:hidden" aria-label="Abrir menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+
+      <div id="mobileMenu" class="hidden border-t border-gray-200 bg-white px-6 py-4 md:hidden">
+        <div class="flex flex-col gap-3 text-sm font-medium">
+          <a href="tradutor.html" class="hover:text-crimson">Tradutor</a>
+          <a href="gerador.html" class="hover:text-crimson">Gerador</a>
+          <a href="linha-tempo.html" class="hover:text-crimson">Linha do Tempo</a>
+          <a href="simulador.html" class="hover:text-crimson">Simulador</a>
+          <a href="guia.html" class="hover:text-crimson">Guia</a>
+          <a href="advogados.html" class="hover:text-crimson">Advogados</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+      <div class="mb-8">
+        <p class="text-sm font-semibold uppercase tracking-[0.25em] text-crimson">Portal</p>
+        <h1 class="font-display text-3xl text-graphite">Advogados Parceiros</h1>
+        <p class="mt-3 max-w-3xl text-gray-600">Encontre profissionais por especialidade ou região para orientação jurídica inicial.</p>
+      </div>
+
+      <div class="mb-6 flex flex-wrap gap-3">
+        <button class="rounded-full border border-gray-300 px-4 py-2 text-sm">Civil</button>
+        <button class="rounded-full border border-gray-300 px-4 py-2 text-sm">Criminal</button>
+        <button class="rounded-full border border-gray-300 px-4 py-2 text-sm">Trabalho</button>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        <article class="soft-card rounded-2xl p-6">
+          <div class="flex items-center gap-4">
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-crimson/10 text-lg font-semibold text-crimson">AL</div>
+            <div>
+              <h2 class="font-display text-xl text-graphite">Ana Lima</h2>
+              <p class="text-sm text-gray-600">Direito Civil</p>
+            </div>
+          </div>
+          <p class="mt-4 text-sm text-gray-700">Atua com contratos, consultas preventivas e mediação.</p>
+          <button class="mt-4 rounded-full border border-crimson px-4 py-2 text-sm font-medium text-crimson">Entrar em contato</button>
+        </article>
+        <article class="soft-card rounded-2xl p-6">
+          <div class="flex items-center gap-4">
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-crimson/10 text-lg font-semibold text-crimson">RM</div>
+            <div>
+              <h2 class="font-display text-xl text-graphite">Rafael Mendes</h2>
+              <p class="text-sm text-gray-600">Direito Trabalhista</p>
+            </div>
+          </div>
+          <p class="mt-4 text-sm text-gray-700">Especialista em rescisão, assédio e direitos do trabalhador.</p>
+          <button class="mt-4 rounded-full border border-crimson px-4 py-2 text-sm font-medium text-crimson">Entrar em contato</button>
+        </article>
+        <article class="soft-card rounded-2xl p-6">
+          <div class="flex items-center gap-4">
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-crimson/10 text-lg font-semibold text-crimson">CP</div>
+            <div>
+              <h2 class="font-display text-xl text-graphite">Carla Pereira</h2>
+              <p class="text-sm text-gray-600">Direito Criminal</p>
+            </div>
+          </div>
+          <p class="mt-4 text-sm text-gray-700">Atende casos de defesa preliminar e orientação processual.</p>
+          <button class="mt-4 rounded-full border border-crimson px-4 py-2 text-sm font-medium text-crimson">Entrar em contato</button>
+        </article>
+      </div>
+    </main>
+
+    <footer class="rodape">
+      <div class="rodape-container">
+        <div class="rodape-coluna">
+          <h3>Guia do Cidadão</h3>
+          <ul>
+            <li><a href="#">Consulta de Processos</a></li>
+            <li><a href="#">Defensoria Pública</a></li>
+            <li><a href="#">Glossário Jurídico</a></li>
+          </ul>
+        </div>
+        <div class="rodape-coluna">
+          <h3>Sobre o Projeto</h3>
+          <ul>
+            <li><a href="#">Equipe de Desenvolvimento</a></li>
+            <li><a href="#">Objetivo do Portal</a></li>
+          </ul>
+        </div>
+        <div class="rodape-coluna">
+          <h3>Links Úteis</h3>
+          <ul>
+            <li><a href="https://www.cnj.jus.br/" target="_blank">Portal do CNJ</a></li>
+            <li><a href="https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm" target="_blank">Constituição Federal</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rodape-inferior">
+        <div class="copyright">
+          <p>Copyright © 2026 Descomplica Direito</p>
+        </div>
+        <div class="logo-rodape">
+          <img src="img/logo.png" alt="Logo Rodapé" />
+          <p>INSTITUTO FEDERAL CATARINENSE - SOMBRIO</p>
+        </div>
+        <div class="redes-sociais">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-tiktok"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const menuBtn = document.getElementById('menuBtn');
+      const menuBtnMobile = document.getElementById('menuBtnMobile');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const searchToggle = document.getElementById('searchToggle');
+      const searchInput = document.getElementById('searchInput');
+      const searchButton = document.getElementById('searchButton');
+
+      function toggleMenu() {
+        mobileMenu.classList.toggle('hidden');
+      }
+
+      menuBtn?.addEventListener('click', toggleMenu);
+      menuBtnMobile?.addEventListener('click', toggleMenu);
+
+      searchToggle?.addEventListener('click', () => {
+        searchInput.classList.toggle('hidden');
+        searchButton.classList.toggle('hidden');
+        if (!searchInput.classList.contains('hidden')) {
+          searchInput.focus();
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Layout Base — Temas Dinâmicos</title>
+    <link rel="stylesheet" href="variables.css" />
+  </head>
+  <body class="theme-harvard">
+    <div class="site-shell">
+      <header class="site-header">
+        <a href="index.html" class="header-brand">[ Q ] Harvard Layout</a>
+
+        <div class="header-actions">
+          <label class="sr-only" for="theme-select">Selecionar tema</label>
+          <select id="theme-select" class="theme-select" aria-label="Selecionar tema">
+            <option value="theme-harvard">Tema Harvard</option>
+            <option value="theme-dark">Tema Escuro</option>
+            <option value="theme-light">Tema Claro</option>
+          </select>
+
+          <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Abrir menu lateral">
+            ☰
+          </button>
+        </div>
+      </header>
+
+      <section class="hero" aria-label="Hero section">
+        <div class="hero-content">
+          <p style="text-transform: uppercase; letter-spacing: 0.2em; font-weight: 600; margin-bottom: 0.5rem;">Layout reutilizável</p>
+          <h1>Estrutura base para múltiplas páginas com temas dinâmicos.</h1>
+          <p>
+            Este modelo pode ser usado em index.html, sobre.html, contato.html e demais páginas do sistema.
+            Os estilos e o menu lateral já respeitam as variáveis CSS por tema.
+          </p>
+          <a class="hero-btn" href="#content">Ver conteúdo</a>
+        </div>
+      </section>
+
+      <main class="content-wrapper" id="content">
+        <section class="content-card">
+          <h2>Área principal de conteúdo</h2>
+          <p>
+            Este bloco é o espaço onde cada página insere seu conteúdo específico.
+            O restante da estrutura permanece igual, o que torna a manutenção mais simples.
+          </p>
+        </section>
+      </main>
+    </div>
+
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+
+    <aside class="drawer" id="drawer" aria-label="Menu lateral">
+      <div class="drawer-header">
+        <button class="menu-toggle" id="drawer-close" type="button" aria-label="Fechar menu lateral">✕</button>
+      </div>
+      <nav>
+        <a href="index.html">Início</a>
+        <a href="sobre.html">Sobre</a>
+        <a href="contato.html">Contato</a>
+        <a href="portfolio.html">Portfólio</a>
+      </nav>
+    </aside>
+
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Linha do Tempo Jurídica - Descomplica Direito</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            crimson: '#5c0618',
+            graphite: '#1a1a1a',
+            offwhite: '#f9f9f9'
+          },
+          fontFamily: {
+            display: ['Playfair Display', 'Georgia', 'serif'],
+            sans: ['Inter', 'Helvetica', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="index.css" />
+  <style>
+    body {
+      background: #f9f9f9;
+      color: #1a1a1a;
+    }
+
+    .timeline-card {
+      position: relative;
+      border: 1px solid rgba(31, 41, 55, 0.08);
+      background: #ffffff;
+      border-radius: 1.5rem;
+      box-shadow: 0 18px 40px rgba(31, 41, 55, 0.06);
+      overflow: hidden;
+    }
+
+    .timeline-card::before {
+      content: '';
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 5px;
+      height: 100%;
+      background: linear-gradient(180deg, #5c0618, #7d1027);
+    }
+
+    .timeline-card:hover {
+      transform: translateY(-2px);
+      transition: transform 0.2s ease;
+    }
+
+    .timeline-detail {
+      display: none;
+      padding: 0 1.35rem 1.35rem 1.35rem;
+      color: #4b5563;
+      line-height: 1.7;
+    }
+
+    .timeline-detail.ativo {
+      display: block;
+    }
+
+    .timeline-detail ul {
+      margin: 0;
+      padding-left: 1.15rem;
+    }
+
+    .timeline-detail li + li {
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+<body class="bg-offwhite text-graphite antialiased">
+  <header class="site-header absolute left-0 top-0 z-50 w-full bg-transparent backdrop-blur-sm">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+      <a href="index.html" class="flex items-center gap-3 text-sm font-medium text-white transition hover:text-white/90">
+        <img src="img/logo.png" alt="Logo" class="h-10 w-10 rounded-full object-contain bg-white/10 p-1" />
+        <span class="font-display text-xl tracking-wide text-white">Descomplica Direito</span>
+      </a>
+      <div class="hidden items-center gap-2 md:flex">
+        <div class="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-2 text-sm text-white/90">
+          <button id="searchToggle" type="button" class="text-white/90" aria-label="Abrir busca"><i class="fas fa-search"></i></button>
+          <input id="searchInput" type="text" class="hidden w-36 bg-transparent text-sm outline-none placeholder:text-white/60" placeholder="Buscar" />
+          <button id="searchButton" type="button" class="hidden text-white">Ir</button>
+        </div>
+        <a href="cadastro.html" class="rounded-full px-3 py-2 text-sm font-medium text-white/90 transition hover:bg-white/10 hover:text-white">Entrar</a>
+        <button id="menuToggle" class="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white">Menu</button>
+      </div>
+      <button id="menuToggleMobile" class="rounded-full border border-white/20 bg-white/10 p-2 text-white md:hidden" aria-label="Abrir menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <div id="overlay" class="overlay fixed inset-0 z-40 bg-black/40"></div>
+
+  <aside id="drawer" class="drawer fixed right-0 top-0 z-50 h-full w-full max-w-md bg-[#1E0003] p-6 text-white shadow-2xl">
+    <div class="flex justify-end">
+      <button id="closeDrawer" class="rounded-full border border-white/20 px-3 py-2 text-sm">✕ FECHAR</button>
+    </div>
+    <nav class="mt-8 space-y-5">
+      <a href="index.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Início</span><span class="mt-1 block text-sm text-white/70">Retorne à página principal do portal.</span></a>
+      <a href="tradutor.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Tradutor de Juridiquês</span><span class="mt-1 block text-sm text-white/70">Transforme textos complexos em linguagem simples.</span></a>
+      <a href="dicionario.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Dicionário Jurídico</span><span class="mt-1 block text-sm text-white/70">Consulte termos e conceitos jurídicos de A a Z.</span></a>
+      <a href="cadastro.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Cadastro / Login</span><span class="mt-1 block text-sm text-white/70">Acesse sua conta e gerencie seus documentos.</span></a>
+      <a href="gerador.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Gerador de Documentos</span><span class="mt-1 block text-sm text-white/70">Crie contratos e declarações simples rapidamente.</span></a>
+      <a href="linha-tempo.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Linha do Tempo Jurídica</span><span class="mt-1 block text-sm text-white/70">Entenda as etapas de um processo judicial.</span></a>
+      <a href="simulador.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Simulador de Custos</span><span class="mt-1 block text-sm text-white/70">Estime taxas judiciais e honorários.</span></a>
+      <a href="guia.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Guia de Direitos</span><span class="mt-1 block text-sm text-white/70">Direitos específicos para cada fase da vida.</span></a>
+      <a href="advogados.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Advogados Parceiros</span><span class="mt-1 block text-sm text-white/70">Conheça profissionais preparados para orientar seu caso.</span></a>
+    </nav>
+  </aside>
+
+  <main>
+    <section class="relative isolate overflow-hidden bg-[linear-gradient(135deg,rgba(165,28,48,0.96),rgba(31,41,55,0.9))] px-6 pb-16 pt-28 text-white lg:px-8">
+      <div class="mx-auto max-w-5xl text-center">
+        <p class="text-sm font-semibold uppercase tracking-[0.35em] text-white/80">Etapas do processo</p>
+        <h1 class="mt-4 font-display text-4xl leading-tight sm:text-5xl">Linha do Tempo Jurídica</h1>
+        <p class="mx-auto mt-4 max-w-3xl text-base leading-8 text-white/85 sm:text-lg">Uma leitura clara e organizada das fases mais comuns de um processo judicial, com foco em compreensão e orientação prática.</p>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-6xl px-6 py-14 lg:px-8">
+      <div class="mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.25em] text-crimson">Mapa do percurso</p>
+          <h2 class="font-display text-3xl text-graphite">Como o processo costuma evoluir</h2>
+        </div>
+        <p class="rounded-full bg-crimson/10 px-4 py-2 text-sm font-semibold text-crimson">Clique em cada etapa para abrir os detalhes</p>
+      </div>
+
+      <div class="space-y-4">
+        <article class="timeline-card">
+          <button type="button" class="w-full px-5 py-5 text-left" data-target="detalhes-0">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center">
+              <div class="flex h-12 w-12 items-center justify-center rounded-full bg-crimson/10 text-crimson"><i class="fas fa-file-contract"></i></div>
+              <div class="flex-1">
+                <p class="text-sm font-semibold uppercase tracking-[0.22em] text-crimson">1. Petição inicial</p>
+                <h3 class="mt-2 font-display text-2xl text-graphite">Ação é apresentada ao Judiciário</h3>
+                <p class="mt-2 text-sm text-gray-600">O autor descreve os fatos, os pedidos e a base jurídica da pretensão.</p>
+              </div>
+            </div>
+          </button>
+          <div id="detalhes-0" class="timeline-detail">
+            <ul>
+              <li>Os fatos são narrados de forma objetiva e coerente.</li>
+              <li>O pedido é indicado com clareza na peça inicial.</li>
+              <li>O processo é protocolado e distribuído para o juízo competente.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="timeline-card">
+          <button type="button" class="w-full px-5 py-5 text-left" data-target="detalhes-1">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center">
+              <div class="flex h-12 w-12 items-center justify-center rounded-full bg-crimson/10 text-crimson"><i class="fas fa-bell"></i></div>
+              <div class="flex-1">
+                <p class="text-sm font-semibold uppercase tracking-[0.22em] text-crimson">2. Citação e defesa</p>
+                <h3 class="mt-2 font-display text-2xl text-graphite">Réu é citado e responde</h3>
+                <p class="mt-2 text-sm text-gray-600">A parte récebe a notificação e passa a ter oportunidade de apresentar sua defesa.</p>
+              </div>
+            </div>
+          </button>
+          <div id="detalhes-1" class="timeline-detail">
+            <ul>
+              <li>A citação é essencial para a validade do processo.</li>
+              <li>A defesa pode ocorrer por contestação ou outros meios permitidos.</li>
+              <li>O juiz analisa a resposta do réu e as provas apresentadas.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="timeline-card">
+          <button type="button" class="w-full px-5 py-5 text-left" data-target="detalhes-2">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center">
+              <div class="flex h-12 w-12 items-center justify-center rounded-full bg-crimson/10 text-crimson"><i class="fas fa-magnifying-glass"></i></div>
+              <div class="flex-1">
+                <p class="text-sm font-semibold uppercase tracking-[0.22em] text-crimson">3. Instrução probatória</p>
+                <h3 class="mt-2 font-display text-2xl text-graphite">Provas são produzidas e analisadas</h3>
+                <p class="mt-2 text-sm text-gray-600">Testemunhos, documentos e perícias ajudam a formar o entendimento jurídico.</p>
+              </div>
+            </div>
+          </button>
+          <div id="detalhes-2" class="timeline-detail">
+            <ul>
+              <li>As partes podem apresentar provas relevantes para o caso.</li>
+              <li>Perícias e depoimentos ajudam a esclarecer fatos técnicos.</li>
+              <li>A instrução é o momento em que a controvérsia se consolida.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="timeline-card">
+          <button type="button" class="w-full px-5 py-5 text-left" data-target="detalhes-3">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center">
+              <div class="flex h-12 w-12 items-center justify-center rounded-full bg-crimson/10 text-crimson"><i class="fas fa-comments"></i></div>
+              <div class="flex-1">
+                <p class="text-sm font-semibold uppercase tracking-[0.22em] text-crimson">4. Alegações finais</p>
+                <h3 class="mt-2 font-display text-2xl text-graphite">Cada lado reafirma seu posicionamento</h3>
+                <p class="mt-2 text-sm text-gray-600">As partes encerram sua argumentação com foco no que deve ser acolhido pelo juiz.</p>
+              </div>
+            </div>
+          </button>
+          <div id="detalhes-3" class="timeline-detail">
+            <ul>
+              <li>O processo fica pronto para o julgamento.</li>
+              <li>O magistrado passa a avaliar os pontos jurídicos centrais.</li>
+              <li>A qualidade da fundamentação final pesa no resultado.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="timeline-card">
+          <button type="button" class="w-full px-5 py-5 text-left" data-target="detalhes-4">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center">
+              <div class="flex h-12 w-12 items-center justify-center rounded-full bg-crimson/10 text-crimson"><i class="fas fa-gavel"></i></div>
+              <div class="flex-1">
+                <p class="text-sm font-semibold uppercase tracking-[0.22em] text-crimson">5. Sentença</p>
+                <h3 class="mt-2 font-display text-2xl text-graphite">A decisão judicial é proferida</h3>
+                <p class="mt-2 text-sm text-gray-600">O juiz decide o mérito e estabelece as consequências legais para as partes.</p>
+              </div>
+            </div>
+          </button>
+          <div id="detalhes-4" class="timeline-detail">
+            <ul>
+              <li>A sentença pode acolher ou negar a pretensão.</li>
+              <li>Há possibilidade de recurso em instância superior.</li>
+              <li>O conteúdo da decisão deve ser observado com atenção.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="timeline-card">
+          <button type="button" class="w-full px-5 py-5 text-left" data-target="detalhes-5">
+            <div class="flex flex-col gap-4 lg:flex-row lg:items-center">
+              <div class="flex h-12 w-12 items-center justify-center rounded-full bg-crimson/10 text-crimson"><i class="fas fa-handshake"></i></div>
+              <div class="flex-1">
+                <p class="text-sm font-semibold uppercase tracking-[0.22em] text-crimson">6. Cumprimento</p>
+                <h3 class="mt-2 font-display text-2xl text-graphite">A obrigação é executada</h3>
+                <p class="mt-2 text-sm text-gray-600">Se o pedido for acolhido, a parte vencedora pode exigir o cumprimento da decisão.</p>
+              </div>
+            </div>
+          </button>
+          <div id="detalhes-5" class="timeline-detail">
+            <ul>
+              <li>O cumprimento pode exigir valores, bens ou medidas específicas.</li>
+              <li>Em alguns casos, há necessidade de executivos e medidas coercitivas.</li>
+              <li>O processo pode seguir para nova etapa, se for necessário.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+
+      <div class="mt-8 grid gap-4 md:grid-cols-2">
+        <div class="rounded-[1.5rem] border border-gray-200 bg-white p-5 shadow-sm">
+          <h3 class="font-display text-2xl text-graphite">O que mais pesa</h3>
+          <p class="mt-2 text-sm leading-7 text-gray-600">Documentos bem organizados, provas consistentes e um pedido claro fazem enorme diferença ao longo do processo.</p>
+        </div>
+        <div class="rounded-[1.5rem] border border-gray-200 bg-white p-5 shadow-sm">
+          <h3 class="font-display text-2xl text-graphite">Quando buscar ajuda</h3>
+          <p class="mt-2 text-sm leading-7 text-gray-600">Se houver dúvidas sobre prazos, recursos ou a validade dos documentos, o ideal é procurar orientação jurídica com antecedência.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="rodape-container">
+      <div class="rodape-coluna">
+        <h3>Guia do Cidadão</h3>
+        <ul>
+          <li><a href="tradutor.html">Tradutor de Juridiquês</a></li>
+          <li><a href="dicionario.html">Glossário Jurídico</a></li>
+          <li><a href="guia.html">Guia de Direitos</a></li>
+        </ul>
+      </div>
+      <div class="rodape-coluna">
+        <h3>Sobre o Projeto</h3>
+        <ul>
+          <li><a href="index.html">Portal institucional</a></li>
+          <li><a href="cadastro.html">Acesso e cadastro</a></li>
+          <li><a href="advogados.html">Advogados parceiros</a></li>
+        </ul>
+      </div>
+      <div class="rodape-coluna">
+        <h3>Links Úteis</h3>
+        <ul>
+          <li><a href="https://www.cnj.jus.br/" target="_blank" rel="noreferrer">Portal do CNJ</a></li>
+          <li><a href="https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm" target="_blank" rel="noreferrer">Constituição Federal</a></li>
+          <li><a href="https://www.stf.jus.br/" target="_blank" rel="noreferrer">Supremo Tribunal Federal</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rodape-inferior">
+      <div class="copyright">
+        <p>Copyright © 2026 Descomplica Direito</p>
+      </div>
+      <div class="logo-rodape">
+        <img src="img/logo.png" alt="Logo Rodapé" />
+        <p>INSTITUTO FEDERAL CATARINENSE - SOMBRIO</p>
+      </div>
+      <div class="redes-sociais">
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const drawer = document.getElementById('drawer');
+    const overlay = document.getElementById('overlay');
+    const openButtons = [document.getElementById('menuToggle'), document.getElementById('menuToggleMobile')];
+    const closeButton = document.getElementById('closeDrawer');
+    const searchToggle = document.getElementById('searchToggle');
+    const searchInput = document.getElementById('searchInput');
+    const searchButton = document.getElementById('searchButton');
+
+    function openDrawer() {
+      drawer.classList.add('open');
+      overlay.classList.add('visible');
+      document.body.classList.add('lock-scroll');
+    }
+
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      overlay.classList.remove('visible');
+      document.body.classList.remove('lock-scroll');
+    }
+
+    openButtons.forEach((button) => button.addEventListener('click', openDrawer));
+    closeButton.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', closeDrawer);
+
+    searchToggle.addEventListener('click', () => {
+      searchInput.classList.toggle('hidden');
+      searchButton.classList.toggle('hidden');
+      if (!searchInput.classList.contains('hidden')) {
+        searchInput.focus();
+      }
+    });
+
+    searchButton.addEventListener('click', () => {
+      const query = searchInput.value.trim().toLowerCase();
+      if (!query) return;
+      const links = Array.from(document.querySelectorAll('a[href]'));
+      const match = links.find((link) => {
+        const text = (link.textContent || '').toLowerCase();
+        return text.includes(query);
+      });
+      if (match) window.location.href = match.href;
+    });
+
+    document.querySelectorAll('[data-target]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const targetId = button.getAttribute('data-target');
+        const detail = document.getElementById(targetId);
+        const isActive = detail.classList.contains('ativo');
+
+        document.querySelectorAll('.timeline-detail').forEach((item) => item.classList.remove('ativo'));
+        if (!isActive) detail.classList.add('ativo');
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gerador de Documentos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              crimson: '#5c0618',
+              primary: '#5c0618',
+              graphite: '#1a1a1a',
+              offwhite: '#f9f9f9'
+            },
+            fontFamily: {
+              display: ['Playfair Display', 'Georgia', 'serif'],
+              sans: ['Inter', 'sans-serif']
+            }
+          }
+        }
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="index.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  </head>
+  <body class="bg-offwhite text-graphite antialiased">
+    <header class="sticky top-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+        <a href="index.html" class="font-display text-2xl font-semibold text-crimson">Descomplica Direito</a>
+        <div class="flex items-center gap-2">
+          <div class="flex items-center gap-2 rounded-full border border-gray-300 bg-white px-3 py-2 text-sm text-graphite">
+            <button id="searchToggle" type="button" class="text-gray-600" aria-label="Abrir busca"><i class="fas fa-search"></i></button>
+            <input id="searchInput" type="text" class="hidden w-24 bg-transparent text-sm outline-none placeholder:text-gray-400 sm:w-36" placeholder="Buscar" />
+            <button id="searchButton" type="button" class="hidden text-crimson">Ir</button>
+          </div>
+          <a href="cadastro.html" class="rounded-full border border-gray-300 px-4 py-2 text-sm font-medium text-graphite">Entrar</a>
+          <button id="menuToggle" class="rounded-full bg-crimson px-4 py-2 text-sm font-semibold text-white">MENU</button>
+        </div>
+        <button id="menuToggleMobile" class="rounded-full border border-gray-300 p-2 text-graphite md:hidden">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </header>
+
+    <div id="overlay" class="overlay fixed inset-0 z-40 bg-black/40"></div>
+
+    <aside id="drawer" class="drawer fixed right-0 top-0 z-50 h-full w-full max-w-md bg-[#1E0003] p-6 text-white shadow-2xl">
+      <div class="flex justify-end">
+        <button id="closeDrawer" class="rounded-full border border-white/20 px-3 py-2 text-sm">✕ FECHAR</button>
+      </div>
+      <nav class="mt-8 space-y-5">
+        <a href="index.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Início</span><span class="mt-1 block text-sm text-white/70">Retorne à página principal do portal.</span></a>
+        <a href="tradutor.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Tradutor de Juridiquês</span><span class="mt-1 block text-sm text-white/70">Transforme textos complexos em linguagem simples.</span></a>
+        <a href="dicionario.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Dicionário Jurídico</span><span class="mt-1 block text-sm text-white/70">Consulte termos e conceitos jurídicos de A a Z.</span></a>
+        <a href="gerador.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Gerador de Documentos</span><span class="mt-1 block text-sm text-white/70">Crie contratos e declarações simples rapidamente.</span></a>
+        <a href="linha-tempo.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Linha do Tempo Jurídica</span><span class="mt-1 block text-sm text-white/70">Entenda as etapas de um processo judicial.</span></a>
+        <a href="simulador.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Simulador de Custos</span><span class="mt-1 block text-sm text-white/70">Estime taxas judiciais e honorários.</span></a>
+        <a href="guia.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Guia de Direitos</span><span class="mt-1 block text-sm text-white/70">Direitos específicos para cada fase da vida.</span></a>
+        <a href="advogados.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Advogados Parceiros</span><span class="mt-1 block text-sm text-white/70">Conheça profissionais preparados para orientar seu caso.</span></a>
+        <a href="cadastro.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Cadastro / Login</span><span class="mt-1 block text-sm text-white/70">Acesse sua conta e gerencie seus documentos.</span></a>
+      </nav>
+    </aside>
+
+    <main class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+      <div class="mb-8">
+        <p class="text-sm font-semibold uppercase tracking-[0.25em] text-crimson">Ferramenta</p>
+        <h1 class="font-display text-3xl text-graphite">Gerador de Documentos</h1>
+        <p class="mt-3 max-w-3xl text-gray-600">Escolha o tipo de documento e preencha os dados básicos para gerar uma versão simplificada.</p>
+      </div>
+
+      <div class="mb-6 grid gap-4 md:grid-cols-3">
+        <div class="rounded-[1.5rem] border border-gray-200 bg-white p-4 shadow-sm">
+          <p class="text-xs font-semibold uppercase tracking-[0.25em] text-crimson">Modelos</p>
+          <p id="modelCount" class="mt-2 text-2xl font-bold text-graphite">0</p>
+        </div>
+        <div class="rounded-[1.5rem] border border-gray-200 bg-white p-4 shadow-sm">
+          <p class="text-xs font-semibold uppercase tracking-[0.25em] text-crimson">Formato</p>
+          <p class="mt-2 text-2xl font-bold text-graphite">Clássico</p>
+        </div>
+        <div class="rounded-[1.5rem] border border-gray-200 bg-white p-4 shadow-sm">
+          <p class="text-xs font-semibold uppercase tracking-[0.25em] text-crimson">Ação</p>
+          <p class="mt-2 text-sm font-semibold text-graphite">Gerar, copiar e revisar</p>
+        </div>
+      </div>
+
+      <div class="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
+        <section class="soft-card rounded-2xl p-6">
+          <h2 class="font-display text-xl text-crimson">Tipos de documento</h2>
+          <p class="mt-2 text-sm text-gray-600">Escolha entre contratos, processos, petições, recursos e documentos extrajudiciais.</p>
+
+          <div class="mt-4 flex items-center gap-2 rounded-xl border border-gray-300 bg-white px-3 py-2">
+            <i class="fas fa-search text-gray-400"></i>
+            <input id="documentSearch" type="text" class="w-full bg-transparent text-sm outline-none placeholder:text-gray-400" placeholder="Buscar documento" />
+          </div>
+
+          <div class="mt-4 flex flex-wrap gap-2">
+            <button type="button" class="filter-btn rounded-full bg-crimson px-3 py-2 text-xs font-semibold text-white" data-filter="all">Todos</button>
+            <button type="button" class="filter-btn rounded-full border border-gray-300 px-3 py-2 text-xs font-semibold text-graphite" data-filter="Contratos">Contratos</button>
+            <button type="button" class="filter-btn rounded-full border border-gray-300 px-3 py-2 text-xs font-semibold text-graphite" data-filter="Processos Judiciais">Judiciais</button>
+            <button type="button" class="filter-btn rounded-full border border-gray-300 px-3 py-2 text-xs font-semibold text-graphite" data-filter="Recursos">Recursos</button>
+            <button type="button" class="filter-btn rounded-full border border-gray-300 px-3 py-2 text-xs font-semibold text-graphite" data-filter="Petições">Petições</button>
+            <button type="button" class="filter-btn rounded-full border border-gray-300 px-3 py-2 text-xs font-semibold text-graphite" data-filter="Documentos">Documentos</button>
+          </div>
+
+          <div class="mt-4 grid max-h-[28rem] gap-2 overflow-y-auto pr-1">
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de compra e venda">Contrato de compra e venda</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de locação">Contrato de locação</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de comodato">Contrato de comodato</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de mútuo (empréstimo)">Contrato de mútuo (empréstimo)</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de prestação de serviços">Contrato de prestação de serviços</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de trabalho">Contrato de trabalho</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de experiência">Contrato de experiência</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de estágio">Contrato de estágio</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de aprendizagem">Contrato de aprendizagem</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de parceria">Contrato de parceria</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de franquia">Contrato de franquia</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de representação comercial">Contrato de representação comercial</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de distribuição">Contrato de distribuição</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de transporte">Contrato de transporte</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de seguro">Contrato de seguro</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de financiamento">Contrato de financiamento</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de leasing (arrendamento mercantil)">Contrato de leasing (arrendamento mercantil)</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de doação">Contrato de doação</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de permuta">Contrato de permuta</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de cessão de direitos">Contrato de cessão de direitos</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de cessão de crédito">Contrato de cessão de crédito</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de licenciamento">Contrato de licenciamento</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de confidencialidade (NDA)">Contrato de confidencialidade (NDA)</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato social">Contrato social</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Acordo de sócios">Acordo de sócios</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de constituição de sociedade">Contrato de constituição de sociedade</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de promessa de compra e venda">Contrato de promessa de compra e venda</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de alienação fiduciária">Contrato de alienação fiduciária</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de empreitada">Contrato de empreitada</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de depósito">Contrato de depósito</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de mandato">Contrato de mandato</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Procuração">Procuração</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de fiança">Contrato de fiança</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de aval">Contrato de aval</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de hipoteca">Contrato de hipoteca</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de penhor">Contrato de penhor</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Contratos" data-doc="Contrato de anticrese">Contrato de anticrese</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Ação de cobrança">Ação de cobrança</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Ação monitória">Ação monitória</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Ação de execução">Ação de execução</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Ação de indenização">Ação de indenização</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Ação de obrigação de fazer">Ação de obrigação de fazer</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Ação de obrigação de não fazer">Ação de obrigação de não fazer</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Ação declaratória">Ação declaratória</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Ação anulatória">Ação anulatória</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Ação revisional">Ação revisional</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Ação possessória">Ação possessória</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Reintegração de posse">Reintegração de posse</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Manutenção de posse">Manutenção de posse</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Interdito proibitório">Interdito proibitório</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Usucapião">Usucapião</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Consignação em pagamento">Consignação em pagamento</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Prestação de contas">Prestação de contas</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Inventário">Inventário</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Arrolamento">Arrolamento</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Interdição">Interdição</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Curatela">Curatela</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Tutela">Tutela</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Guarda">Guarda</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Alimentos">Alimentos</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Divórcio">Divórcio</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Separação">Separação</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Dissolução de união estável">Dissolução de união estável</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Investigação de paternidade">Investigação de paternidade</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Adoção">Adoção</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Reclamação trabalhista">Reclamação trabalhista</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Ação rescisória">Ação rescisória</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Execução trabalhista">Execução trabalhista</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Dissídio coletivo">Dissídio coletivo</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Ação penal pública">Ação penal pública</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Ação penal privada">Ação penal privada</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Habeas corpus">Habeas corpus</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Revisão criminal">Revisão criminal</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Pedido de liberdade provisória">Pedido de liberdade provisória</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Pedido de revogação da prisão">Pedido de revogação da prisão</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Queixa-crime">Queixa-crime</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Execução fiscal">Execução fiscal</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Embargos à execução">Embargos à execução</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Mandado de segurança tributário">Mandado de segurança tributário</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Ação anulatória de débito fiscal">Ação anulatória de débito fiscal</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Recuperação judicial">Recuperação judicial</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Recuperação extrajudicial">Recuperação extrajudicial</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Falência">Falência</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Dissolução societária">Dissolução societária</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Ação contra fornecedor">Ação contra fornecedor</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Indenização por danos morais">Indenização por danos morais</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Indenização por danos materiais">Indenização por danos materiais</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Processos Judiciais" data-doc="Revisão contratual">Revisão contratual</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Recursos" data-doc="Apelação">Apelação</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Recursos" data-doc="Agravo de instrumento">Agravo de instrumento</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Recursos" data-doc="Agravo interno">Agravo interno</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Recursos" data-doc="Agravo em recurso especial">Agravo em recurso especial</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Recursos" data-doc="Agravo em recurso extraordinário">Agravo em recurso extraordinário</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Recursos" data-doc="Embargos de declaração">Embargos de declaração</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Recursos" data-doc="Embargos infringentes (casos específicos)">Embargos infringentes (casos específicos)</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Recursos" data-doc="Embargos de divergência">Embargos de divergência</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Recursos" data-doc="Recurso especial">Recurso especial</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Recursos" data-doc="Recurso extraordinário">Recurso extraordinário</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Recursos" data-doc="Recurso ordinário">Recurso ordinário</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Recursos" data-doc="Recurso adesivo">Recurso adesivo</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Recursos" data-doc="Recurso em sentido estrito">Recurso em sentido estrito</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Recursos" data-doc="Carta testemunhável">Carta testemunhável</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Petições" data-doc="Petição inicial">Petição inicial</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Petições" data-doc="Contestação">Contestação</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Petições" data-doc="Réplica">Réplica</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Petições" data-doc="Reconvenção">Reconvenção</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Petições" data-doc="Manifestação">Manifestação</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Petições" data-doc="Impugnação">Impugnação</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Petições" data-doc="Embargos">Embargos</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Petições" data-doc="Alegações finais">Alegações finais</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Petições" data-doc="Contrarrazões">Contrarrazões</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Petições" data-doc="Pedido de tutela de urgência">Pedido de tutela de urgência</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Petições" data-doc="Pedido de tutela de evidência">Pedido de tutela de evidência</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Petições" data-doc="Pedido de liminar">Pedido de liminar</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Petições" data-doc="Cumprimento de sentença">Cumprimento de sentença</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Petições" data-doc="Exceção de incompetência">Exceção de incompetência</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Procuração">Procuração</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Substabelecimento">Substabelecimento</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Notificação extrajudicial">Notificação extrajudicial</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Ata notarial">Ata notarial</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Escritura pública">Escritura pública</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Testamento">Testamento</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Inventário extrajudicial">Inventário extrajudicial</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Declaração">Declaração</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Termo de acordo">Termo de acordo</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Termo de quitação">Termo de quitação</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Termo de rescisão">Termo de rescisão</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Confissão de dívida">Confissão de dívida</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Reconhecimento de firma">Reconhecimento de firma</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Autorização">Autorização</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Recibo">Recibo</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Distrato">Distrato</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Contrato social">Contrato social</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Estatuto social">Estatuto social</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Alteração contratual">Alteração contratual</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Ata de assembleia">Ata de assembleia</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Ata de reunião">Ata de reunião</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Livro societário">Livro societário</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Balanço patrimonial">Balanço patrimonial</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Parecer jurídico">Parecer jurídico</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Escritura">Escritura</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Matrícula do imóvel">Matrícula do imóvel</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Registro de imóvel">Registro de imóvel</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Contrato de locação">Contrato de locação</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Contrato de compra e venda">Contrato de compra e venda</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Contrato de comodato">Contrato de comodato</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Contrato de financiamento">Contrato de financiamento</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Hipoteca">Hipoteca</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Alienação fiduciária">Alienação fiduciária</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Carteira de Trabalho (CTPS)">Carteira de Trabalho (CTPS)</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Contrato de trabalho">Contrato de trabalho</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Acordo individual">Acordo individual</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Convenção coletiva">Convenção coletiva</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Acordo coletivo">Acordo coletivo</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Holerite">Holerite</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Termo de Rescisão (TRCT)">Termo de Rescisão (TRCT)</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Advertência">Advertência</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Suspensão disciplinar">Suspensão disciplinar</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Carta de demissão">Carta de demissão</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Certidão de nascimento">Certidão de nascimento</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Certidão de casamento">Certidão de casamento</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Certidão de óbito">Certidão de óbito</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Pacto antenupcial">Pacto antenupcial</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Testamento">Testamento</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Inventário">Inventário</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Partilha">Partilha</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Formal de partilha">Formal de partilha</button>
+            <button class="doc-btn w-full rounded-xl border border-gray-300 px-4 py-3 text-left text-sm font-medium" data-category="Documentos" data-doc="Alvará judicial">Alvará judicial</button>
+          </div>
+        </section>
+
+        <section class="soft-card rounded-2xl p-6">
+          <div class="flex items-center justify-between gap-3">
+            <h2 id="docTitle" class="font-display text-xl text-graphite">Declaração de Residência</h2>
+            <span id="docTag" class="rounded-full bg-crimson/10 px-3 py-1 text-xs font-semibold text-crimson">Modelo ativo</span>
+          </div>
+          <form class="mt-4 space-y-4">
+            <input id="nomeCompleto" class="w-full rounded-lg border border-gray-300 px-4 py-3" placeholder="Nome completo" />
+            <input id="cpf" class="w-full rounded-lg border border-gray-300 px-4 py-3" placeholder="CPF" />
+            <input id="endereco" class="w-full rounded-lg border border-gray-300 px-4 py-3" placeholder="Endereço" />
+            <input id="cidade" class="w-full rounded-lg border border-gray-300 px-4 py-3" placeholder="Cidade" />
+            <input id="data" class="w-full rounded-lg border border-gray-300 px-4 py-3" placeholder="Data" />
+            <textarea id="motivo" class="min-h-24 w-full rounded-lg border border-gray-300 px-4 py-3" placeholder="Descreva o motivo ou o conteúdo principal"></textarea>
+            <div class="flex flex-wrap gap-3">
+              <button type="button" id="generateBtn" class="rounded-full bg-crimson px-5 py-3 font-semibold text-white">Gerar Documento</button>
+              <button type="button" id="copyBtn" class="rounded-full border border-gray-300 px-5 py-3 font-semibold text-graphite">Copiar</button>
+              <button type="button" id="downloadBtn" class="rounded-full border border-gray-300 px-5 py-3 font-semibold text-graphite">Baixar PDF</button>
+              <button type="button" id="clearBtn" class="rounded-full border border-gray-300 px-5 py-3 font-semibold text-graphite">Limpar</button>
+            </div>
+          </form>
+          <div id="resultText" class="mt-5 rounded-xl bg-offwhite p-4 text-sm text-gray-700">A versão timbrada aparecerá aqui após a geração.</div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="rodape">
+    <div class="rodape-container">
+      <div class="rodape-coluna">
+        <h3>Guia do Cidadão</h3>
+        <ul>
+          <li><a href="tradutor.html">Tradutor de Juridiquês</a></li>
+          <li><a href="dicionario.html">Glossário Jurídico</a></li>
+          <li><a href="guia.html">Guia de Direitos</a></li>
+        </ul>
+      </div>
+      <div class="rodape-coluna">
+        <h3>Sobre o Projeto</h3>
+        <ul>
+          <li><a href="index.html">Portal institucional</a></li>
+          <li><a href="cadastro.html">Acesso e cadastro</a></li>
+          <li><a href="advogados.html">Advogados parceiros</a></li>
+        </ul>
+      </div>
+      <div class="rodape-coluna">
+        <h3>Links Úteis</h3>
+        <ul>
+          <li><a href="https://www.cnj.jus.br/" target="_blank" rel="noreferrer">Portal do CNJ</a></li>
+          <li><a href="https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm" target="_blank" rel="noreferrer">Constituição Federal</a></li>
+          <li><a href="https://www.stf.jus.br/" target="_blank" rel="noreferrer">Supremo Tribunal Federal</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rodape-inferior">
+      <div class="copyright">
+        <p>Copyright © 2026 Descomplica Direito</p>
+      </div>
+      <div class="logo-rodape">
+        <img src="img/logo.png" alt="Logo Rodapé" />
+        <p>INSTITUTO FEDERAL CATARINENSE - SOMBRIO</p>
+      </div>
+      <div class="redes-sociais">
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      </div>
+    </div>
+  </footer>
+
+    <script>
+      const drawer = document.getElementById('drawer');
+      const overlay = document.getElementById('overlay');
+      const openButtons = [document.getElementById('menuToggle'), document.getElementById('menuToggleMobile')];
+      const closeButton = document.getElementById('closeDrawer');
+      const searchToggle = document.getElementById('searchToggle');
+      const searchInput = document.getElementById('searchInput');
+      const searchButton = document.getElementById('searchButton');
+      const docTitle = document.getElementById('docTitle');
+      const docTag = document.getElementById('docTag');
+      const modelCount = document.getElementById('modelCount');
+      const documentSearch = document.getElementById('documentSearch');
+      const filterButtons = Array.from(document.querySelectorAll('.filter-btn'));
+      const generateBtn = document.getElementById('generateBtn');
+      const copyBtn = document.getElementById('copyBtn');
+      const downloadBtn = document.getElementById('downloadBtn');
+      const clearBtn = document.getElementById('clearBtn');
+      const resultText = document.getElementById('resultText');
+
+      function openDrawer() {
+        drawer.classList.add('open');
+        overlay.classList.add('show');
+        document.body.classList.add('lock-scroll');
+      }
+
+      function closeDrawer() {
+        drawer.classList.remove('open');
+        overlay.classList.remove('show');
+        document.body.classList.remove('lock-scroll');
+      }
+
+      openButtons.forEach((button) => button.addEventListener('click', openDrawer));
+      closeButton.addEventListener('click', closeDrawer);
+      overlay.addEventListener('click', closeDrawer);
+
+      searchToggle.addEventListener('click', () => {
+        searchInput.classList.toggle('hidden');
+        searchButton.classList.toggle('hidden');
+        if (!searchInput.classList.contains('hidden')) {
+          searchInput.focus();
+        }
+      });
+
+      searchButton.addEventListener('click', () => {
+        const query = searchInput.value.trim().toLowerCase();
+        if (!query) return;
+        const links = Array.from(document.querySelectorAll('a[href]'));
+        const match = links.find((link) => {
+          const text = (link.textContent || '').toLowerCase();
+          return text.includes(query);
+        });
+        if (match) window.location.href = match.href;
+      });
+
+      const docTypeButtons = Array.from(document.querySelectorAll('.doc-btn'));
+
+      function updateModelCount() {
+        modelCount.textContent = String(docTypeButtons.length);
+      }
+
+      function applyDocumentFilter() {
+        const searchTerm = documentSearch.value.trim().toLowerCase();
+        const activeFilter = document.querySelector('.filter-btn.bg-crimson')?.dataset.filter || 'all';
+
+        docTypeButtons.forEach((button) => {
+          const matchesCategory = activeFilter === 'all' || button.dataset.category === activeFilter || button.dataset.category?.includes(activeFilter);
+          const matchesSearch = !searchTerm || button.dataset.doc.toLowerCase().includes(searchTerm);
+          button.classList.toggle('hidden', !(matchesCategory && matchesSearch));
+        });
+      }
+
+      filterButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          filterButtons.forEach((btn) => {
+            btn.classList.remove('bg-crimson', 'text-white');
+            btn.classList.add('border', 'border-gray-300', 'text-graphite');
+          });
+          button.classList.add('bg-crimson', 'text-white');
+          button.classList.remove('border', 'border-gray-300', 'text-graphite');
+          applyDocumentFilter();
+        });
+      });
+
+      documentSearch.addEventListener('input', applyDocumentFilter);
+
+      docTypeButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          docTitle.textContent = button.dataset.doc;
+          docTag.textContent = 'Modelo ativo';
+          docTypeButtons.forEach((btn) => btn.classList.remove('bg-crimson', 'text-white'));
+          button.classList.add('bg-crimson', 'text-white');
+        });
+      });
+
+      updateModelCount();
+      applyDocumentFilter();
+
+      function buildDocumentPreview() {
+        const nome = document.getElementById('nomeCompleto').value.trim() || 'Nome do usuário';
+        const cpf = document.getElementById('cpf').value.trim() || '000.000.000-00';
+        const endereco = document.getElementById('endereco').value.trim() || 'Endereço informado';
+        const cidade = document.getElementById('cidade').value.trim() || 'Cidade';
+        const data = document.getElementById('data').value.trim() || 'Data atual';
+        const motivo = document.getElementById('motivo').value.trim() || 'Motivo não informado';
+        const tipo = docTitle.textContent;
+
+        return `
+          <div class="space-y-3">
+            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-crimson">${tipo}</p>
+            <p class="text-sm leading-7 text-gray-700">Eu, <strong>${nome}</strong>, portador(a) do CPF <strong>${cpf}</strong>, residente em <strong>${endereco}</strong>, ${cidade}, declaro para os devidos fins que ${motivo}.</p>
+            <p class="text-sm leading-7 text-gray-700">${cidade}, ${data}.</p>
+            <div class="rounded-xl border border-gray-200 bg-white p-3 text-xs uppercase tracking-[0.2em] text-gray-500">Versão preliminar de demonstração</div>
+          </div>
+        `;
+      }
+
+      generateBtn?.addEventListener('click', () => {
+        resultText.innerHTML = buildDocumentPreview();
+        docTag.textContent = 'Documento gerado';
+      });
+
+      copyBtn?.addEventListener('click', async () => {
+        const text = resultText.innerText.trim();
+        if (!text || text.includes('A versão timbrada aparecerá aqui')) {
+          return;
+        }
+        await navigator.clipboard.writeText(text);
+        docTag.textContent = 'Texto copiado';
+      });
+
+      downloadBtn?.addEventListener('click', () => {
+        const text = resultText.innerText.trim();
+        if (!text || text.includes('A versão timbrada aparecerá aqui') || !window.jspdf) {
+          return;
+        }
+
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({ unit: 'pt', format: 'a4' });
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        const margin = 48;
+        const maxWidth = pageWidth - margin * 2;
+        const title = (docTitle.textContent || 'Documento').trim();
+        const body = text.replace(/\s+/g, ' ').trim();
+        const safeTitle = title.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-');
+
+        pdf.setFillColor(165, 28, 48);
+        pdf.rect(0, 0, pageWidth, 78, 'F');
+        pdf.setTextColor(255, 255, 255);
+        pdf.setFont('helvetica', 'bold');
+        pdf.setFontSize(18);
+        pdf.text('Descomplica Direito', margin, 34);
+        pdf.setFontSize(11);
+        pdf.text('Documento gerado com visual editorial', margin, 56);
+
+        pdf.setTextColor(31, 41, 55);
+        pdf.setFont('helvetica', 'bold');
+        pdf.setFontSize(16);
+        const titleLines = pdf.splitTextToSize(title, maxWidth);
+        pdf.text(titleLines, margin, 110);
+
+        pdf.setFont('helvetica', 'normal');
+        pdf.setFontSize(11);
+        const bodyLines = pdf.splitTextToSize(body, maxWidth);
+
+        let currentY = 140;
+        bodyLines.forEach((line) => {
+          if (currentY > pageHeight - 60) {
+            pdf.addPage();
+            currentY = 48;
+          }
+          pdf.text(line, margin, currentY);
+          currentY += 18;
+        });
+
+        pdf.setDrawColor(165, 28, 48);
+        pdf.setLineWidth(1);
+        pdf.line(margin, currentY + 12, pageWidth - margin, currentY + 12);
+        pdf.setTextColor(107, 114, 128);
+        pdf.setFontSize(10);
+        pdf.text('Gerado em ' + new Date().toLocaleDateString('pt-BR'), margin, currentY + 34);
+        pdf.text('Versão simplificada para consulta, revisão e envio.', margin, currentY + 50);
+
+        pdf.save(`${safeTitle || 'documento'}-descomplica-direito.pdf`);
+        docTag.textContent = 'PDF exportado';
+      });
+
+      clearBtn?.addEventListener('click', () => {
+        document.querySelector('form').reset();
+        resultText.innerHTML = 'A versão timbrada aparecerá aqui após a geração.';
+        docTag.textContent = 'Modelo ativo';
+      });
+    </script>
+  </body>
+</html>

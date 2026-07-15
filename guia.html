@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guia de Direitos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              crimson: '#5c0618',
+              primary: '#5c0618',
+              graphite: '#1a1a1a',
+              offwhite: '#f9f9f9'
+            },
+            fontFamily: {
+              display: ['Playfair Display', 'Georgia', 'serif'],
+              sans: ['Inter', 'sans-serif']
+            }
+          }
+        }
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="bg-offwhite text-graphite antialiased">
+    <header class="sticky top-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+        <a href="index.html" class="font-display text-2xl font-semibold text-crimson">Descomplica Direito</a>
+        <nav class="hidden items-center gap-6 text-sm font-medium text-graphite md:flex">
+          <a href="tradutor.html" class="hover:text-crimson">Tradutor</a>
+          <a href="gerador.html" class="hover:text-crimson">Gerador</a>
+          <a href="linha-tempo.html" class="hover:text-crimson">Linha do Tempo</a>
+          <a href="simulador.html" class="hover:text-crimson">Simulador</a>
+          <a href="guia.html" class="hover:text-crimson">Guia</a>
+          <a href="advogados.html" class="hover:text-crimson">Advogados</a>
+        </nav>
+        <div class="flex items-center gap-3">
+          <a href="#" class="flex items-center gap-2 rounded-full border border-crimson px-4 py-2 text-sm font-medium text-crimson hover:bg-crimson hover:text-white"><i class="fas fa-user"></i>Entrar</a>
+          <button id="menuBtn" class="rounded-full border border-gray-300 p-2 text-graphite md:hidden"><i class="fas fa-bars"></i></button>
+        </div>
+      </div>
+      <div id="mobileMenu" class="hidden border-t border-gray-200 bg-white px-6 py-4 md:hidden">
+        <div class="flex flex-col gap-3 text-sm font-medium">
+          <a href="tradutor.html" class="hover:text-crimson">Tradutor</a>
+          <a href="gerador.html" class="hover:text-crimson">Gerador</a>
+          <a href="linha-tempo.html" class="hover:text-crimson">Linha do Tempo</a>
+          <a href="simulador.html" class="hover:text-crimson">Simulador</a>
+          <a href="guia.html" class="hover:text-crimson">Guia</a>
+          <a href="advogados.html" class="hover:text-crimson">Advogados</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+      <div class="mb-8">
+        <p class="text-sm font-semibold uppercase tracking-[0.25em] text-crimson">Guia</p>
+        <h1 class="font-display text-3xl text-graphite">Guia de Direitos</h1>
+        <p class="mt-3 max-w-3xl text-gray-600">Artigos curtos, claros e organizados por fase da vida e tema jurídico.</p>
+      </div>
+
+      <div class="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
+        <aside class="soft-card rounded-2xl p-6">
+          <h2 class="font-display text-xl text-crimson">Categorias</h2>
+          <ul class="mt-4 space-y-2 text-sm text-gray-700">
+            <li><a href="#trabalho" class="hover:text-crimson">Trabalho</a></li>
+            <li><a href="#consumidor" class="hover:text-crimson">Consumidor</a></li>
+            <li><a href="#familia" class="hover:text-crimson">Família</a></li>
+            <li><a href="#idoso" class="hover:text-crimson">Idoso</a></li>
+            <li><a href="#estudante" class="hover:text-crimson">Estudante</a></li>
+          </ul>
+        </aside>
+
+        <section class="space-y-6">
+          <article id="trabalho" class="soft-card rounded-2xl p-6">
+            <h2 class="font-display text-xl text-graphite">Trabalho</h2>
+            <p class="mt-2 text-sm text-gray-700">Conheça seus direitos relacionados a jornada, descanso, salário e demissão.</p>
+          </article>
+          <article id="consumidor" class="soft-card rounded-2xl p-6">
+            <h2 class="font-display text-xl text-graphite">Consumidor</h2>
+            <p class="mt-2 text-sm text-gray-700">Saiba como agir em casos de produtos defeituosos, cobranças indevidas ou serviços ruins.</p>
+          </article>
+          <article id="familia" class="soft-card rounded-2xl p-6">
+            <h2 class="font-display text-xl text-graphite">Família</h2>
+            <p class="mt-2 text-sm text-gray-700">Explore temas ligados a guarda, pensão, divórcio e convivência familiar.</p>
+          </article>
+          <article id="idoso" class="soft-card rounded-2xl p-6">
+            <h2 class="font-display text-xl text-graphite">Idoso</h2>
+            <p class="mt-2 text-sm text-gray-700">Conheça as garantias legais para proteção, saúde e dignidade da pessoa idosa.</p>
+          </article>
+          <article id="estudante" class="soft-card rounded-2xl p-6">
+            <h2 class="font-display text-xl text-graphite">Estudante</h2>
+            <p class="mt-2 text-sm text-gray-700">Aprenda sobre direitos educacionais, acesso ao ensino e proteção em instituições.</p>
+          </article>
+        </section>
+      </div>
+    </main>
+
+    <footer class="rodape">
+      <div class="rodape-container">
+        <div class="rodape-coluna">
+          <h3>Guia do Cidadão</h3>
+          <ul>
+            <li><a href="#">Consulta de Processos</a></li>
+            <li><a href="#">Defensoria Pública</a></li>
+            <li><a href="#">Glossário Jurídico</a></li>
+          </ul>
+        </div>
+        <div class="rodape-coluna">
+          <h3>Sobre o Projeto</h3>
+          <ul>
+            <li><a href="#">Equipe de Desenvolvimento</a></li>
+            <li><a href="#">Objetivo do Portal</a></li>
+          </ul>
+        </div>
+        <div class="rodape-coluna">
+          <h3>Links Úteis</h3>
+          <ul>
+            <li><a href="https://www.cnj.jus.br/" target="_blank">Portal do CNJ</a></li>
+            <li><a href="https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm" target="_blank">Constituição Federal</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rodape-inferior">
+        <div class="copyright">
+          <p>Copyright © 2026 Descomplica Direito</p>
+        </div>
+        <div class="logo-rodape">
+          <img src="img/logo.png" alt="Logo Rodapé" />
+          <p>INSTITUTO FEDERAL CATARINENSE - SOMBRIO</p>
+        </div>
+        <div class="redes-sociais">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-tiktok"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById('menuBtn')?.addEventListener('click', () => {
+        document.getElementById('mobileMenu').classList.toggle('hidden');
+      });
+    </script>
+  </body>
+</html>
