@@ -65,7 +65,10 @@
                     <p class="text-sm font-semibold uppercase tracking-[0.25em] text-crimson">Dashboard</p>
                     <h2 class="font-display text-3xl text-graphite">Bem-vindo ao painel administrativo</h2>
                 </div>
-                <button id="logoutAdmin" type="button" class="rounded-full border border-crimson px-4 py-2 text-sm font-semibold text-crimson transition hover:bg-crimson hover:text-white">Sair</button>
+                <div class="flex items-center gap-3">
+                    <button id="refreshAdmin" type="button" class="rounded-full border border-gray-300 px-4 py-2 text-sm font-semibold text-graphite transition hover:border-crimson hover:text-crimson">Atualizar</button>
+                    <button id="logoutAdmin" type="button" class="rounded-full border border-crimson px-4 py-2 text-sm font-semibold text-crimson transition hover:bg-crimson hover:text-white">Sair</button>
+                </div>
             </div>
 
             <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
@@ -76,28 +79,31 @@
                 </article>
 
                 <article class="soft-card rounded-2xl p-6">
-                    <div class="mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson"><i class="fas fa-right-to-bracket"></i></div>
-                    <h3 class="font-display text-xl text-graphite">Login</h3>
-                    <p class="mt-2 text-sm text-gray-600">Controle de acesso e autenticação institucional.</p>
+                    <div class="mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson"><i class="fas fa-user-check"></i></div>
+                    <h3 class="font-display text-xl text-graphite">Acesso</h3>
+                    <p class="mt-2 text-sm text-gray-600">Usuários ativos com credenciais válidas.</p>
                 </article>
 
                 <article class="soft-card rounded-2xl p-6">
-                    <div class="mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson"><i class="fas fa-file-contract"></i></div>
-                    <h3 class="font-display text-xl text-graphite">Ferramentas</h3>
-                    <p class="mt-2 text-sm text-gray-600">Gestão dos módulos do portal e seus conteúdos.</p>
+                    <div class="mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson"><i class="fas fa-signal"></i></div>
+                    <h3 class="font-display text-xl text-graphite">Status</h3>
+                    <p id="systemStatus" class="mt-2 text-sm text-green-600 font-semibold">Sistema online</p>
                 </article>
 
                 <article class="soft-card rounded-2xl p-6">
                     <div class="mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson"><i class="fas fa-shield-halved"></i></div>
                     <h3 class="font-display text-xl text-graphite">Segurança</h3>
-                    <p class="mt-2 text-sm text-gray-600">Revisão dos acessos e manutenção da plataforma.</p>
+                    <p class="mt-2 text-sm text-gray-600">Monitoramento e manutenção da plataforma.</p>
                 </article>
             </div>
 
             <div class="mt-8 rounded-[2rem] border border-gray-200 bg-white p-6 shadow-[0_20px_60px_rgba(17,24,39,0.04)]">
-                <div class="mb-4 flex items-center justify-between">
+                <div class="mb-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                     <h3 class="font-display text-2xl text-graphite">Usuários cadastrados</h3>
-                    <span class="rounded-full bg-crimson/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-crimson">Lista local</span>
+                    <div class="flex flex-col gap-2 sm:flex-row">
+                        <input id="adminSearch" type="text" placeholder="Buscar por nome ou e-mail" class="rounded-2xl border border-gray-300 px-4 py-2 text-sm outline-none focus:border-crimson" />
+                        <span class="rounded-full bg-crimson/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-crimson">Lista local</span>
+                    </div>
                 </div>
                 <div id="userList" class="space-y-3"></div>
             </div>
@@ -117,6 +123,9 @@
         const totalUsers = document.getElementById('totalUsers');
         const userList = document.getElementById('userList');
         const logoutAdmin = document.getElementById('logoutAdmin');
+        const refreshAdmin = document.getElementById('refreshAdmin');
+        const adminSearch = document.getElementById('adminSearch');
+        const systemStatus = document.getElementById('systemStatus');
 
         function getStoredUsers() {
             try {
@@ -126,26 +135,70 @@
             }
         }
 
-        function renderUsers() {
-            const users = getStoredUsers();
+        function saveUsers(users) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
+        }
+
+        function renderUsers(searchTerm = '') {
+            const users = getStoredUsers().filter((user) => {
+                const query = searchTerm.trim().toLowerCase();
+                if (!query) return true;
+                return [user.name, user.email, user.phone].some((value) =>
+                    (value || '').toLowerCase().includes(query)
+                );
+            });
+
             totalUsers.textContent = users.length;
 
             if (!users.length) {
-                userList.innerHTML = '<p class="rounded-2xl border border-dashed border-gray-300 p-4 text-sm text-gray-500">Ainda não há usuários cadastrados no armazenamento local.</p>';
+                userList.innerHTML = '<p class="rounded-2xl border border-dashed border-gray-300 p-4 text-sm text-gray-500">Nenhum usuário encontrado para esta busca.</p>';
                 return;
             }
 
-            userList.innerHTML = users.map((user) => `
+            userList.innerHTML = users.map((user, index) => `
                 <div class="rounded-2xl border border-gray-200 bg-offwhite p-4">
-                    <div class="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-                        <div>
+                    <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                        <div class="flex-1">
                             <p class="font-semibold text-graphite">${user.name || 'Usuário sem nome'}</p>
                             <p class="text-sm text-gray-600">${user.email || 'E-mail não informado'}</p>
+                            <p class="text-xs text-gray-500">Telefone: ${user.phone || 'Não informado'}</p>
                         </div>
-                        <span class="rounded-full bg-crimson/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-crimson">${user.phone ? 'Cadastrado' : 'Sem telefone'}</span>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <button type="button" class="edit-user rounded-full border border-gray-300 px-3 py-2 text-xs font-semibold text-graphite" data-index="${index}">Editar</button>
+                            <button type="button" class="remove-user rounded-full border border-crimson px-3 py-2 text-xs font-semibold text-crimson" data-index="${index}">Remover</button>
+                        </div>
                     </div>
                 </div>
             `).join('');
+
+            document.querySelectorAll('.edit-user').forEach((button) => {
+                button.addEventListener('click', () => {
+                    const usersData = getStoredUsers();
+                    const item = usersData[Number(button.dataset.index)];
+                    const name = prompt('Editar nome:', item.name || '');
+                    const email = prompt('Editar e-mail:', item.email || '');
+                    const phone = prompt('Editar telefone:', item.phone || '');
+                    if (!name || !email) return;
+
+                    usersData[Number(button.dataset.index)] = { ...item, name, email, phone };
+                    saveUsers(usersData);
+                    renderUsers(adminSearch.value);
+                    systemStatus.textContent = 'Usuário atualizado';
+                    systemStatus.className = 'mt-2 text-sm text-amber-600 font-semibold';
+                });
+            });
+
+            document.querySelectorAll('.remove-user').forEach((button) => {
+                button.addEventListener('click', () => {
+                    const usersData = getStoredUsers();
+                    const userIndex = Number(button.dataset.index);
+                    usersData.splice(userIndex, 1);
+                    saveUsers(usersData);
+                    renderUsers(adminSearch.value);
+                    systemStatus.textContent = 'Usuário removido';
+                    systemStatus.className = 'mt-2 text-sm text-red-600 font-semibold';
+                });
+            });
         }
 
         function showDashboard() {
@@ -186,6 +239,16 @@
             adminMessage.textContent = 'Você saiu do painel administrativo.';
             adminMessage.className = 'mt-4 text-sm text-gray-500';
             document.getElementById('adminLoginForm').reset();
+        });
+
+        refreshAdmin?.addEventListener('click', () => {
+            renderUsers(adminSearch.value);
+            systemStatus.textContent = 'Sistema online';
+            systemStatus.className = 'mt-2 text-sm text-green-600 font-semibold';
+        });
+
+        adminSearch?.addEventListener('input', (event) => {
+            renderUsers(event.target.value);
         });
     </script>
 </body>
