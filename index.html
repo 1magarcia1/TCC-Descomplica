@@ -64,7 +64,7 @@
                     <input id="searchInput" type="text" class="hidden w-36 bg-transparent text-sm outline-none placeholder:text-white/60 text-white" placeholder="Buscar">
                     <button id="searchButton" type="button" class="hidden text-white font-medium">Ir</button>
                 </div>
-                <a href="cadastro.html" class="rounded-full px-3 py-2 text-sm font-medium text-white/90 transition hover:bg-white/10 hover:text-white">Entrar</a>
+                <a id="accountButton" href="cadastro.html" class="rounded-full px-3 py-2 text-sm font-medium text-white/90 transition hover:bg-white/10 hover:text-white">Entrar</a>
                 <button id="menuToggle" class="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/20">Menu</button>
             </div>
             
@@ -169,21 +169,15 @@
                             <div class="text-center">
                                 <i class="fas fa-camera text-4xl"></i>
                                 <p class="mt-3 text-sm font-semibold uppercase tracking-[0.2em]">Foto em breve</p>
-                                <p class="mt-2 text-sm text-gray-600">Espaço reservado para a foto das desenvolvedoras.</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
                     <div>
                         <p class="text-sm font-semibold uppercase tracking-[0.25em] text-crimson">Desenvolvedoras</p>
                         <h2 class="font-display mt-3 text-3xl text-graphite">Marjorie Santiago Garcia e Sophia Menezes Huffell</h2>
                         <p class="mt-4 text-gray-600">
-                            Esta parte da página foi pensada para destacar as responsáveis pelo desenvolvimento e organização do sistema, com espaço destinado à foto oficial que será enviada posteriormente.
-                        </p>
-
-                        <div class="mt-6 grid gap-4 sm:grid-cols-2">
-                            <article class="soft-card rounded-2xl p-5">
-                                <h3 class="font-display text-xl text-graphite">Marjorie Santiago Garcia</h3>
+                            Esta seção destaca as responsáveis pelo desenvolvimento do sistema e pela organização da proposta apresentada no projeto.
                                 <p class="mt-2 text-sm text-gray-600">Idealização, estrutura e manutenção do projeto.</p>
                             </article>
                             <article class="soft-card rounded-2xl p-5">
@@ -604,6 +598,7 @@
         const searchToggle = document.getElementById('searchToggle');
         const searchInput = document.getElementById('searchInput');
         const searchButton = document.getElementById('searchButton');
+        const accountButton = document.getElementById('accountButton');
         const testimonialTrack = document.getElementById('testimonialTrack');
         const testimonialDots = Array.from(document.querySelectorAll('.testimonial-dot'));
         const testimonialButtons = Array.from(document.querySelectorAll('[data-action]'));
@@ -611,6 +606,30 @@
         
         let activeTestimonial = 0;
         let testimonialTimer;
+
+        function getCurrentUser() {
+            try {
+                return JSON.parse(localStorage.getItem('descomplicaCurrentUser') || 'null');
+            } catch (error) {
+                return null;
+            }
+        }
+
+        function updateHeaderUserState() {
+            const currentUser = getCurrentUser();
+            if (!accountButton) return;
+
+            if (currentUser?.name) {
+                const firstName = currentUser.name.split(' ')[0];
+                accountButton.href = 'index.html';
+                accountButton.textContent = `Olá, ${firstName}`;
+                accountButton.classList.add('bg-white/10');
+            } else {
+                accountButton.href = 'cadastro.html';
+                accountButton.textContent = 'Entrar';
+                accountButton.classList.remove('bg-white/10');
+            }
+        }
 
         function openDrawer() {
             drawer.classList.add('open');
@@ -651,6 +670,8 @@
         searchInput?.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') runSearch();
         });
+
+        updateHeaderUserState();
 
         function renderTestimonials() {
             testimonialTrack.style.transform = `translateX(-${activeTestimonial * 100}%)`;
