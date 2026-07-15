@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel Admin | Descomplica Direito</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        crimson: '#5c0618',
+                        graphite: '#1a1a1a',
+                        offwhite: '#f9f9f9'
+                    },
+                    fontFamily: {
+                        display: ['Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Inter', 'Helvetica', 'sans-serif']
+                    }
+                }
+            }
+        };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="index.css" />
+</head>
+<body class="bg-offwhite text-graphite antialiased">
+    <header class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+            <a href="index.html" class="font-display text-2xl font-semibold text-crimson">Descomplica Direito</a>
+            <div class="flex items-center gap-3">
+                <span class="rounded-full bg-crimson/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-crimson">Acesso restrito</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="mx-auto max-w-6xl px-6 py-16 lg:px-8">
+        <section id="loginCard" class="mx-auto max-w-lg rounded-[2rem] border border-gray-200 bg-white p-8 shadow-[0_20px_60px_rgba(17,24,39,0.04)]">
+            <p class="text-sm font-semibold uppercase tracking-[0.25em] text-crimson">Painel administrativo</p>
+            <h1 class="font-display mt-3 text-3xl text-graphite">Acesso exclusivo do administrador</h1>
+            <p class="mt-3 text-sm text-gray-600">Entre com suas credenciais para acessar o painel de cadastro, login e manutenção do sistema.</p>
+
+            <form id="adminLoginForm" class="mt-8 space-y-4">
+                <div>
+                    <label for="adminEmail" class="mb-2 block text-sm font-semibold">E-mail</label>
+                    <input id="adminEmail" type="email" class="w-full rounded-2xl border border-gray-300 px-4 py-3 outline-none focus:border-crimson" placeholder="admin@descomplica.com" required />
+                </div>
+                <div>
+                    <label for="adminPassword" class="mb-2 block text-sm font-semibold">Senha</label>
+                    <input id="adminPassword" type="password" class="w-full rounded-2xl border border-gray-300 px-4 py-3 outline-none focus:border-crimson" placeholder="••••••••" required />
+                </div>
+                <button type="submit" class="w-full rounded-2xl bg-crimson px-4 py-3 font-semibold text-white">Entrar no painel</button>
+            </form>
+
+            <p id="adminMessage" class="mt-4 text-sm text-gray-500">Use uma conta autorizada para acessar os controles administrativos.</p>
+        </section>
+
+        <section id="adminDashboard" class="hidden">
+            <div class="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                <div>
+                    <p class="text-sm font-semibold uppercase tracking-[0.25em] text-crimson">Dashboard</p>
+                    <h2 class="font-display text-3xl text-graphite">Bem-vindo ao painel administrativo</h2>
+                </div>
+                <button id="logoutAdmin" type="button" class="rounded-full border border-crimson px-4 py-2 text-sm font-semibold text-crimson transition hover:bg-crimson hover:text-white">Sair</button>
+            </div>
+
+            <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+                <article class="soft-card rounded-2xl p-6">
+                    <div class="mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson"><i class="fas fa-users"></i></div>
+                    <h3 class="font-display text-xl text-graphite">Cadastros</h3>
+                    <p id="totalUsers" class="mt-2 text-3xl font-semibold text-crimson">0</p>
+                </article>
+
+                <article class="soft-card rounded-2xl p-6">
+                    <div class="mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson"><i class="fas fa-right-to-bracket"></i></div>
+                    <h3 class="font-display text-xl text-graphite">Login</h3>
+                    <p class="mt-2 text-sm text-gray-600">Controle de acesso e autenticação institucional.</p>
+                </article>
+
+                <article class="soft-card rounded-2xl p-6">
+                    <div class="mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson"><i class="fas fa-file-contract"></i></div>
+                    <h3 class="font-display text-xl text-graphite">Ferramentas</h3>
+                    <p class="mt-2 text-sm text-gray-600">Gestão dos módulos do portal e seus conteúdos.</p>
+                </article>
+
+                <article class="soft-card rounded-2xl p-6">
+                    <div class="mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson"><i class="fas fa-shield-halved"></i></div>
+                    <h3 class="font-display text-xl text-graphite">Segurança</h3>
+                    <p class="mt-2 text-sm text-gray-600">Revisão dos acessos e manutenção da plataforma.</p>
+                </article>
+            </div>
+
+            <div class="mt-8 rounded-[2rem] border border-gray-200 bg-white p-6 shadow-[0_20px_60px_rgba(17,24,39,0.04)]">
+                <div class="mb-4 flex items-center justify-between">
+                    <h3 class="font-display text-2xl text-graphite">Usuários cadastrados</h3>
+                    <span class="rounded-full bg-crimson/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-crimson">Lista local</span>
+                </div>
+                <div id="userList" class="space-y-3"></div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const ADMIN_EMAIL = 'admin@descomplica.com';
+        const ADMIN_PASSWORD = 'descomplica2026';
+        const STORAGE_KEY = 'descomplicaUsers';
+        const ADMIN_SESSION_KEY = 'descomplicaAdminSession';
+
+        const loginCard = document.getElementById('loginCard');
+        const adminDashboard = document.getElementById('adminDashboard');
+        const adminMessage = document.getElementById('adminMessage');
+        const adminLoginForm = document.getElementById('adminLoginForm');
+        const totalUsers = document.getElementById('totalUsers');
+        const userList = document.getElementById('userList');
+        const logoutAdmin = document.getElementById('logoutAdmin');
+
+        function getStoredUsers() {
+            try {
+                return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+            } catch {
+                return [];
+            }
+        }
+
+        function renderUsers() {
+            const users = getStoredUsers();
+            totalUsers.textContent = users.length;
+
+            if (!users.length) {
+                userList.innerHTML = '<p class="rounded-2xl border border-dashed border-gray-300 p-4 text-sm text-gray-500">Ainda não há usuários cadastrados no armazenamento local.</p>';
+                return;
+            }
+
+            userList.innerHTML = users.map((user) => `
+                <div class="rounded-2xl border border-gray-200 bg-offwhite p-4">
+                    <div class="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+                        <div>
+                            <p class="font-semibold text-graphite">${user.name || 'Usuário sem nome'}</p>
+                            <p class="text-sm text-gray-600">${user.email || 'E-mail não informado'}</p>
+                        </div>
+                        <span class="rounded-full bg-crimson/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-crimson">${user.phone ? 'Cadastrado' : 'Sem telefone'}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showDashboard() {
+            loginCard.classList.add('hidden');
+            adminDashboard.classList.remove('hidden');
+            renderUsers();
+        }
+
+        function hideDashboard() {
+            loginCard.classList.remove('hidden');
+            adminDashboard.classList.add('hidden');
+            sessionStorage.removeItem(ADMIN_SESSION_KEY);
+        }
+
+        if (sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true') {
+            showDashboard();
+        }
+
+        adminLoginForm?.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const email = document.getElementById('adminEmail').value.trim();
+            const password = document.getElementById('adminPassword').value;
+
+            if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+                sessionStorage.setItem(ADMIN_SESSION_KEY, 'true');
+                adminMessage.textContent = 'Login autorizado. Você entrou no painel administrativo.';
+                adminMessage.className = 'mt-4 text-sm text-green-600';
+                showDashboard();
+            } else {
+                adminMessage.textContent = 'Credenciais inválidas. Este acesso é restrito ao administrador do sistema.';
+                adminMessage.className = 'mt-4 text-sm text-crimson';
+            }
+        });
+
+        logoutAdmin?.addEventListener('click', () => {
+            hideDashboard();
+            adminMessage.textContent = 'Você saiu do painel administrativo.';
+            adminMessage.className = 'mt-4 text-sm text-gray-500';
+            document.getElementById('adminLoginForm').reset();
+        });
+    </script>
+</body>
+</html>
