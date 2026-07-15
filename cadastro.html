@@ -95,6 +95,15 @@
               <input id="password" type="password" class="w-full rounded-2xl border border-gray-300 px-4 py-3 outline-none focus:border-crimson" placeholder="••••••••" required />
             </div>
             <button type="submit" class="w-full rounded-2xl bg-crimson px-4 py-3 font-semibold text-white">Entrar na conta</button>
+            <button id="showRecoveryBtn" type="button" class="w-full rounded-2xl border border-crimson/20 px-4 py-3 text-sm font-semibold text-crimson">Recuperar senha</button>
+          </form>
+
+          <form id="recoverForm" class="mt-4 hidden space-y-4 rounded-2xl border border-gray-200 bg-offwhite p-4">
+            <div>
+              <label class="mb-2 block text-sm font-semibold" for="recoverEmail">Informe seu e-mail para recuperar a senha</label>
+              <input id="recoverEmail" type="email" class="w-full rounded-2xl border border-gray-300 px-4 py-3 outline-none focus:border-crimson" placeholder="seu@email.com" required />
+            </div>
+            <button type="submit" class="w-full rounded-2xl bg-graphite px-4 py-3 font-semibold text-white">Enviar instruções</button>
           </form>
 
           <form id="registerForm" class="mt-6 hidden space-y-4">
@@ -234,6 +243,8 @@
       const tabButtons = document.querySelectorAll('.tab-btn');
       const loginForm = document.getElementById('loginForm');
       const registerForm = document.getElementById('registerForm');
+      const recoverForm = document.getElementById('recoverForm');
+      const showRecoveryBtn = document.getElementById('showRecoveryBtn');
       const formMessage = document.getElementById('formMessage');
 
       tabButtons.forEach((button) => {
@@ -243,8 +254,13 @@
           const isRegister = button.dataset.tab === 'register';
           loginForm.classList.toggle('hidden', isRegister);
           registerForm.classList.toggle('hidden', !isRegister);
+          recoverForm.classList.add('hidden');
           formMessage.innerHTML = isRegister ? '<span class="text-gray-500">Preencha seus dados para criar uma conta institucional.</span>' : '<span class="text-gray-500">Use o formulário para entrar ou recuperar o acesso.</span>';
         });
+      });
+
+      showRecoveryBtn?.addEventListener('click', () => {
+        recoverForm.classList.toggle('hidden');
       });
 
       loginForm?.addEventListener('submit', (event) => {
@@ -265,6 +281,26 @@
           window.location.href = 'index.html';
         } else {
           formMessage.innerHTML = '<span class="text-crimson">E-mail ou senha incorretos. Crie uma conta ou verifique os dados.</span>';
+        }
+      });
+
+      recoverForm?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const recoverEmail = document.getElementById('recoverEmail').value.trim();
+        const users = getStoredUsers();
+        const user = users.find((item) => item.email === recoverEmail);
+
+        if (!recoverEmail) {
+          formMessage.innerHTML = '<span class="text-crimson">Informe um e-mail válido para recuperar sua senha.</span>';
+          return;
+        }
+
+        if (user) {
+          formMessage.innerHTML = `<span class="text-green-600">Solicitação recebida. Instruções de recuperação foram preparadas para ${recoverEmail}.</span>`;
+          recoverForm.reset();
+          recoverForm.classList.add('hidden');
+        } else {
+          formMessage.innerHTML = '<span class="text-crimson">Este e-mail não está cadastrado no sistema.</span>';
         }
       });
 
@@ -289,7 +325,7 @@
         const newUser = { name, phone, email, password };
         saveUser(newUser);
         localStorage.setItem('descomplicaCurrentUser', JSON.stringify(newUser));
-        formMessage.innerHTML = '<span class="text-green-600">Cadastro realizado com sucesso. Você já pode entrar na sua conta.</span>';
+        formMessage.innerHTML = `<span class="text-green-600">Cadastro realizado com sucesso. Verifique o e-mail ${email} para confirmar sua conta.</span>`;
         registerForm.reset();
         window.location.href = 'index.html';
       });
