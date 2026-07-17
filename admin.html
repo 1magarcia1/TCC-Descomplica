@@ -4,6 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Painel Admin | Descomplica Direito</title>
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+        import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+
+        const firebaseConfig = {
+            apiKey: 'AIzaSyAxTCzFD4RS0WsPpowYGTrX_FxAEPjpAX4',
+            authDomain: 'meu-sistema-admin.firebaseapp.com',
+            projectId: 'meu-sistema-admin'
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const ADMIN_UID = 'COLE_AQUI_O_MESMO_UID';
+
+        onAuthStateChanged(auth, (user) => {
+            if (!user || user.uid !== ADMIN_UID) {
+                alert('Acesso restrito! Faça login primeiro.');
+                window.location.href = 'cadastro.html';
+            }
+        });
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -109,6 +130,8 @@
             </div>
         </section>
     </main>
+
+    <script type="module" src="app.js"></script>
 
     <script>
         const ADMIN_EMAIL = 'admin@descomplica.com';
