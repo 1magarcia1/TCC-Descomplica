@@ -99,7 +99,7 @@ textarea {
 }
 
 .site-header {
-  background: #000000;
+  background: var(--crimson);
 }
 
 .cookie-banner {
@@ -170,7 +170,7 @@ textarea {
 }
 
 .rodape {
-  background: #000000;
+  background: var(--crimson);
   color: var(--white);
   padding: 3rem 1.5rem 2rem;
 }
