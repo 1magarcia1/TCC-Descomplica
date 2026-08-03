@@ -29,19 +29,27 @@
     <link rel="stylesheet" href="index.css" />
   </head>
   <body class="bg-offwhite text-graphite antialiased">
-    <header class="sticky top-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur">
+    <header class="site-header sticky top-0 z-50 w-full bg-black/85 backdrop-blur-sm">
       <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
-        <a href="index.html" class="font-display text-2xl font-semibold text-crimson">Descomplica Direito</a>
-        <div class="flex items-center gap-2">
-          <div class="flex items-center gap-2 rounded-full border border-gray-300 bg-white px-3 py-2 text-sm text-graphite">
-            <button id="searchToggle" type="button" class="text-gray-600" aria-label="Abrir busca"><i class="fas fa-search"></i></button>
-            <input id="searchInput" type="text" class="hidden w-24 bg-transparent text-sm outline-none placeholder:text-gray-400 sm:w-36" placeholder="Buscar" />
-            <button id="searchButton" type="button" class="hidden text-crimson">Ir</button>
+        <a href="index.html" class="flex items-center gap-3 text-sm font-medium text-white transition hover:text-white/90">
+          <img src="img/logo.png" alt="Logo" class="h-10 w-10 rounded-full object-contain bg-white/10 p-1">
+          <span class="font-display text-xl tracking-wide text-white">Descomplica Direito</span>
+        </a>
+
+        <div class="hidden items-center gap-6 md:flex">
+          <div class="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-2 text-sm text-white/90">
+            <button id="searchToggle" type="button" class="text-white/90" aria-label="Abrir busca">
+              <i class="fas fa-search"></i>
+            </button>
+            <input id="searchInput" type="text" class="hidden w-36 bg-transparent text-sm outline-none placeholder:text-white/60 text-white" placeholder="Buscar">
+            <button id="searchButton" type="button" class="hidden text-white font-medium">Ir</button>
           </div>
-          <a href="cadastro.html" class="rounded-full border border-gray-300 px-4 py-2 text-sm font-medium text-graphite">Entrar</a>
-          <button id="menuToggle" class="rounded-full bg-crimson px-4 py-2 text-sm font-semibold text-white">MENU</button>
+          <a id="accountButton" href="cadastro.html" class="rounded-full px-3 py-2 text-sm font-medium text-white/90 transition hover:bg-white/10 hover:text-white">Entrar</a>
+          <button id="logoutButton" class="hidden rounded-full border border-white/20 px-3 py-2 text-sm font-medium text-white/90 transition hover:bg-white/10 hover:text-white">Sair</button>
+          <button id="menuToggle" class="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/20">Menu</button>
         </div>
-        <button id="menuToggleMobile" class="rounded-full border border-gray-300 p-2 text-graphite md:hidden">
+
+        <button id="menuToggleMobile" class="rounded-full border border-white/20 bg-white/10 p-2 text-white md:hidden" aria-label="Abrir menu">
           <i class="fas fa-bars"></i>
         </button>
       </div>
@@ -49,20 +57,20 @@
 
     <div id="overlay" class="overlay fixed inset-0 z-40 bg-black/40"></div>
 
-    <aside id="drawer" class="drawer fixed right-0 top-0 z-50 h-full w-full max-w-md bg-[#1E0003] p-6 text-white shadow-2xl">
+    <aside id="drawer" class="drawer fixed right-0 top-0 z-50 h-full w-full max-w-md bg-[#1E0003] p-6 text-white shadow-2xl overflow-y-auto">
       <div class="flex justify-end">
-        <button id="closeDrawer" class="rounded-full border border-white/20 px-3 py-2 text-sm">✕ FECHAR</button>
+        <button id="closeDrawer" class="rounded-full border border-white/20 px-4 py-2 text-sm hover:bg-white/10 transition">X FECHAR</button>
       </div>
       <nav class="mt-8 space-y-5">
         <a href="index.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Início</span><span class="mt-1 block text-sm text-white/70">Retorne à página principal do portal.</span></a>
         <a href="tradutor.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Tradutor de Juridiquês</span><span class="mt-1 block text-sm text-white/70">Transforme textos complexos em linguagem simples.</span></a>
         <a href="dicionario.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Dicionário Jurídico</span><span class="mt-1 block text-sm text-white/70">Consulte termos e conceitos jurídicos de A a Z.</span></a>
+        <a href="cadastro.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Cadastro / Login</span><span class="mt-1 block text-sm text-white/70">Acesse sua conta e gerencie seus documentos.</span></a>
         <a href="gerador.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Gerador de Documentos</span><span class="mt-1 block text-sm text-white/70">Crie contratos e declarações simples rapidamente.</span></a>
         <a href="linha-tempo.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Linha do Tempo Jurídica</span><span class="mt-1 block text-sm text-white/70">Entenda as etapas de um processo judicial.</span></a>
         <a href="simulador.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Simulador de Custos</span><span class="mt-1 block text-sm text-white/70">Estime taxas judiciais e honorários.</span></a>
         <a href="guia.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Guia de Direitos</span><span class="mt-1 block text-sm text-white/70">Direitos específicos para cada fase da vida.</span></a>
         <a href="advogados.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Advogados Parceiros</span><span class="mt-1 block text-sm text-white/70">Conheça profissionais preparados para orientar seu caso.</span></a>
-        <a href="cadastro.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Cadastro / Login</span><span class="mt-1 block text-sm text-white/70">Acesse sua conta e gerencie seus documentos.</span></a>
       </nav>
     </aside>
 
@@ -140,54 +148,8 @@
       </div>
     </footer>
 
+    <script src="global.js"></script>
     <script>
-      const drawer = document.getElementById('drawer');
-      const overlay = document.getElementById('overlay');
-      const openButtons = [document.getElementById('menuToggle'), document.getElementById('menuToggleMobile')];
-      const closeButton = document.getElementById('closeDrawer');
-      const searchToggle = document.getElementById('searchToggle');
-      const searchInput = document.getElementById('searchInput');
-      const searchButton = document.getElementById('searchButton');
-
-      function openDrawer() {
-        drawer.classList.add('open');
-        overlay.classList.add('show');
-      }
-
-      function closeDrawer() {
-        drawer.classList.remove('open');
-        overlay.classList.remove('show');
-      }
-
-      openButtons.forEach((btn) => btn?.addEventListener('click', openDrawer));
-      closeButton?.addEventListener('click', closeDrawer);
-      overlay?.addEventListener('click', closeDrawer);
-      document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') closeDrawer();
-      });
-
-      searchToggle?.addEventListener('click', () => {
-        searchInput.classList.toggle('hidden');
-        searchButton.classList.toggle('hidden');
-        if (!searchInput.classList.contains('hidden')) {
-          searchInput.focus();
-        }
-      });
-
-      function runSearch() {
-        const query = searchInput.value.trim().toLowerCase();
-        if (!query) return;
-        const target = document.querySelector(`[data-search-key*="${query}"]`);
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      }
-
-      searchButton?.addEventListener('click', runSearch);
-      searchInput?.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter') runSearch();
-      });
-
       const termLabels = [
         'Acórdão',
         'Adimplemento',

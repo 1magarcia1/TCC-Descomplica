@@ -2,6 +2,10 @@
   color-scheme: light;
 }
 
+.site-header {
+  background: #000000;
+}
+
 body {
   font-family: 'Inter', sans-serif;
   background: #f9f9f9;
