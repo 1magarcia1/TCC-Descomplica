@@ -196,6 +196,17 @@ textarea {
 }
 
 @media (max-width: 768px) {
+  .site-header {
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  .drawer {
+    width: 100%;
+    max-width: none;
+    right: 0;
+    left: 0;
+  }
+
   .dictionary-grid {
     grid-template-columns: 1fr;
   }

@@ -93,6 +93,7 @@
 
     drawer.classList.toggle('open', open);
     overlay.classList.toggle('show', open);
+    document.body.classList.toggle('lock-scroll', open);
   }
 
   function bindDrawer() {
@@ -112,6 +113,12 @@
 
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {
+        setDrawerState(false);
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
         setDrawerState(false);
       }
     });
