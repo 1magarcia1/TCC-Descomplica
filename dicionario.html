@@ -254,10 +254,10 @@
       ];
 
       const terms = Object.fromEntries(termLabels.map((term) => [term, {
-        definicao: `Termo jurídico usado no contexto do direito processual e do direito civil, com relevo para a interpretação e aplicação prática da norma.`,
-        contexto: 'Este item aparece na consulta de termos jurídicos e ajuda a compreender a linguagem formal do processo.',
-        quando_usar: 'Use esse termo quando o contexto exigir precisão terminológica, especialmente em leitura de decisões, petições ou documentos processuais.',
-        exemplo: `O uso de "${term}" é importante para compreender a forma correta de argumentar e interpretar a norma.`,
+        definicao: `O termo "${term}" é usado no direito para nomear uma ideia, obrigação, etapa ou situação específica. Em linguagem simples, ele ajuda a explicar melhor aquilo que a lei, um processo ou um documento está tratando.`,
+        contexto: `Esse termo costuma aparecer em documentos legais, decisões e explicações sobre direito. Ele serve para dar precisão ao assunto e facilitar a compreensão do contexto em que a regra foi aplicada.`,
+        quando_usar: `Use esse termo quando precisar explicar um conceito jurídico com clareza, especialmente em textos formais, processos, contratos ou orientações legais.`,
+        exemplo: `Na prática, "${term}" aparece quando alguém precisa falar de uma ideia técnica do direito de forma mais precisa e organizada.`,
         relacionados: ['Direito processual', 'Jurisprudência', 'Interpretação']
       }]));
 
@@ -288,14 +288,15 @@
         const data = terms[term] || {
           definicao: 'Definição não cadastrada para este termo.',
           contexto: 'Clique em outro item da lista para consultar um novo termo jurídico.',
-          when_usar: 'Use esse conceito sempre que precisar interpretar um texto processual.',
+          quando_usar: 'Use esse conceito sempre que precisar interpretar um texto processual.',
           exemplo: 'Exemplo ilustrativo da aplicação do termo no contexto jurídico.',
           relacionados: ['Direito', 'Processo', 'Jurisprudência']
         };
+        const whenUsarText = data.quando_usar || data.when_usar || 'Use esse conceito sempre que precisar interpretar um texto processual.';
         entryTitle.textContent = term;
         entryDefinition.innerHTML = `<p class="text-lg leading-8 text-gray-700">${data.definicao}</p>`;
         entryContext.innerHTML = `<h3 class="text-sm font-semibold uppercase tracking-[0.2em] text-crimson">Contexto</h3><p class="mt-2 text-sm leading-7 text-gray-700">${data.contexto}</p>`;
-        entryWhen.innerHTML = `<h3 class="text-sm font-semibold uppercase tracking-[0.2em] text-crimson">Quando usar</h3><p class="mt-2 text-sm leading-7 text-gray-700">${data.when_usar}</p>`;
+        entryWhen.innerHTML = `<h3 class="text-sm font-semibold uppercase tracking-[0.2em] text-crimson">Quando usar</h3><p class="mt-2 text-sm leading-7 text-gray-700">${whenUsarText}</p>`;
         entryExample.innerHTML = `<h3 class="text-sm font-semibold uppercase tracking-[0.2em] text-crimson">Exemplo</h3><p class="mt-2 text-sm leading-7 text-gray-700">${data.exemplo}</p>`;
         entryRelated.innerHTML = `<h3 class="text-sm font-semibold uppercase tracking-[0.2em] text-crimson">Termos relacionados</h3><div class="mt-2 flex flex-wrap gap-2">${data.relacionados.map((item) => `<span class="rounded-full bg-crimson/10 px-3 py-1 text-sm text-crimson">${item}</span>`).join('')}</div>`;
         entryLabel.textContent = 'Termo selecionado';

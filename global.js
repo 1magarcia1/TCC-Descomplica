@@ -124,6 +124,79 @@
     });
   }
 
+  function readCookieConsent() {
+    const cookieValue = document.cookie
+      .split('; ')
+      .find((entry) => entry.startsWith('descomplicaCookieConsent='));
+
+    if (!cookieValue) {
+      try {
+        return JSON.parse(localStorage.getItem('descomplicaCookieConsent') || 'null');
+      } catch {
+        return null;
+      }
+    }
+
+    try {
+      return JSON.parse(decodeURIComponent(cookieValue.split('=').slice(1).join('=')));
+    } catch {
+      return null;
+    }
+  }
+
+  function persistCookieConsent(choice) {
+    const payload = {
+      choice,
+      acceptedAt: new Date().toISOString()
+    };
+
+    document.cookie = `descomplicaCookieConsent=${encodeURIComponent(JSON.stringify(payload))}; path=/; max-age=31536000`;
+    localStorage.setItem('descomplicaCookieConsent', JSON.stringify(payload));
+  }
+
+  function bindCookieBanner() {
+    const existingBanner = document.getElementById('cookieConsentBanner');
+    if (existingBanner) {
+      return;
+    }
+
+    const consent = readCookieConsent();
+    if (consent?.choice) {
+      return;
+    }
+
+    const banner = document.createElement('div');
+    banner.id = 'cookieConsentBanner';
+    banner.className = 'cookie-banner';
+    banner.innerHTML = `
+      <div class="cookie-banner__content">
+        <div>
+          <p class="cookie-banner__title">Uso de cookies</p>
+          <p class="cookie-banner__text">
+            Utilizamos cookies para lembrar sua sessão, melhorar a navegação e manter o acesso seguro.
+            Ao continuar, você concorda com o uso de cookies neste portal.
+          </p>
+        </div>
+        <div class="cookie-banner__actions">
+          <button type="button" class="cookie-banner__button cookie-banner__button--secondary" data-cookie-choice="reject">Recusar</button>
+          <button type="button" class="cookie-banner__button cookie-banner__button--primary" data-cookie-choice="accept">Aceitar</button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(banner);
+
+    banner.querySelector('[data-cookie-choice="accept"]')?.addEventListener('click', () => {
+      persistCookieConsent('accept');
+      banner.remove();
+    });
+
+    banner.querySelector('[data-cookie-choice="reject"]')?.addEventListener('click', () => {
+      persistCookieConsent('reject');
+      banner.remove();
+    });
+  }
+
   function bindSearch() {
     const searchToggle = document.getElementById('searchToggle');
     const searchInput = document.getElementById('searchInput');
@@ -205,6 +278,7 @@
     bindSearch();
     bindLogout();
     checkAuthState();
+    bindCookieBanner();
     applySearchFromQueryParam();
   });
 

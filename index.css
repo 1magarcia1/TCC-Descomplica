@@ -102,6 +102,73 @@ textarea {
   background: #000000;
 }
 
+.cookie-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 80;
+  padding: 1rem;
+  background: rgba(17, 17, 17, 0.96);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.22);
+}
+
+.cookie-banner__content {
+  margin: 0 auto;
+  max-width: 1100px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.cookie-banner__title {
+  margin: 0;
+  color: #ffffff;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.cookie-banner__text {
+  margin: 0.35rem 0 0;
+  color: rgba(255, 255, 255, 0.82);
+  max-width: 760px;
+  font-size: 0.95rem;
+}
+
+.cookie-banner__actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.cookie-banner__button {
+  border-radius: 9999px;
+  padding: 0.72rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.cookie-banner__button:hover {
+  transform: translateY(-1px);
+}
+
+.cookie-banner__button--primary {
+  color: #ffffff;
+  background: var(--crimson);
+  border-color: var(--crimson);
+}
+
+.cookie-banner__button--secondary {
+  color: #ffffff;
+  background: transparent;
+}
+
 .rodape {
   background: #000000;
   color: var(--white);
