@@ -176,20 +176,6 @@
       const copyBtn = document.getElementById('copyBtn');
       const clearBtn = document.getElementById('clearBtn');
 
-      function runSearch() {
-        const query = searchInput.value.trim().toLowerCase();
-        if (!query) return;
-        const target = document.querySelector(`[data-search-key*="${query}"]`);
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      }
-
-      searchButton?.addEventListener('click', runSearch);
-      searchInput?.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter') runSearch();
-      });
-
       const glossaryTerms = new Map(window.GLOSSARIO_JURIDICO.map((entry) => [
         entry.termo.toLocaleLowerCase('pt-BR'),
         entry.simples.replace(/[.!?]+$/, '')

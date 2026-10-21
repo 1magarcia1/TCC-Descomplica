@@ -363,7 +363,7 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 58px;
+  height: 84px;
   padding: 0 28px;
 }
 
@@ -376,14 +376,16 @@ textarea {
 
 .menu-brand__image {
   display: block;
-  width: 112px;
-  height: 62px;
+  width: 150px;
+  height: auto;
+  aspect-ratio: 1398 / 720;
   object-fit: contain;
 }
 
 .site-header a > img[src$="logo-hero.png"] {
-  width: 112px;
-  height: 62px;
+  width: 164px;
+  height: auto;
+  aspect-ratio: 1398 / 720;
   border-radius: 0;
   background: transparent;
   padding: 0;
@@ -396,8 +398,9 @@ textarea {
 
 .site-brand__logo {
   display: block;
-  width: 112px;
-  height: 62px;
+  width: 164px;
+  height: auto;
+  aspect-ratio: 1398 / 720;
   flex: 0 0 auto;
   border-radius: 0;
   background: transparent;
@@ -458,7 +461,7 @@ textarea {
 .menu-columns {
   display: grid;
   min-height: 0;
-  padding-top: 64px;
+  padding-top: 90px;
   grid-template-columns: minmax(220px, 25%) minmax(0, 0fr) minmax(0, 0fr);
   transition: grid-template-columns 0.48s cubic-bezier(0.2, 0.72, 0.25, 1);
 }
@@ -1124,9 +1127,10 @@ textarea {
 }
 
 .logo-rodape img {
-  width: 112px;
-  height: 62px;
+  width: 164px;
+  height: auto;
   flex: 0 0 auto;
+  aspect-ratio: 1398 / 720;
   object-fit: contain;
 }
 
@@ -1208,12 +1212,16 @@ textarea {
   }
 
   .menu-topbar {
-    height: 54px;
+    height: 72px;
     padding: 0 18px;
   }
 
+  .menu-brand__image {
+    width: 136px;
+  }
+
   .menu-columns {
-    padding-top: 58px;
+    padding-top: 76px;
   }
 
   .menu-columns {
@@ -1323,13 +1331,15 @@ textarea {
   }
 
   .menu-brand__image {
-    width: 96px;
-    height: 54px;
+    width: 128px;
   }
 
   .site-header a > img[src$="logo-hero.png"] {
-    width: 96px;
-    height: 54px;
+    width: 140px;
+  }
+
+  .site-brand__logo {
+    width: 140px;
   }
 
   .site-header a.guide-brand > img.guide-brand-logo[src$="logo-hero.png"] {
@@ -1338,8 +1348,7 @@ textarea {
   }
 
   .logo-rodape img {
-    width: 96px;
-    height: 54px;
+    width: 140px;
   }
 
   .drawer-close {
@@ -1350,7 +1359,7 @@ textarea {
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto minmax(0, 0fr) minmax(0, 0fr);
     overflow-y: auto;
-    padding-top: 54px;
+    padding-top: 72px;
   }
 
   .drawer[data-menu-state="items"] .menu-columns {
