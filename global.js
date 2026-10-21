@@ -48,7 +48,7 @@
     if (fileName === 'index.html') {
       return isHtmlPage() ? '../index.html' : 'index.html';
     }
-    return isHtmlPage() ? fileName : `html/${fileName}`;
+    return fileName;
   }
 
   function assetHref(assetPath) {

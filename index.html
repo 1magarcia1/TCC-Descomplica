@@ -26,7 +26,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="index.css">
 </head>
 <body class="bg-offwhite text-graphite antialiased flex flex-col min-h-screen">
 
@@ -46,7 +46,7 @@
                     <input id="searchInput" type="text" class="hidden w-36 bg-transparent text-sm outline-none placeholder:text-white/60 text-white" placeholder="Buscar">
                     <button id="searchButton" type="button" class="hidden text-white font-medium">Ir</button>
                 </div>
-                <a id="accountButton" href="html/cadastro.html" class="rounded-full px-3 py-2 text-sm font-medium text-white/90 transition hover:bg-white/10 hover:text-white">Entrar</a>
+                <a id="accountButton" href="cadastro.html" class="rounded-full px-3 py-2 text-sm font-medium text-white/90 transition hover:bg-white/10 hover:text-white">Entrar</a>
                 <button id="logoutButton" class="hidden rounded-full border border-white/20 px-3 py-2 text-sm font-medium text-white/90 transition hover:bg-white/10 hover:text-white">Sair</button>
                 <button id="menuToggle" class="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/20">Menu</button>
             </div>
@@ -73,8 +73,8 @@
                     Informação jurídica confiável, explicada de um jeito simples para você tomar decisões com mais segurança.
                 </p>
                 <div class="home-hero__actions flex flex-wrap justify-center gap-3">
-                    <a href="html/cadastro.html" class="home-hero__button home-hero__button--primary">Comece por aqui <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
-                    <a href="html/tradutor.html" class="home-hero__button home-hero__button--secondary">Explorar ferramentas</a>
+                    <a href="cadastro.html" class="home-hero__button home-hero__button--primary">Comece por aqui <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                    <a href="tradutor.html" class="home-hero__button home-hero__button--secondary">Explorar ferramentas</a>
                 </div>
             </div>
             <a href="#ferramentas" class="home-hero__scroll" aria-label="Ir para o conteúdo da página">
@@ -93,7 +93,7 @@
             
             <div class="home-tools__grid grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                 <!-- Tradutor -->
-                <a href="html/tradutor.html" class="home-tool-card rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="tradutor">
+                <a href="tradutor.html" class="home-tool-card rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="tradutor">
                     <div class="home-tool-card__icon mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson">
                         <i class="fas fa-language"></i>
                     </div>
@@ -103,7 +103,7 @@
                 </a>
 
                 <!-- Dicionário -->
-                <a href="html/dicionario.html" class="home-tool-card rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="dicionario">
+                <a href="dicionario.html" class="home-tool-card rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="dicionario">
                     <div class="home-tool-card__icon mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson">
                         <i class="fas fa-book"></i>
                     </div>
@@ -113,7 +113,7 @@
                 </a>
 
                 <!-- Gerador -->
-                <a href="html/gerador.html" class="home-tool-card rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="gerador">
+                <a href="gerador.html" class="home-tool-card rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="gerador">
                     <div class="home-tool-card__icon mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson">
                         <i class="fas fa-file-contract"></i>
                     </div>
@@ -123,7 +123,7 @@
                 </a>
 
                 <!-- Linha do Tempo -->
-                <a href="html/linha-tempo.html" class="home-tool-card rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="linha do tempo">
+                <a href="linha-tempo.html" class="home-tool-card rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="linha do tempo">
                     <div class="home-tool-card__icon mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson">
                         <i class="fas fa-stream"></i>
                     </div>
@@ -133,7 +133,7 @@
                 </a>
 
                 <!-- Simulador -->
-                <a href="html/simulador.html" class="home-tool-card rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="simulador">
+                <a href="simulador.html" class="home-tool-card rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="simulador">
                     <div class="home-tool-card__icon mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson">
                         <i class="fas fa-calculator"></i>
                     </div>
@@ -143,7 +143,7 @@
                 </a>
 
                 <!-- Guia -->
-                <a href="html/guia.html" class="home-tool-card rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="guia">
+                <a href="guia.html" class="home-tool-card rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="guia">
                     <div class="home-tool-card__icon mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson">
                         <i class="fas fa-book-open"></i>
                     </div>
@@ -172,7 +172,7 @@
                         </div>
                     </div>
                     <p class="mt-4 text-sm text-gray-700">Atua com contratos, consultas preventivas e mediação.</p>
-                    <a href="html/advogados.html" class="mt-4 inline-flex rounded-full border border-crimson px-4 py-2 text-sm font-medium text-crimson transition hover:bg-crimson hover:text-white">Entrar em contato</a>
+                    <a href="advogados.html" class="mt-4 inline-flex rounded-full border border-crimson px-4 py-2 text-sm font-medium text-crimson transition hover:bg-crimson hover:text-white">Entrar em contato</a>
                 </article>
 
                 <article class="soft-card rounded-2xl p-6">
@@ -184,7 +184,7 @@
                         </div>
                     </div>
                     <p class="mt-4 text-sm text-gray-700">Especialista em rescisão, assédio e direitos do trabalhador.</p>
-                    <a href="html/advogados.html" class="mt-4 inline-flex rounded-full border border-crimson px-4 py-2 text-sm font-medium text-crimson transition hover:bg-crimson hover:text-white">Entrar em contato</a>
+                    <a href="advogados.html" class="mt-4 inline-flex rounded-full border border-crimson px-4 py-2 text-sm font-medium text-crimson transition hover:bg-crimson hover:text-white">Entrar em contato</a>
                 </article>
 
                 <article class="soft-card rounded-2xl p-6">
@@ -196,7 +196,7 @@
                         </div>
                     </div>
                     <p class="mt-4 text-sm text-gray-700">Atende casos de defesa preliminar e orientação processual.</p>
-                    <a href="html/advogados.html" class="mt-4 inline-flex rounded-full border border-crimson px-4 py-2 text-sm font-medium text-crimson transition hover:bg-crimson hover:text-white">Entrar em contato</a>
+                    <a href="advogados.html" class="mt-4 inline-flex rounded-full border border-crimson px-4 py-2 text-sm font-medium text-crimson transition hover:bg-crimson hover:text-white">Entrar em contato</a>
                 </article>
             </div>
         </section>
@@ -480,16 +480,16 @@
             <div class="rodape-coluna">
                 <h3>Guia do Cidadão</h3>
                 <ul>
-                    <li><a href="html/tradutor.html">Tradutor de Juridiquês</a></li>
-                    <li><a href="html/dicionario.html">Glossário Jurídico</a></li>
-                    <li><a href="html/guia.html">Guia de Direitos</a></li>
+                    <li><a href="tradutor.html">Tradutor de Juridiquês</a></li>
+                    <li><a href="dicionario.html">Glossário Jurídico</a></li>
+                    <li><a href="guia.html">Guia de Direitos</a></li>
                 </ul>
             </div>
             <div class="rodape-coluna">
                 <h3>Sobre o Projeto</h3>
                 <ul>
                     <li><a href="index.html">Portal Institucional</a></li>
-                    <li><a href="html/advogados.html">Advogados parceiros</a></li>
+                    <li><a href="advogados.html">Advogados parceiros</a></li>
                 </ul>
             </div>
             <div class="rodape-coluna">
@@ -505,7 +505,7 @@
         <div class="rodape-inferior">
             <div class="copyright">
                 <p>Copyright © 2026 Descomplica Direito</p>
-                <a href="html/admin.html" class="mt-2 inline-block text-[10px] uppercase tracking-[0.2em] text-white/55 hover:text-white/80">Admin</a>
+                <a href="admin.html" class="mt-2 inline-block text-[10px] uppercase tracking-[0.2em] text-white/55 hover:text-white/80">Admin</a>
             </div>
             <div class="logo-rodape">
                 <img src="img/logo-hero.png" alt="Descomplica Direito" />
@@ -520,7 +520,7 @@
     </footer>
 
     <!-- Scripts de Interatividade -->
-    <script src="javascript/global.js"></script>
+    <script src="global.js"></script>
     <script>
         const testimonialTrack = document.getElementById('testimonialTrack');
         const testimonialDots = Array.from(document.querySelectorAll('.testimonial-dot'));
