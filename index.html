@@ -26,33 +26,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="index.css">
-    <style>
-        .drawer {
-            transform: translateX(100%);
-            transition: transform 0.3s ease-in-out;
-        }
-        .drawer.open {
-            transform: translateX(0);
-        }
-        .overlay {
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease-in-out;
-        }
-        .overlay.show {
-            opacity: 1;
-            pointer-events: auto;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/index.css">
 </head>
 <body class="bg-offwhite text-graphite antialiased flex flex-col min-h-screen">
 
     <!-- Header -->
-    <header class="site-header absolute left-0 top-0 z-50 w-full bg-transparent backdrop-blur-sm">
+    <header class="site-header site-header--hero absolute left-0 top-0 z-50 w-full bg-transparent backdrop-blur-sm">
         <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
             <a href="index.html" class="flex items-center gap-3 text-sm font-medium text-white transition hover:text-white/90">
-                <img src="img/logo.png" alt="Logo" class="h-10 w-10 rounded-full object-contain bg-white/10 p-1">
+                <img src="../img/logo-hero.png" alt="Descomplica Direito" class="h-10 w-10 rounded-full object-contain bg-white/10 p-1">
                 <span class="font-display text-xl tracking-wide text-white">Descomplica Direito</span>
             </a>
             
@@ -75,103 +57,44 @@
         </div>
     </header>
 
-    <!-- Overlay e Drawer -->
-    <div id="overlay" class="overlay fixed inset-0 z-40 bg-black/40"></div>
-    <aside id="drawer" class="drawer fixed right-0 top-0 z-50 h-full w-full max-w-md bg-[#1E0003] p-6 text-white shadow-2xl overflow-y-auto">
-        <div class="flex justify-end">
-            <button id="closeDrawer" class="rounded-full border border-white/20 px-4 py-2 text-sm hover:bg-white/10 transition">X FECHAR</button>
-        </div>
-        <nav class="mt-8 space-y-5">
-            <a href="index.html" class="block border-b border-white/10 pb-4">
-                <span class="block text-lg font-semibold uppercase">Início</span>
-                <span class="mt-1 block text-sm text-white/70">Retorne à página principal do portal.</span>
-            </a>
-            <a href="tradutor.html" class="block border-b border-white/10 pb-4">
-                <span class="block text-lg font-semibold uppercase">Tradutor de Juridiquês</span>
-                <span class="mt-1 block text-sm text-white/70">Transforme textos complexos em linguagem simples.</span>
-            </a>
-            <a href="dicionario.html" class="block border-b border-white/10 pb-4">
-                <span class="block text-lg font-semibold uppercase">Dicionário Jurídico</span>
-                <span class="mt-1 block text-sm text-white/70">Consulte termos e conceitos jurídicos de A a Z.</span>
-            </a>
-            <a href="cadastro.html" class="block border-b border-white/10 pb-4">
-                <span class="block text-lg font-semibold uppercase">Cadastro / Login</span>
-                <span class="mt-1 block text-sm text-white/70">Acesse sua conta e gerencie seus documentos.</span>
-            </a>
-            <a href="gerador.html" class="block border-b border-white/10 pb-4">
-                <span class="block text-lg font-semibold uppercase">Gerador de Documentos</span>
-                <span class="mt-1 block text-sm text-white/70">Crie contratos e declarações simples rapidamente.</span>
-            </a>
-            <a href="linha-tempo.html" class="block border-b border-white/10 pb-4">
-                <span class="block text-lg font-semibold uppercase">Linha do Tempo Jurídica</span>
-                <span class="mt-1 block text-sm text-white/70">Entenda as etapas de um processo judicial.</span>
-            </a>
-            <a href="simulador.html" class="block border-b border-white/10 pb-4">
-                <span class="block text-lg font-semibold uppercase">Simulador de Custos</span>
-                <span class="mt-1 block text-sm text-white/70">Estime taxas judiciais e honorários.</span>
-            </a>
-            <a href="guia.html" class="block border-b border-white/10 pb-4">
-                <span class="block text-lg font-semibold uppercase">Guia de Direitos</span>
-                <span class="mt-1 block text-sm text-white/70">Direitos específicos para cada fase da vida.</span>
-            </a>
-            <a href="advogados.html" class="block border-b border-white/10 pb-4">
-                <span class="block text-lg font-semibold uppercase">Advogados Parceiros</span>
-                <span class="mt-1 block text-sm text-white/70">Conheça profissionais preparados para orientar seu caso.</span>
-            </a>
-        </nav>
-    </aside>
-
     <!-- Main Content -->
     <main class="flex-grow">
         <!-- Hero Section -->
-        <section class="relative isolate flex min-h-screen items-center justify-center overflow-hidden px-6 pb-24 pt-24 text-white lg:px-8">
-            <video autoplay muted loop playsinline class="absolute inset-0 h-full w-full scale-[1.15] object-cover object-center opacity-30">
-                <source src="img/videoprincipal.mp4" type="video/mp4">
-            </video> 
-            <div class="absolute inset-0 bg-[linear-gradient(135deg,rgba(165,28,48,0.78),rgba(10,12,17,0.76))]"></div>
-            <div class="relative z-10 mx-auto flex max-w-4xl flex-col items-center text-center">
-                <img src="img/logo.png" alt="Logo Descomplica Direito" class="h-40 w-40 rounded-full object-contain bg-white/10 p-3 shadow-[0_0_0_1px_rgba(255,255,255,0.2),0_20px_60px_rgba(0,0,0,0.35)] sm:h-48 sm:w-48 lg:h-56 lg:w-56">
-                <p class="mt-8 text-sm uppercase tracking-[0.35em] text-white/80">Descomplica Direito</p>
-                <h1 class="mt-3 font-display text-4xl leading-tight sm:text-5xl lg:text-6xl">A informação jurídica, agora com clareza e elegância.</h1>
-                <p class="mt-5 max-w-3xl text-base leading-8 text-white/85 sm:text-lg">
-                    "Uma plataforma editorial e institucional para traduzir o direito em linguagem compreensível, segura e acessível para todos."
+        <section class="home-hero relative isolate flex items-center justify-center overflow-hidden text-white">
+            <video autoplay muted loop playsinline preload="metadata" aria-hidden="true" class="home-hero__video">
+                <source src="../img/videoprincipal%20.mov">
+            </video>
+            <div class="home-hero__overlay" aria-hidden="true"></div>
+            <div class="home-hero__content relative z-10 mx-auto flex max-w-4xl flex-col items-center text-center">
+                <p class="home-hero__eyebrow">Uma nova forma de entender seus direitos</p>
+                <img src="../img/logo-hero.png" alt="Descomplica Direito Brasil" class="home-hero__logo">
+                <h1 class="home-hero__title font-display">O direito ao seu alcance.<br><span>Com clareza.</span></h1>
+                <p class="home-hero__description">
+                    Informação jurídica confiável, explicada de um jeito simples para você tomar decisões com mais segurança.
                 </p>
-                <div class="mt-8 flex flex-wrap justify-center gap-3">
-                    <a href="cadastro.html" class="rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Criar conta</a>
-                    <a href="tradutor.html" class="rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/20">Explorar ferramentas</a>
+                <div class="home-hero__actions flex flex-wrap justify-center gap-3">
+                    <a href="cadastro.html" class="home-hero__button home-hero__button--primary">Comece por aqui <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                    <a href="tradutor.html" class="home-hero__button home-hero__button--secondary">Explorar ferramentas</a>
                 </div>
             </div>
-        </section>
-
-        <!-- CTA Section -->
-        <section class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-            <div class="rounded-[2rem] border border-gray-200 bg-white/90 p-8 shadow-[0_20px_60px_rgba(17,24,39,0.04)]">
-                <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-                    <div>
-                        <p class="text-sm font-semibold uppercase tracking-[0.25em] text-crimson">Acesso rápido</p>
-                        <h2 class="font-display mt-2 text-2xl text-graphite">Entre ou cadastre-se em poucos segundos</h2>
-                        <p class="mt-3 max-w-2xl text-gray-600">
-                            "Acesse conteúdos acadêmicos, traduza textos de forma simples e acompanhe seu percurso jurídico com segurança."
-                        </p>
-                    </div>
-                    <a href="cadastro.html" class="inline-flex items-center justify-center rounded-full border border-crimson/20 bg-crimson px-6 py-3 font-semibold text-white transition hover:bg-[#8f1625]">
-                        Acessar conta
-                    </a>
-                </div>
-            </div>
+            <a href="#ferramentas" class="home-hero__scroll" aria-label="Ir para o conteúdo da página">
+                <span>Explore a plataforma</span>
+                <i class="fas fa-arrow-down" aria-hidden="true"></i>
+            </a>
         </section>
 
         <!-- Tools Section -->
-        <section class="mx-auto max-w-7xl px-6 pb-16 lg:px-8">
-            <div class="mb-8">
-                <p class="text-sm font-semibold uppercase tracking-[0.25em] text-crimson">Nossas principais ferramentas</p>
-                <h2 class="font-display text-3xl text-graphite">Recursos acadêmicos e institucionais</h2>
+        <section id="ferramentas" class="home-tools mx-auto max-w-7xl px-6 pb-16 lg:px-8">
+            <div class="home-tools__intro">
+                <p class="home-tools__eyebrow">Explore a plataforma</p>
+                <h2 class="home-tools__title font-display">Nossas principais ferramentas</h2>
+                <p class="home-tools__description">Recursos para entender seus direitos e resolver suas dúvidas com mais autonomia.</p>
             </div>
             
-            <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            <div class="home-tools__grid grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                 <!-- Tradutor -->
-                <a href="tradutor.html" class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="tradutor">
-                    <div class="mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson">
+                <a href="tradutor.html" class="home-tool-card rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="tradutor">
+                    <div class="home-tool-card__icon mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson">
                         <i class="fas fa-language"></i>
                     </div>
                     <h3 class="font-display text-xl text-graphite">Tradutor de Juridiquês</h3>
@@ -180,8 +103,8 @@
                 </a>
 
                 <!-- Dicionário -->
-                <a href="dicionario.html" class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="dicionario">
-                    <div class="mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson">
+                <a href="dicionario.html" class="home-tool-card rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="dicionario">
+                    <div class="home-tool-card__icon mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson">
                         <i class="fas fa-book"></i>
                     </div>
                     <h3 class="font-display text-xl text-graphite">Dicionário Jurídico</h3>
@@ -190,8 +113,8 @@
                 </a>
 
                 <!-- Gerador -->
-                <a href="gerador.html" class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="gerador">
-                    <div class="mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson">
+                <a href="gerador.html" class="home-tool-card rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="gerador">
+                    <div class="home-tool-card__icon mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson">
                         <i class="fas fa-file-contract"></i>
                     </div>
                     <h3 class="font-display text-xl text-graphite">Gerador de Documentos</h3>
@@ -200,8 +123,8 @@
                 </a>
 
                 <!-- Linha do Tempo -->
-                <a href="linha-tempo.html" class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="linha do tempo">
-                    <div class="mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson">
+                <a href="linha-tempo.html" class="home-tool-card rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="linha do tempo">
+                    <div class="home-tool-card__icon mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson">
                         <i class="fas fa-stream"></i>
                     </div>
                     <h3 class="font-display text-xl text-graphite">Linha do Tempo Jurídica</h3>
@@ -210,8 +133,8 @@
                 </a>
 
                 <!-- Simulador -->
-                <a href="simulador.html" class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="simulador">
-                    <div class="mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson">
+                <a href="simulador.html" class="home-tool-card rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="simulador">
+                    <div class="home-tool-card__icon mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson">
                         <i class="fas fa-calculator"></i>
                     </div>
                     <h3 class="font-display text-xl text-graphite">Simulador de Custos</h3>
@@ -220,8 +143,8 @@
                 </a>
 
                 <!-- Guia -->
-                <a href="guia.html" class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="guia">
-                    <div class="mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson">
+                <a href="guia.html" class="home-tool-card rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 block" data-search-key="guia">
+                    <div class="home-tool-card__icon mb-4 inline-flex rounded-full bg-crimson/10 p-3 text-crimson">
                         <i class="fas fa-book-open"></i>
                     </div>
                     <h3 class="font-display text-xl text-graphite">Guia de Direitos</h3>
@@ -296,7 +219,7 @@
                                 <p class="mt-6 text-sm uppercase tracking-[0.25em] text-graphite/70">Patrícia Vanzolini</p>
                                 <p class="mt-2 text-sm text-gray-500">Primeira mulher a presidir a OAB-SP.</p>
                             </div>
-                            <img src="img/direitos.jpeg" alt="Imagem ilustrativa de direitos" class="h-56 w-full rounded-[1.5rem] object-cover shadow-sm md:h-72">
+                            <img src="../img/direitos.jpeg" alt="Imagem ilustrativa de direitos" class="h-56 w-full rounded-[1.5rem] object-cover shadow-sm md:h-72">
                         </div>
                     </div>
                     
@@ -585,7 +508,7 @@
                 <a href="admin.html" class="mt-2 inline-block text-[10px] uppercase tracking-[0.2em] text-white/55 hover:text-white/80">Admin</a>
             </div>
             <div class="logo-rodape">
-                <img src="img/logo.png" alt="Logo Rodapé" />
+                <img src="../img/logo-hero.png" alt="Descomplica Direito" />
                 <p>INSTITUTO FEDERAL CATARINENSE - SOMBRIO</p>
             </div>
             <div class="redes-sociais">
@@ -597,17 +520,8 @@
     </footer>
 
     <!-- Scripts de Interatividade -->
-    <script src="global.js"></script>
+    <script src="../javascript/global.js"></script>
     <script>
-        const drawer = document.getElementById('drawer');
-        const overlay = document.getElementById('overlay');
-        const openButtons = [document.getElementById('menuToggle'), document.getElementById('menuToggleMobile')];
-        const closeButton = document.getElementById('closeDrawer');
-        const searchToggle = document.getElementById('searchToggle');
-        const searchInput = document.getElementById('searchInput');
-        const searchButton = document.getElementById('searchButton');
-        const accountButton = document.getElementById('accountButton');
-        const logoutButton = document.getElementById('logoutButton');
         const testimonialTrack = document.getElementById('testimonialTrack');
         const testimonialDots = Array.from(document.querySelectorAll('.testimonial-dot'));
         const testimonialButtons = Array.from(document.querySelectorAll('[data-action]'));
@@ -615,82 +529,6 @@
         
         let activeTestimonial = 0;
         let testimonialTimer;
-
-        function getCurrentUser() {
-            try {
-                return JSON.parse(localStorage.getItem('descomplicaCurrentUser') || 'null');
-            } catch (error) {
-                return null;
-            }
-        }
-
-        function updateHeaderUserState() {
-            const currentUser = getCurrentUser();
-            if (!accountButton) return;
-
-            if (currentUser?.name) {
-                const firstName = currentUser.name.split(' ')[0];
-                accountButton.href = 'index.html';
-                accountButton.textContent = `Olá, ${firstName}`;
-                accountButton.classList.add('bg-white/10');
-                logoutButton?.classList.remove('hidden');
-            } else {
-                accountButton.href = 'cadastro.html';
-                accountButton.textContent = 'Entrar';
-                accountButton.classList.remove('bg-white/10');
-                logoutButton?.classList.add('hidden');
-            }
-        }
-
-        logoutButton?.addEventListener('click', () => {
-            localStorage.removeItem('descomplicaCurrentUser');
-            sessionStorage.removeItem('descomplicaCurrentUser');
-            document.cookie = 'descomplicaCurrentUser=; Max-Age=0; path=/';
-            updateHeaderUserState();
-            window.location.href = 'index.html';
-        });
-
-        function openDrawer() {
-            drawer.classList.add('open');
-            overlay.classList.add('show');
-        }
-
-        function closeDrawer() {
-            drawer.classList.remove('open');
-            overlay.classList.remove('show');
-        }
-
-        openButtons.forEach((btn) => btn?.addEventListener('click', openDrawer));
-        closeButton?.addEventListener('click', closeDrawer);
-        overlay?.addEventListener('click', closeDrawer);
-        
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape') closeDrawer();
-        });
-
-        searchToggle?.addEventListener('click', () => {
-            searchInput.classList.toggle('hidden');
-            searchButton.classList.toggle('hidden');
-            if (!searchInput.classList.contains('hidden')) {
-                searchInput.focus();
-            }
-        });
-
-        function runSearch() {
-            const query = searchInput.value.trim().toLowerCase();
-            if (!query) return;
-            const target = document.querySelector(`[data-search-key*="${query}"]`);
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-        }
-
-        searchButton?.addEventListener('click', runSearch);
-        searchInput?.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter') runSearch();
-        });
-
-        updateHeaderUserState();
 
         function renderTestimonials() {
             testimonialTrack.style.transform = `translateX(-${activeTestimonial * 100}%)`;

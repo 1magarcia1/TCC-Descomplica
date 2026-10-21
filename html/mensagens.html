@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mensagens | Descomplica Direito</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { crimson: '#5c0618', graphite: '#1a1a1a', offwhite: '#f9f9f9' },
+            fontFamily: { display: ['Playfair Display', 'Georgia', 'serif'], sans: ['Inter', 'sans-serif'] }
+          }
+        }
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/index.css" />
+  </head>
+  <body class="bg-offwhite text-graphite antialiased min-h-screen">
+    <header class="site-header sticky top-0 z-50 w-full bg-crimson/85 backdrop-blur-sm">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+        <a href="index.html" class="flex items-center gap-3 text-sm font-medium text-white">
+          <img src="../img/logo-hero.png" alt="Descomplica Direito" class="h-10 w-10 rounded-full object-contain bg-white/10 p-1">
+          <span class="font-display text-xl tracking-wide">Descomplica Direito</span>
+        </a>
+        <div class="hidden items-center gap-6 md:flex">
+          <a id="accountButton" href="cadastro.html" class="rounded-full px-3 py-2 text-sm font-medium text-white/90">Entrar</a>
+          <button id="logoutButton" class="hidden rounded-full border border-white/20 px-3 py-2 text-sm font-medium text-white/90">Sair</button>
+          <button id="menuToggle" class="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white">Menu</button>
+        </div>
+        <button id="menuToggleMobile" class="rounded-full border border-white/20 bg-white/10 p-2 text-white md:hidden" aria-label="Abrir menu">
+          <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
+      </div>
+    </header>
+
+    <main class="mx-auto max-w-7xl px-6 py-12 lg:px-8">
+      <div class="mb-8">
+        <p class="text-sm font-semibold uppercase tracking-[0.25em] text-crimson">Área privada</p>
+        <h1 class="font-display text-3xl text-graphite">Mensagens</h1>
+        <p class="mt-3 max-w-3xl text-gray-600">Converse com segurança com o profissional ou cliente vinculado à conversa.</p>
+      </div>
+      <p id="chatStatus" class="mb-5 text-sm text-gray-600" role="status" aria-live="polite">Verificando sua sessão...</p>
+      <div id="chatSignIn" class="hidden soft-card rounded-2xl p-6">
+        <h2 class="font-display text-xl text-graphite">Entre para acessar as mensagens</h2>
+        <p class="mt-2 text-sm text-gray-600">As conversas são privadas e só podem ser acessadas por seus participantes cadastrados.</p>
+        <a href="cadastro.html" class="mt-4 inline-flex rounded-full bg-crimson px-5 py-3 text-sm font-semibold text-white">Entrar ou criar conta</a>
+      </div>
+      <section id="chatLayout" class="chat-layout hidden" aria-label="Mensagens privadas">
+        <aside class="chat-conversations">
+          <h2 class="p-4 font-display text-lg text-crimson">Conversas</h2>
+          <div id="conversationList"></div>
+        </aside>
+        <div class="chat-messages">
+          <div id="activeConversationHeading" class="border-b border-gray-200 p-4">
+            <h2 class="font-display text-lg text-graphite">Selecione uma conversa</h2>
+          </div>
+          <div id="messageList" class="chat-message-list" aria-live="polite">
+            <p class="text-sm text-gray-500">Suas conversas aparecerão aqui.</p>
+          </div>
+          <form id="messageForm" class="hidden flex gap-3 border-t border-gray-200 p-4">
+            <label class="sr-only" for="messageInput">Digite sua mensagem</label>
+            <textarea id="messageInput" rows="2" maxlength="5000" class="account-input resize-y" placeholder="Escreva uma mensagem..." required></textarea>
+            <button type="submit" class="account-submit w-auto self-end px-5">Enviar</button>
+          </form>
+        </div>
+      </section>
+      <p class="mt-5 text-xs leading-5 text-gray-500">Não envie senhas ou dados bancários. O serviço não substitui canais de atendimento urgente nem constitui, por si só, contratação profissional.</p>
+    </main>
+
+    <footer class="rodape">
+      <div class="rodape-inferior">
+        <div class="copyright"><p>Copyright © 2026 Descomplica Direito</p></div>
+        <div class="logo-rodape">
+          <img src="../img/logo-hero.png" alt="Descomplica Direito" />
+          <p>INSTITUTO FEDERAL CATARINENSE - SOMBRIO</p>
+        </div>
+        <div class="redes-sociais">
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../javascript/global.js"></script>
+    <script type="module" src="../javascript/mensagens.js"></script>
+  </body>
+</html>

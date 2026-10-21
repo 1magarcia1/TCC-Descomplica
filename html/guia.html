@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guia de Direitos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              crimson: '#5c0618',
+              primary: '#5c0618',
+              graphite: '#1a1a1a',
+              offwhite: '#f9f9f9'
+            },
+            fontFamily: {
+              display: ['Playfair Display', 'Georgia', 'serif'],
+              sans: ['Inter', 'sans-serif']
+            }
+          }
+        }
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/index.css" />
+  </head>
+  <body class="bg-offwhite text-graphite antialiased min-h-screen">
+    <header class="site-header sticky top-0 z-50 w-full bg-crimson/85 backdrop-blur-sm">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+        <a href="index.html" class="guide-brand flex items-center text-sm font-medium text-white transition hover:text-white/90" aria-label="Descomplica Direito, página inicial">
+          <img src="../img/logo-hero.png" alt="Descomplica Direito" class="guide-brand-logo">
+          <span class="font-display text-xl tracking-wide text-white">Descomplica Direito</span>
+        </a>
+
+        <div class="hidden items-center gap-6 md:flex">
+          <div class="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-2 text-sm text-white/90">
+            <button id="searchToggle" type="button" class="text-white/90" aria-label="Abrir busca">
+              <i class="fas fa-search"></i>
+            </button>
+            <input id="searchInput" type="text" class="hidden w-36 bg-transparent text-sm outline-none placeholder:text-white/60 text-white" placeholder="Buscar">
+            <button id="searchButton" type="button" class="hidden text-white font-medium">Ir</button>
+          </div>
+          <a id="accountButton" href="cadastro.html" class="rounded-full px-3 py-2 text-sm font-medium text-white/90 transition hover:bg-white/10 hover:text-white">Entrar</a>
+          <button id="logoutButton" class="hidden rounded-full border border-white/20 px-3 py-2 text-sm font-medium text-white/90 transition hover:bg-white/10 hover:text-white">Sair</button>
+          <button id="menuToggle" class="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/20">Menu</button>
+        </div>
+
+        <button id="menuToggleMobile" class="rounded-full border border-white/20 bg-white/10 p-2 text-white md:hidden" aria-label="Abrir menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </header>
+
+    <main class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+      <div class="mb-8">
+        <p class="text-sm font-semibold uppercase tracking-[0.25em] text-crimson">Guia</p>
+        <h1 class="font-display text-3xl text-graphite">Guia de Direitos</h1>
+        <p class="mt-3 max-w-3xl text-gray-600">Informações introdutórias em linguagem simples, com próximos passos e fontes oficiais para você consultar.</p>
+      </div>
+
+      <div class="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
+        <aside class="rights-guide-nav soft-card rounded-2xl p-6">
+          <h2 class="font-display text-xl text-crimson">Categorias</h2>
+          <ul class="mt-4 space-y-2 text-sm text-gray-700" aria-label="Navegação por categoria">
+            <li><a href="#trabalho" class="block rounded-lg px-3 py-2 hover:text-crimson">Trabalho</a></li>
+            <li><a href="#consumidor" class="block rounded-lg px-3 py-2 hover:text-crimson">Consumidor</a></li>
+            <li><a href="#familia" class="block rounded-lg px-3 py-2 hover:text-crimson">Família</a></li>
+            <li><a href="#idoso" class="block rounded-lg px-3 py-2 hover:text-crimson">Pessoa idosa</a></li>
+            <li><a href="#estudante" class="block rounded-lg px-3 py-2 hover:text-crimson">Estudante</a></li>
+          </ul>
+          <p class="mt-6 border-t border-gray-200 pt-4 text-xs leading-5 text-gray-500">Este guia é informativo e não substitui orientação profissional. Prazos e direitos podem variar conforme os fatos de cada caso.</p>
+        </aside>
+
+        <section class="space-y-6">
+          <article id="trabalho" class="rights-guide-article soft-card rounded-2xl p-6">
+            <h2 class="font-display text-xl text-graphite">Trabalho</h2>
+            <details class="mt-3">
+              <summary class="cursor-pointer font-semibold text-crimson">Ver orientações e próximos passos</summary>
+              <p class="mt-3 text-sm leading-6 text-gray-700">A relação de emprego formal deve ser registrada. Guarde contrato, recibos, mensagens de trabalho, controles de jornada e comprovantes de pagamento; esses documentos ajudam a esclarecer divergências.</p>
+              <h3 class="mt-4 font-semibold text-crimson">Se houver um problema</h3>
+              <ul class="mt-2 list-disc space-y-2 pl-5 text-sm leading-6 text-gray-700">
+                <li>Confira seus registros na Carteira de Trabalho Digital e seus recibos de salário.</li>
+                <li>Peça informações por escrito ao empregador sobre valores, jornada ou motivo do desligamento.</li>
+                <li>Em caso de dúvida sobre verbas rescisórias ou prazo, procure o sindicato, a Defensoria Pública quando cabível ou um profissional do Direito. O prazo para buscar direitos trabalhistas depende do caso.</li>
+              </ul>
+              <a class="mt-4 inline-block text-sm font-semibold text-crimson underline underline-offset-2" href="https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm" target="_blank" rel="noreferrer">Consultar a Consolidação das Leis do Trabalho</a>
+            </details>
+          </article>
+          <article id="consumidor" class="rights-guide-article soft-card rounded-2xl p-6">
+            <h2 class="font-display text-xl text-graphite">Consumidor</h2>
+            <details class="mt-3">
+              <summary class="cursor-pointer font-semibold text-crimson">Ver orientações e próximos passos</summary>
+              <p class="mt-3 text-sm leading-6 text-gray-700">O Código de Defesa do Consumidor protege quem compra produtos ou contrata serviços como destinatário final. Guarde nota fiscal, contrato, anúncio, protocolos e mensagens de atendimento.</p>
+              <h3 class="mt-4 font-semibold text-crimson">Como registrar uma reclamação</h3>
+              <ul class="mt-2 list-disc space-y-2 pl-5 text-sm leading-6 text-gray-700">
+                <li>Contate primeiro a empresa e anote o número de protocolo e a data.</li>
+                <li>Em compras feitas fora do estabelecimento, pode existir direito de arrependimento em até 7 dias, conforme as condições do CDC.</li>
+                <li>Se o problema continuar, registre a reclamação no Procon ou no Consumidor.gov.br e guarde a resposta.</li>
+              </ul>
+              <a class="mt-4 inline-block text-sm font-semibold text-crimson underline underline-offset-2" href="https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm" target="_blank" rel="noreferrer">Consultar o Código de Defesa do Consumidor</a>
+            </details>
+          </article>
+          <article id="familia" class="rights-guide-article soft-card rounded-2xl p-6">
+            <h2 class="font-display text-xl text-graphite">Família</h2>
+            <details class="mt-3">
+              <summary class="cursor-pointer font-semibold text-crimson">Ver orientações e próximos passos</summary>
+              <p class="mt-3 text-sm leading-6 text-gray-700">Questões de guarda, convivência, alimentos e divórcio dependem das necessidades das pessoas envolvidas e das circunstâncias familiares. O melhor interesse de crianças e adolescentes deve ser considerado.</p>
+              <h3 class="mt-4 font-semibold text-crimson">Onde buscar ajuda</h3>
+              <ul class="mt-2 list-disc space-y-2 pl-5 text-sm leading-6 text-gray-700">
+                <li>Procure a Defensoria Pública do seu estado para verificar se você pode receber assistência jurídica gratuita.</li>
+                <li>Leve documentos pessoais, certidões, comprovantes de renda e despesas, além de decisões ou acordos já existentes.</li>
+                <li>Em situação de violência ou risco imediato, ligue 190. Para orientação e denúncia de violência contra a mulher, ligue 180.</li>
+              </ul>
+              <a class="mt-4 inline-block text-sm font-semibold text-crimson underline underline-offset-2" href="https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm" target="_blank" rel="noreferrer">Consultar o Código Civil</a>
+            </details>
+          </article>
+          <article id="idoso" class="rights-guide-article soft-card rounded-2xl p-6">
+            <h2 class="font-display text-xl text-graphite">Pessoa idosa</h2>
+            <details class="mt-3">
+              <summary class="cursor-pointer font-semibold text-crimson">Ver orientações e próximos passos</summary>
+              <p class="mt-3 text-sm leading-6 text-gray-700">A legislação prevê prioridade e medidas de proteção para pessoas com 60 anos ou mais, além de direitos ligados à dignidade, saúde, liberdade e convivência familiar e comunitária.</p>
+              <h3 class="mt-4 font-semibold text-crimson">Se um direito não for respeitado</h3>
+              <ul class="mt-2 list-disc space-y-2 pl-5 text-sm leading-6 text-gray-700">
+                <li>Registre datas, protocolos, documentos e nomes dos órgãos ou prestadores envolvidos.</li>
+                <li>Procure o Conselho da Pessoa Idosa, a Defensoria Pública ou o Ministério Público da sua região.</li>
+                <li>Para denunciar violações de direitos humanos, incluindo violência contra pessoa idosa, ligue Disque 100.</li>
+              </ul>
+              <a class="mt-4 inline-block text-sm font-semibold text-crimson underline underline-offset-2" href="https://www.planalto.gov.br/ccivil_03/leis/2003/l10.741.htm" target="_blank" rel="noreferrer">Consultar o Estatuto da Pessoa Idosa</a>
+            </details>
+          </article>
+          <article id="estudante" class="rights-guide-article soft-card rounded-2xl p-6">
+            <h2 class="font-display text-xl text-graphite">Estudante</h2>
+            <details class="mt-3">
+              <summary class="cursor-pointer font-semibold text-crimson">Ver orientações e próximos passos</summary>
+              <p class="mt-3 text-sm leading-6 text-gray-700">A educação é um direito de todos. Estudantes e responsáveis podem solicitar informações sobre matrícula, frequência, avaliação, serviços contratados e medidas de inclusão, respeitando as regras aplicáveis à rede de ensino.</p>
+              <h3 class="mt-4 font-semibold text-crimson">Para resolver um problema</h3>
+              <ul class="mt-2 list-disc space-y-2 pl-5 text-sm leading-6 text-gray-700">
+                <li>Converse com a instituição e formalize o pedido à direção ou à secretaria, guardando uma cópia.</li>
+                <li>Em escola pública, procure também a Secretaria de Educação ou o Conselho Tutelar quando houver ameaça a direitos de criança ou adolescente.</li>
+                <li>Em caso de cobrança ou serviço educacional privado, consulte o contrato e, se necessário, o Procon.</li>
+              </ul>
+              <a class="mt-4 inline-block text-sm font-semibold text-crimson underline underline-offset-2" href="https://www.planalto.gov.br/ccivil_03/leis/l9394.htm" target="_blank" rel="noreferrer">Consultar a Lei de Diretrizes e Bases da Educação</a>
+            </details>
+          </article>
+        </section>
+      </div>
+    </main>
+
+    <footer class="rodape">
+      <div class="rodape-container">
+        <div class="rodape-coluna">
+          <h3>Guia do Cidadão</h3>
+          <ul>
+            <li><a href="tradutor.html">Tradutor de Juridiquês</a></li>
+            <li><a href="dicionario.html">Dicionário Jurídico</a></li>
+            <li><a href="guia.html">Guia de Direitos</a></li>
+          </ul>
+        </div>
+        <div class="rodape-coluna">
+          <h3>Sobre o Projeto</h3>
+          <ul>
+            <li><a href="index.html">Portal Institucional</a></li>
+            <li><a href="advogados.html">Advogados parceiros</a></li>
+          </ul>
+        </div>
+        <div class="rodape-coluna">
+          <h3>Links Úteis</h3>
+          <ul>
+            <li><a href="https://www.cnj.jus.br/" target="_blank" rel="noreferrer">Portal do CNJ</a></li>
+            <li><a href="https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm" target="_blank" rel="noreferrer">Constituição Federal</a></li>
+            <li><a href="https://www.stf.jus.br/" target="_blank" rel="noreferrer">Supremo Tribunal Federal</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="rodape-inferior">
+        <div class="copyright">
+          <p>Copyright © 2026 Descomplica Direito</p>
+          <a href="admin.html" class="mt-2 inline-block text-[10px] uppercase tracking-[0.2em] text-white/55 hover:text-white/80">Admin</a>
+        </div>
+        <div class="logo-rodape">
+          <img src="../img/logo-hero.png" alt="Descomplica Direito" />
+          <p>INSTITUTO FEDERAL CATARINENSE - SOMBRIO</p>
+        </div>
+        <div class="redes-sociais">
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../javascript/global.js"></script>
+    <script>
+    </script>
+  </body>
+</html>

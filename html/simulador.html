@@ -27,14 +27,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/index.css" />
   </head>
   <body class="bg-offwhite text-graphite antialiased min-h-screen">
     <header class="site-header sticky top-0 z-50 w-full bg-crimson/85 backdrop-blur-sm">
       <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
         <a href="index.html" class="flex items-center gap-3 text-sm font-medium text-white transition hover:text-white/90">
-          <img src="img/logo.png" alt="Logo" class="h-10 w-10 rounded-full object-contain bg-white/10 p-1">
+          <img src="../img/logo-hero.png" alt="Descomplica Direito" class="h-10 w-10 rounded-full object-contain bg-white/10 p-1">
           <span class="font-display text-xl tracking-wide text-white">Descomplica Direito</span>
         </a>
 
@@ -56,24 +56,6 @@
         </button>
       </div>
     </header>
-
-    <div id="overlay" class="overlay fixed inset-0 z-40 bg-black/40"></div>
-    <aside id="drawer" class="drawer fixed right-0 top-0 z-50 h-full w-full max-w-md bg-[#1E0003] p-6 text-white shadow-2xl overflow-y-auto">
-      <div class="flex justify-end">
-        <button id="closeDrawer" class="rounded-full border border-white/20 px-4 py-2 text-sm hover:bg-white/10 transition">X FECHAR</button>
-      </div>
-      <nav class="mt-8 space-y-5">
-        <a href="index.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Início</span><span class="mt-1 block text-sm text-white/70">Retorne à página principal do portal.</span></a>
-        <a href="tradutor.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Tradutor de Juridiquês</span><span class="mt-1 block text-sm text-white/70">Transforme textos complexos em linguagem simples.</span></a>
-        <a href="dicionario.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Dicionário Jurídico</span><span class="mt-1 block text-sm text-white/70">Consulte termos e conceitos jurídicos de A a Z.</span></a>
-        <a href="cadastro.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Cadastro / Login</span><span class="mt-1 block text-sm text-white/70">Acesse sua conta e gerencie seus documentos.</span></a>
-        <a href="gerador.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Gerador de Documentos</span><span class="mt-1 block text-sm text-white/70">Crie contratos e declarações simples rapidamente.</span></a>
-        <a href="linha-tempo.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Linha do Tempo Jurídica</span><span class="mt-1 block text-sm text-white/70">Entenda as etapas de um processo judicial.</span></a>
-        <a href="simulador.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Simulador de Custos</span><span class="mt-1 block text-sm text-white/70">Estime taxas judiciais e honorários.</span></a>
-        <a href="guia.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Guia de Direitos</span><span class="mt-1 block text-sm text-white/70">Direitos específicos para cada fase da vida.</span></a>
-        <a href="advogados.html" class="block border-b border-white/10 pb-4"><span class="block text-lg font-semibold uppercase">Advogados Parceiros</span><span class="mt-1 block text-sm text-white/70">Conheça profissionais preparados para orientar seu caso.</span></a>
-      </nav>
-    </aside>
 
     <main class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
       <div class="mb-8">
@@ -149,7 +131,7 @@
           <a href="admin.html" class="mt-2 inline-block text-[10px] uppercase tracking-[0.2em] text-white/55 hover:text-white/80">Admin</a>
         </div>
         <div class="logo-rodape">
-          <img src="img/logo.png" alt="Logo Rodapé" />
+          <img src="../img/logo-hero.png" alt="Descomplica Direito" />
           <p>INSTITUTO FEDERAL CATARINENSE - SOMBRIO</p>
         </div>
         <div class="redes-sociais">
@@ -160,7 +142,7 @@
       </div>
     </footer>
 
-    <script src="global.js"></script>
+    <script src="../javascript/global.js"></script>
     <script>
       document.getElementById('calcBtn').addEventListener('click', () => {
         const tipo = document.getElementById('tipo').value;
