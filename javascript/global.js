@@ -40,6 +40,21 @@
   let activeCategoryIndex = null;
   let activeMenuItemIndex = null;
 
+  function isHtmlPage() {
+    return window.location.pathname.includes('/html/');
+  }
+
+  function siteHref(fileName) {
+    if (fileName === 'index.html') {
+      return isHtmlPage() ? '../index.html' : 'index.html';
+    }
+    return isHtmlPage() ? fileName : `html/${fileName}`;
+  }
+
+  function assetHref(assetPath) {
+    return `${isHtmlPage() ? '../' : ''}${assetPath}`;
+  }
+
   function readStoredUser() {
     try {
       const localValue = localStorage.getItem(USER_STORAGE_KEY);
@@ -95,12 +110,12 @@
     if (accountButton) {
       if (user?.name) {
         const firstName = String(user.name).trim().split(' ')[0];
-        accountButton.href = 'index.html';
+        accountButton.href = siteHref('index.html');
         accountButton.textContent = `Olá, ${firstName}`;
         accountButton.classList.add('bg-white/10');
         accountButton.classList.add('px-3');
       } else {
-        accountButton.href = 'cadastro.html';
+        accountButton.href = siteHref('cadastro.html');
         accountButton.textContent = 'Entrar';
         accountButton.classList.remove('bg-white/10');
       }
@@ -121,14 +136,14 @@
         if (!supabase) {
           persistUser(null);
           checkAuthState();
-          window.location.href = 'index.html';
+          window.location.href = siteHref('index.html');
           return;
         }
         const { error } = await supabase.auth.signOut();
         if (error) throw error;
         persistUser(null);
         checkAuthState();
-        window.location.href = 'index.html';
+        window.location.href = siteHref('index.html');
       } catch (error) {
         console.error('Não foi possível encerrar a sessão:', error);
         window.alert(error.message || 'Não foi possível encerrar a sessão. Tente novamente.');
@@ -145,11 +160,11 @@
       <div id="overlay" class="overlay" aria-hidden="true"></div>
       <aside id="drawer" class="drawer" data-menu-state="categories" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" aria-hidden="true" inert>
         <video class="drawer__video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1">
-          <source src="../img/videomenu.mp4" type="video/mp4">
+          <source src="${assetHref('img/videomenu.mp4')}" type="video/mp4">
         </video>
         <div class="menu-topbar">
-          <a class="menu-brand" href="index.html" aria-label="Descomplica Direito, página inicial">
-            <img class="menu-brand__image" src="../img/logo-hero.png" alt="Descomplica Direito">
+          <a class="menu-brand" href="${siteHref('index.html')}" aria-label="Descomplica Direito, página inicial">
+            <img class="menu-brand__image" src="${assetHref('img/logo-hero.png')}" alt="Descomplica Direito">
           </a>
           <button id="closeDrawer" class="drawer-close" type="button"><span>Fechar</span><span class="drawer-close__icon" aria-hidden="true">&times;</span></button>
         </div>
@@ -168,11 +183,11 @@
         </div>
         <nav class="menu-quicklinks" aria-label="Links rápidos">
           <span class="menu-quicklinks__label">Links rápidos <span aria-hidden="true">&#8250;</span></span>
-          <a href="dicionario.html">Dicionário de A a Z</a>
-          <a href="advogados.html">Encontre um profissional</a>
-          <a href="linha-tempo.html">Etapas de um processo</a>
-          <a href="guia.html">Guia de direitos</a>
-          <a href="cadastro.html">Acessar conta</a>
+          <a href="${siteHref('dicionario.html')}">Dicionário de A a Z</a>
+          <a href="${siteHref('advogados.html')}">Encontre um profissional</a>
+          <a href="${siteHref('linha-tempo.html')}">Etapas de um processo</a>
+          <a href="${siteHref('guia.html')}">Guia de direitos</a>
+          <a href="${siteHref('cadastro.html')}">Acessar conta</a>
         </nav>
       </aside>
     `);
@@ -253,7 +268,7 @@
     const [href, title, description] = category.items[activeMenuItemIndex];
     document.getElementById('menuFeatureTitle').textContent = title;
     document.getElementById('menuFeatureDescription').textContent = description;
-    document.getElementById('menuFeatureLink').href = href;
+    document.getElementById('menuFeatureLink').href = siteHref(href);
     document.getElementById('menuFeatureAction').textContent = `Saiba mais sobre ${title.toLowerCase()}.`;
   }
 
