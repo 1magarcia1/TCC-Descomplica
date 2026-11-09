@@ -42,54 +42,118 @@ textarea {
 
 .account-page {
   flex: 1;
-  background:
-    radial-gradient(ellipse at 10% 0%, rgba(92, 6, 24, 0.08), transparent 35%),
-    var(--offwhite);
+  background: #f5f3f0;
 }
 
 .account-layout {
-  min-height: min(720px, calc(100vh - 10rem));
-  align-items: stretch;
+  display: grid;
+  max-width: 68rem;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  align-items: center;
+  gap: clamp(2.5rem, 7vw, 6rem);
 }
 
 .account-intro {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background:
-    linear-gradient(145deg, rgba(92, 6, 24, 0.96), rgba(26, 26, 26, 0.96)),
-    var(--crimson);
+  padding: 1rem 0;
+}
+
+.account-kicker {
+  margin: 0;
+  color: var(--crimson);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.account-intro h1 {
+  max-width: 14ch;
+  margin: 1rem 0 0;
+  font-size: clamp(2.25rem, 4vw, 3.25rem);
+  line-height: 1.12;
+}
+
+.account-intro__copy {
+  max-width: 32rem;
+  margin: 1.25rem 0 0;
+  color: #55514e;
+}
+
+.account-audiences {
+  max-width: 28rem;
+  margin-top: 2rem;
+  border-top: 1px solid #dcd7d2;
+}
+
+.account-audiences > div {
+  padding: 1rem 0;
+  border-bottom: 1px solid #dcd7d2;
+}
+
+.account-audiences p {
+  margin: 0;
+  color: #55514e;
+  font-size: 0.9rem;
+}
+
+.account-audiences .account-audiences__title {
+  margin-bottom: 0.2rem;
+  color: var(--graphite);
+  font-weight: 700;
 }
 
 .account-form-card {
-  align-self: center;
   width: 100%;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border: 1px solid #e4dfda;
+  border-radius: 0.85rem;
+  background: #fff;
+}
+
+.account-form-heading {
+  margin-bottom: 1.75rem;
+}
+
+.account-form-heading h2 {
+  margin: 0.55rem 0 0;
+  font-size: clamp(1.65rem, 3vw, 2rem);
+  line-height: 1.2;
+}
+
+.account-form-hint {
+  margin: 0;
+  color: #5b606a;
+  font-size: 0.9rem;
+  line-height: 1.55;
 }
 
 .account-tabs {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.35rem;
-  border-radius: 1rem;
-  background: #f3f2f1;
-  padding: 0.35rem;
+  gap: 1rem;
+  border-bottom: 1px solid #e4dfda;
 }
 
 .account-tabs .tab-btn {
-  min-height: 2.8rem;
+  min-height: 2.75rem;
   border: 0;
-  border-radius: 0.75rem;
+  border-bottom: 2px solid transparent;
   background: transparent;
-  color: #5b606a;
+  color: #65605d;
   font-size: 0.9rem;
-  font-weight: 650;
-  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  font-weight: 600;
+  transition: border-color 0.2s ease, color 0.2s ease;
 }
 
 .account-tabs .tab-btn.active {
-  background: #fff;
+  background: transparent;
   color: var(--crimson);
-  box-shadow: 0 2px 8px rgba(26, 26, 26, 0.08);
+  border-bottom-color: var(--crimson);
+}
+
+.account-tabs .tab-btn:focus-visible {
+  outline: 2px solid var(--crimson);
+  outline-offset: 3px;
 }
 
 .account-input {
@@ -97,7 +161,7 @@ textarea {
   width: 100%;
   min-height: 3rem;
   border: 1px solid #d1d5db;
-  border-radius: 0.85rem;
+  border-radius: 0.45rem;
   background: #fff;
   padding: 0.75rem 0.9rem;
   color: var(--graphite);
@@ -115,16 +179,15 @@ textarea {
   width: 100%;
   min-height: 3.15rem;
   border: 1px solid var(--crimson);
-  border-radius: 0.85rem;
+  border-radius: 0.45rem;
   background: var(--crimson);
   padding: 0.8rem 1rem;
   color: #fff;
   font-weight: 700;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
 .account-submit:hover {
-  transform: translateY(-1px);
   background: #470414;
 }
 
@@ -142,20 +205,13 @@ textarea {
   color: #166534;
 }
 
-.rights-guide-nav {
-  position: sticky;
-  top: 6rem;
-  align-self: start;
-}
-
-.rights-guide-nav a[aria-current="location"] {
-  background: rgba(92, 6, 24, 0.08);
-  color: var(--crimson);
-  font-weight: 700;
-}
-
 .rights-guide-article {
   scroll-margin-top: 6rem;
+}
+
+.rights-guide-category:focus-visible {
+  outline: 3px solid rgba(92, 6, 24, 0.3);
+  outline-offset: 3px;
 }
 
 .professional-card {
@@ -250,15 +306,32 @@ textarea {
 
 @media (max-width: 768px) {
   .account-layout {
-    min-height: 0;
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 
   .account-intro {
-    min-height: 17rem;
+    padding: 0;
+    order: 2;
   }
 
-  .rights-guide-nav {
-    position: static;
+  .account-intro h1 {
+    max-width: 18ch;
+    font-size: clamp(1.8rem, 7vw, 2.25rem);
+  }
+
+  .account-form-card {
+    order: 1;
+  }
+
+  .account-audiences {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .account-audiences > div {
+    padding: 0.85rem 0;
   }
 
   .chat-layout {
@@ -748,6 +821,64 @@ textarea {
 .dictionary-item.active {
   background: rgba(165, 28, 48, 0.08);
   border-left-color: var(--crimson);
+}
+
+.cost-simulator-grid {
+  height: clamp(480px, calc(100vh - 300px), 680px);
+}
+
+.cost-category-panel {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+}
+
+.cost-category-list {
+  min-height: 0;
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-color: #9ca3af transparent;
+  scrollbar-width: thin;
+}
+
+.cost-category-list::-webkit-scrollbar,
+#costResult::-webkit-scrollbar {
+  width: 0.45rem;
+}
+
+.cost-category-list::-webkit-scrollbar-thumb,
+#costResult::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: #9ca3af;
+}
+
+.cost-category-list::-webkit-scrollbar-track,
+#costResult::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.cost-category {
+  height: 4.5rem;
+}
+
+#costResult {
+  min-height: 0;
+  overflow-y: auto;
+}
+
+@media (max-width: 1023px) {
+  .cost-simulator-grid {
+    height: auto;
+  }
+
+  .cost-category-panel {
+    height: 30rem;
+  }
+
+  #costResult {
+    min-height: 24rem;
+    max-height: 32rem;
+  }
 }
 
 .news-card img {

@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="index.css" />
   </head>
   <body class="bg-offwhite text-graphite antialiased min-h-screen">
-    <header class="site-header sticky top-0 z-50 w-full bg-crimson/85 backdrop-blur-sm">
+    <header class="site-header z-50 w-full bg-crimson/85 backdrop-blur-sm">
       <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
         <a href="index.html" class="site-brand flex items-center text-sm font-medium text-white transition hover:text-white/90" aria-label="Descomplica Direito, página inicial">
           <img src="img/logo-hero.png" alt="Descomplica Direito" class="site-brand__logo">
@@ -61,26 +61,23 @@
       <div class="mb-8">
         <p class="text-sm font-semibold uppercase tracking-[0.25em] text-crimson">Guia</p>
         <h1 class="font-display text-3xl text-graphite">Guia de Direitos</h1>
-        <p class="mt-3 max-w-3xl text-gray-600">Informações introdutórias em linguagem simples, com próximos passos e fontes oficiais para você consultar.</p>
+        <p class="mt-3 max-w-3xl text-gray-600">Informações introdutórias em linguagem simples, com próximos passos para cada situação.</p>
       </div>
 
-      <div class="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
-        <aside class="rights-guide-nav soft-card rounded-2xl p-6">
-          <h2 class="font-display text-xl text-crimson">Categorias</h2>
-          <ul class="mt-4 space-y-2 text-sm text-gray-700" aria-label="Navegação por categoria">
-            <li><a href="#trabalho" class="block rounded-lg px-3 py-2 hover:text-crimson">Trabalho</a></li>
-            <li><a href="#consumidor" class="block rounded-lg px-3 py-2 hover:text-crimson">Consumidor</a></li>
-            <li><a href="#familia" class="block rounded-lg px-3 py-2 hover:text-crimson">Família</a></li>
-            <li><a href="#idoso" class="block rounded-lg px-3 py-2 hover:text-crimson">Pessoa idosa</a></li>
-            <li><a href="#estudante" class="block rounded-lg px-3 py-2 hover:text-crimson">Estudante</a></li>
-          </ul>
-          <p class="mt-6 border-t border-gray-200 pt-4 text-xs leading-5 text-gray-500">Este guia é informativo e não substitui orientação profissional. Prazos e direitos podem variar conforme os fatos de cada caso.</p>
-        </aside>
+      <section aria-label="Categorias do guia">
+        <div class="mb-6 flex flex-wrap gap-3" role="group" aria-label="Escolha um tema">
+          <button type="button" class="rights-guide-category rounded-full border border-crimson bg-crimson px-5 py-3 text-sm font-semibold text-white" data-category="trabalho" aria-controls="trabalho" aria-pressed="true">Trabalho</button>
+          <button type="button" class="rights-guide-category rounded-full border border-gray-300 bg-white px-5 py-3 text-sm font-semibold text-graphite hover:border-crimson hover:text-crimson" data-category="consumidor" aria-controls="consumidor" aria-pressed="false">Consumidor</button>
+          <button type="button" class="rights-guide-category rounded-full border border-gray-300 bg-white px-5 py-3 text-sm font-semibold text-graphite hover:border-crimson hover:text-crimson" data-category="familia" aria-controls="familia" aria-pressed="false">Família</button>
+          <button type="button" class="rights-guide-category rounded-full border border-gray-300 bg-white px-5 py-3 text-sm font-semibold text-graphite hover:border-crimson hover:text-crimson" data-category="idoso" aria-controls="idoso" aria-pressed="false">Pessoa idosa</button>
+          <button type="button" class="rights-guide-category rounded-full border border-gray-300 bg-white px-5 py-3 text-sm font-semibold text-graphite hover:border-crimson hover:text-crimson" data-category="estudante" aria-controls="estudante" aria-pressed="false">Estudante</button>
+        </div>
+        <p id="guideCategoryStatus" class="sr-only" aria-live="polite">Tema selecionado: Trabalho</p>
 
-        <section class="space-y-6">
+        <div class="rights-guide-panels">
           <article id="trabalho" class="rights-guide-article soft-card rounded-2xl p-6">
             <h2 class="font-display text-xl text-graphite">Trabalho</h2>
-            <details class="mt-3">
+            <details class="mt-3" open>
               <summary class="cursor-pointer font-semibold text-crimson">Ver orientações e próximos passos</summary>
               <p class="mt-3 text-sm leading-6 text-gray-700">A relação de emprego formal deve ser registrada. Guarde contrato, recibos, mensagens de trabalho, controles de jornada e comprovantes de pagamento; esses documentos ajudam a esclarecer divergências.</p>
               <h3 class="mt-4 font-semibold text-crimson">Se houver um problema</h3>
@@ -92,7 +89,7 @@
               <a class="mt-4 inline-block text-sm font-semibold text-crimson underline underline-offset-2" href="https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm" target="_blank" rel="noreferrer">Consultar a Consolidação das Leis do Trabalho</a>
             </details>
           </article>
-          <article id="consumidor" class="rights-guide-article soft-card rounded-2xl p-6">
+          <article id="consumidor" class="rights-guide-article soft-card rounded-2xl p-6" hidden>
             <h2 class="font-display text-xl text-graphite">Consumidor</h2>
             <details class="mt-3">
               <summary class="cursor-pointer font-semibold text-crimson">Ver orientações e próximos passos</summary>
@@ -106,7 +103,7 @@
               <a class="mt-4 inline-block text-sm font-semibold text-crimson underline underline-offset-2" href="https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm" target="_blank" rel="noreferrer">Consultar o Código de Defesa do Consumidor</a>
             </details>
           </article>
-          <article id="familia" class="rights-guide-article soft-card rounded-2xl p-6">
+          <article id="familia" class="rights-guide-article soft-card rounded-2xl p-6" hidden>
             <h2 class="font-display text-xl text-graphite">Família</h2>
             <details class="mt-3">
               <summary class="cursor-pointer font-semibold text-crimson">Ver orientações e próximos passos</summary>
@@ -120,7 +117,7 @@
               <a class="mt-4 inline-block text-sm font-semibold text-crimson underline underline-offset-2" href="https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm" target="_blank" rel="noreferrer">Consultar o Código Civil</a>
             </details>
           </article>
-          <article id="idoso" class="rights-guide-article soft-card rounded-2xl p-6">
+          <article id="idoso" class="rights-guide-article soft-card rounded-2xl p-6" hidden>
             <h2 class="font-display text-xl text-graphite">Pessoa idosa</h2>
             <details class="mt-3">
               <summary class="cursor-pointer font-semibold text-crimson">Ver orientações e próximos passos</summary>
@@ -134,7 +131,7 @@
               <a class="mt-4 inline-block text-sm font-semibold text-crimson underline underline-offset-2" href="https://www.planalto.gov.br/ccivil_03/leis/2003/l10.741.htm" target="_blank" rel="noreferrer">Consultar o Estatuto da Pessoa Idosa</a>
             </details>
           </article>
-          <article id="estudante" class="rights-guide-article soft-card rounded-2xl p-6">
+          <article id="estudante" class="rights-guide-article soft-card rounded-2xl p-6" hidden>
             <h2 class="font-display text-xl text-graphite">Estudante</h2>
             <details class="mt-3">
               <summary class="cursor-pointer font-semibold text-crimson">Ver orientações e próximos passos</summary>
@@ -148,8 +145,8 @@
               <a class="mt-4 inline-block text-sm font-semibold text-crimson underline underline-offset-2" href="https://www.planalto.gov.br/ccivil_03/leis/l9394.htm" target="_blank" rel="noreferrer">Consultar a Lei de Diretrizes e Bases da Educação</a>
             </details>
           </article>
-        </section>
-      </div>
+        </div>
+      </section>
     </main>
 
     <footer class="rodape">
@@ -197,6 +194,32 @@
     </footer>
 
     <script src="global.js"></script>
+    <script>
+      const guideCategoryButtons = Array.from(document.querySelectorAll('.rights-guide-category'));
+      const guideCategoryStatus = document.getElementById('guideCategoryStatus');
+
+      guideCategoryButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const selectedCategory = button.dataset.category;
+          guideCategoryButtons.forEach((categoryButton) => {
+            const isSelected = categoryButton === button;
+            categoryButton.setAttribute('aria-pressed', String(isSelected));
+            categoryButton.classList.toggle('bg-crimson', isSelected);
+            categoryButton.classList.toggle('text-white', isSelected);
+            categoryButton.classList.toggle('bg-white', !isSelected);
+            categoryButton.classList.toggle('text-graphite', !isSelected);
+            categoryButton.classList.toggle('border-crimson', isSelected);
+            categoryButton.classList.toggle('border-gray-300', !isSelected);
+          });
+          document.querySelectorAll('.rights-guide-article').forEach((article) => {
+            const isSelected = article.id === selectedCategory;
+            article.hidden = !isSelected;
+            if (isSelected) article.querySelector('details').open = true;
+          });
+          guideCategoryStatus.textContent = `Tema selecionado: ${button.textContent}`;
+        });
+      });
+    </script>
     <script>
     </script>
   </body>

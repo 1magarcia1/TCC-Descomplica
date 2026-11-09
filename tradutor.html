@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="index.css" />
   </head>
   <body class="bg-offwhite text-graphite antialiased">
-    <header class="site-header sticky top-0 z-50 w-full bg-crimson/85 backdrop-blur-sm">
+    <header class="site-header z-50 w-full bg-crimson/85 backdrop-blur-sm">
       <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
         <a href="index.html" class="site-brand flex items-center gap-3 text-sm font-medium text-white transition hover:text-white/90">
           <img src="img/logo-hero.png" alt="Descomplica Direito" class="site-brand__logo">
@@ -62,21 +62,6 @@
         <p class="mt-3 max-w-3xl text-gray-600">Cole um texto formal e veja uma versão em linguagem simples, clara e acessível.</p>
       </div>
 
-      <div class="mb-6 grid gap-4 md:grid-cols-3">
-        <div class="rounded-[1.5rem] border border-gray-200 bg-white p-4 shadow-sm">
-          <p class="text-xs font-semibold uppercase tracking-[0.25em] text-crimson">Leitura</p>
-          <p id="readabilityScore" class="mt-2 text-2xl font-bold text-graphite">0%</p>
-        </div>
-        <div class="rounded-[1.5rem] border border-gray-200 bg-white p-4 shadow-sm">
-          <p class="text-xs font-semibold uppercase tracking-[0.25em] text-crimson">Palavras</p>
-          <p id="wordCount" class="mt-2 text-2xl font-bold text-graphite">0</p>
-        </div>
-        <div class="rounded-[1.5rem] border border-gray-200 bg-white p-4 shadow-sm">
-          <p class="text-xs font-semibold uppercase tracking-[0.25em] text-crimson">Status</p>
-          <p id="translationStatus" class="mt-2 text-sm font-semibold text-graphite">Pronto para traduzir</p>
-        </div>
-      </div>
-
       <div class="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
         <section class="rounded-[2rem] border border-gray-200 bg-white p-6 shadow-[0_20px_60px_rgba(17,24,39,0.04)]">
           <div class="flex items-center justify-between gap-3">
@@ -92,10 +77,7 @@
         </section>
 
         <section class="rounded-[2rem] border border-gray-200 bg-white p-6 shadow-[0_20px_60px_rgba(17,24,39,0.04)]">
-          <div class="flex items-center justify-between gap-3">
-            <h2 class="font-display text-xl text-crimson">Tradução em linguagem simples</h2>
-            <span class="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">Resposta pronta</span>
-          </div>
+          <h2 class="font-display text-xl text-crimson">Tradução em linguagem simples</h2>
           <div class="mt-4 rounded-2xl bg-offwhite p-4">
             <p id="outputText" class="text-sm leading-7 text-gray-700">A versão clara aparecerá aqui.</p>
           </div>
@@ -113,11 +95,6 @@
           <button class="term-btn rounded-full border border-gray-300 px-4 py-2 text-sm" data-term="Trânsito em julgado">Trânsito em julgado</button>
         </div>
       </section>
-      <p class="mt-6 text-sm leading-6 text-gray-600">
-        Traduções informativas; elas não substituem orientação profissional. Fontes consultadas:
-        <a class="font-medium text-crimson underline" href="https://ww2.trt2.jus.br/servicos/informacoes/glossario-de-termos-juridicos" target="_blank" rel="noreferrer">Glossário do TRT da 2ª Região</a>
-        e <a class="font-medium text-crimson underline" href="https://www.crea-sc.org.br/sites/arquivohistorico/glossario/index.php?letra=A" target="_blank" rel="noreferrer">Glossário do CREA-SC</a>.
-      </p>
     </main>
 
     <footer class="rodape">
@@ -169,9 +146,6 @@
     <script>
       const inputText = document.getElementById('inputText');
       const outputText = document.getElementById('outputText');
-      const readabilityScore = document.getElementById('readabilityScore');
-      const wordCount = document.getElementById('wordCount');
-      const translationStatus = document.getElementById('translationStatus');
       const translateBtn = document.getElementById('translateBtn');
       const copyBtn = document.getElementById('copyBtn');
       const clearBtn = document.getElementById('clearBtn');
@@ -194,18 +168,6 @@
           .join('|')})(?=$|[^\\p{L}\\p{N}_])`,
         'giu'
       );
-
-      function countWords(value) {
-        return value.trim().split(/\s+/).filter(Boolean).length;
-      }
-
-      function updateMetrics(value) {
-        const words = countWords(value);
-        const score = Math.min(96, Math.max(40, 100 - Math.round(words * 0.8)));
-        wordCount.textContent = words;
-        readabilityScore.textContent = `${score}%`;
-        translationStatus.textContent = words > 0 ? 'Texto pronto para leitura' : 'Pronto para traduzir';
-      }
 
       function simplifyText(value) {
         return value.replace(translationPattern, (match, boundary, term, offset) => {
@@ -230,17 +192,13 @@
         const value = inputText.value.trim();
         if (!value) {
           outputText.textContent = 'Digite um texto para traduzir.';
-          translationStatus.textContent = 'Campo vazio';
           return;
         }
 
         outputText.textContent = simplifyText(value);
-        translationStatus.textContent = 'Tradução concluída';
-        updateMetrics(value);
       }
 
       translateBtn.addEventListener('click', translateCurrentText);
-      inputText.addEventListener('input', () => updateMetrics(inputText.value));
 
       copyBtn.addEventListener('click', async () => {
         const text = outputText.textContent.trim();
@@ -248,24 +206,18 @@
           return;
         }
         await navigator.clipboard.writeText(text);
-        translationStatus.textContent = 'Resposta copiada';
       });
 
       clearBtn.addEventListener('click', () => {
         inputText.value = '';
         outputText.textContent = 'A versão clara aparecerá aqui.';
-        translationStatus.textContent = 'Pronto para traduzir';
-        updateMetrics('');
       });
 
       document.querySelectorAll('.term-btn').forEach((button) => {
         button.addEventListener('click', () => {
           outputText.textContent = `${glossaryTerms.get(button.dataset.term.toLocaleLowerCase('pt-BR'))}.`;
-          translationStatus.textContent = 'Termo consultado';
         });
       });
-
-      updateMetrics(inputText.value);
     </script>
   </body>
 </html>

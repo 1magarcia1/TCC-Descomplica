@@ -8,7 +8,7 @@
         ['tradutor.html', 'Tradutor de Juridiquês', 'Transforme textos jurídicos complexos em explicações claras e consulte expressões com facilidade.'],
         ['dicionario.html', 'Dicionário Jurídico', 'Consulte definições, contextos e exemplos em um glossário de leitura simples.'],
         ['gerador.html', 'Gerador de Documentos', 'Crie modelos iniciais de documentos e declarações com informações básicas.'],
-        ['simulador.html', 'Simulador de Custos', 'Estime custos considerando o tipo de ação, o valor, a renda e a complexidade.']
+        ['simulador.html', 'Simulador de Custos', 'Consulte estimativas ilustrativas e despesas comuns por tipo de ação.']
       ]
     },
     {
@@ -272,7 +272,7 @@
     document.getElementById('menuFeatureAction').textContent = `Saiba mais sobre ${title.toLowerCase()}.`;
   }
 
-  function setDrawerState(open, trigger) {
+  function setDrawerState(open, trigger, initialCategoryIndex = null) {
     const drawer = document.getElementById('drawer');
     const overlay = document.getElementById('overlay');
 
@@ -288,16 +288,21 @@
     drawer.toggleAttribute('inert', !open);
     overlay.setAttribute('aria-hidden', String(!open));
 
-    document.querySelectorAll('#menuToggle, #menuToggleMobile').forEach((button) => {
+    document.querySelectorAll('#menuToggle, #menuToggleMobile, #exploreTools').forEach((button) => {
       button.setAttribute('aria-expanded', String(open));
       button.setAttribute('aria-controls', 'drawer');
     });
 
     if (open) {
-      activeCategoryIndex = null;
+      activeCategoryIndex = initialCategoryIndex;
       activeMenuItemIndex = null;
       renderMenuCategories();
-      setMenuStage('categories');
+      if (initialCategoryIndex === null) {
+        setMenuStage('categories');
+      } else {
+        renderMenuItems();
+        setMenuStage('items');
+      }
       drawerTrigger = trigger || document.activeElement;
       document.getElementById('closeDrawer')?.focus();
     } else if (drawerTrigger instanceof HTMLElement) {
@@ -314,9 +319,16 @@
     ];
     const closeButton = document.getElementById('closeDrawer');
     const overlay = document.getElementById('overlay');
+    const exploreToolsButton = document.getElementById('exploreTools');
 
     openButtons.forEach((button) => {
       button?.addEventListener('click', () => setDrawerState(true, button));
+    });
+
+    exploreToolsButton?.addEventListener('click', (event) => {
+      event.preventDefault();
+      const toolsCategoryIndex = MENU_CATEGORIES.findIndex((category) => category.title === 'Ferramentas');
+      setDrawerState(true, exploreToolsButton, toolsCategoryIndex);
     });
 
     closeButton?.addEventListener('click', () => setDrawerState(false));

@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="index.css" />
   </head>
   <body class="bg-offwhite text-graphite antialiased min-h-screen">
-    <header class="site-header sticky top-0 z-50 w-full bg-crimson/85 backdrop-blur-sm">
+    <header class="site-header z-50 w-full bg-crimson/85 backdrop-blur-sm">
       <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
         <a href="index.html" class="site-brand flex items-center gap-3 text-sm font-medium text-white transition hover:text-white/90">
           <img src="img/logo-hero.png" alt="Descomplica Direito" class="site-brand__logo">
@@ -60,42 +60,43 @@
     <main class="mx-auto max-w-7xl px-6 py-16 lg:px-8">
       <div class="mb-8">
         <p class="text-sm font-semibold uppercase tracking-[0.25em] text-crimson">Ferramenta</p>
-        <h1 class="font-display text-3xl text-graphite">Simulador de Custos</h1>
-        <p class="mt-3 max-w-3xl text-gray-600">Calcule uma estimativa inicial para custos de um processo judicial de forma simples e acolhedora.</p>
+        <h1 class="font-display text-3xl text-graphite">Simulador de Custos Judiciais</h1>
+        <p class="mt-3 max-w-3xl text-gray-600">Entenda valores de referência e despesas que podem aparecer em diferentes tipos de ação. Selecione uma causa para ver os detalhes.</p>
       </div>
 
-      <div class="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-        <section class="soft-card rounded-2xl p-6">
-          <label class="mb-2 block font-semibold text-graphite" for="tipo">Tipo de ação</label>
-          <select id="tipo" class="w-full rounded-lg border border-gray-300 px-4 py-3">
-            <option value="civel">Cível</option>
-            <option value="trabalhista">Trabalhista</option>
-            <option value="familia">Família</option>
-            <option value="consumidor">Consumidor</option>
-          </select>
-          <label class="mt-4 mb-2 block font-semibold text-graphite" for="valor">Valor aproximado da causa</label>
-          <input id="valor" type="number" class="w-full rounded-lg border border-gray-300 px-4 py-3" placeholder="Ex.: 10000" />
-          <label class="mt-4 mb-2 block font-semibold text-graphite" for="renda">Renda mensal aproximada</label>
-          <select id="renda" class="w-full rounded-lg border border-gray-300 px-4 py-3">
-            <option value="baixa">Baixa</option>
-            <option value="media">Média</option>
-            <option value="alta">Alta</option>
-          </select>
-          <label class="mt-4 mb-2 block font-semibold text-graphite" for="complexidade">Complexidade do caso</label>
-          <select id="complexidade" class="w-full rounded-lg border border-gray-300 px-4 py-3">
-            <option value="simples">Simples</option>
-            <option value="media">Média</option>
-            <option value="complexa">Complexa</option>
-          </select>
-          <button id="calcBtn" class="mt-5 rounded-full bg-crimson px-5 py-3 font-semibold text-white">Simular</button>
-        </section>
+      <section class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm" aria-label="Simulador interativo de custos">
+        <div class="cost-simulator-grid grid lg:grid-cols-[minmax(16rem,0.8fr)_minmax(0,1.5fr)]">
+          <nav class="cost-category-panel border-b border-gray-200 bg-white p-4 lg:border-b-0 lg:border-r" aria-label="Tipos de ação">
+            <h2 class="px-3 pb-3 font-display text-xl text-graphite">Escolha uma causa</h2>
+            <label for="costSearch" class="sr-only">Buscar processo</label>
+            <div class="relative mb-3">
+              <i class="fas fa-search pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" aria-hidden="true"></i>
+              <input id="costSearch" type="search" class="w-full rounded-2xl border border-gray-300 py-3 pl-11 pr-4 text-sm outline-none transition focus:border-crimson focus:ring-2 focus:ring-crimson/10" placeholder="Buscar processo..." autocomplete="off" aria-controls="costCategories">
+            </div>
+            <ul id="costCategories" class="cost-category-list grid gap-2" aria-label="Processos disponíveis">
+              <li><button type="button" class="cost-category w-full rounded-xl border border-transparent px-4 text-left transition hover:bg-crimson/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-crimson" data-category="danos" aria-pressed="false"><span class="block truncate font-semibold text-graphite">Danos Morais</span><span class="mt-1 block truncate text-sm text-gray-500">Consumidor e ofensas.</span></button></li>
+              <li><button type="button" class="cost-category w-full rounded-xl border border-transparent px-4 text-left transition hover:bg-crimson/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-crimson" data-category="trabalhista" aria-pressed="false"><span class="block truncate font-semibold text-graphite">Ação Trabalhista</span><span class="mt-1 block truncate text-sm text-gray-500">Direitos do empregado.</span></button></li>
+              <li><button type="button" class="cost-category w-full rounded-xl border border-transparent px-4 text-left transition hover:bg-crimson/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-crimson" data-category="familia" aria-pressed="false"><span class="block truncate font-semibold text-graphite">Divórcio Litigioso</span><span class="mt-1 block truncate text-sm text-gray-500">Família e bens.</span></button></li>
+              <li><button type="button" class="cost-category w-full rounded-xl border border-transparent px-4 text-left transition hover:bg-crimson/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-crimson" data-category="pequenas" aria-pressed="false"><span class="block truncate font-semibold text-graphite">Pequenas Causas</span><span class="mt-1 block truncate text-sm text-gray-500">Juizado Especial.</span></button></li>
+              <li><button type="button" class="cost-category w-full rounded-xl border border-transparent px-4 text-left transition hover:bg-crimson/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-crimson" data-category="penal" aria-pressed="false"><span class="block truncate font-semibold text-graphite">Processo Penal</span><span class="mt-1 block truncate text-sm text-gray-500">Crimes.</span></button></li>
+              <li><button type="button" class="cost-category w-full rounded-xl border border-transparent px-4 text-left transition hover:bg-crimson/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-crimson" data-category="tributario" aria-pressed="false"><span class="block truncate font-semibold text-graphite">Processo Tributário</span><span class="mt-1 block truncate text-sm text-gray-500">Impostos.</span></button></li>
+              <li><button type="button" class="cost-category w-full rounded-xl border border-transparent px-4 text-left transition hover:bg-crimson/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-crimson" data-category="previdenciario" aria-pressed="false"><span class="block truncate font-semibold text-graphite">Previdenciário</span><span class="mt-1 block truncate text-sm text-gray-500">Benefícios e aposentadorias.</span></button></li>
+              <li><button type="button" class="cost-category w-full rounded-xl border border-transparent px-4 text-left transition hover:bg-crimson/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-crimson" data-category="empresarial" aria-pressed="false"><span class="block truncate font-semibold text-graphite">Empresarial</span><span class="mt-1 block truncate text-sm text-gray-500">Contratos e recuperação judicial.</span></button></li>
+              <li><button type="button" class="cost-category w-full rounded-xl border border-transparent px-4 text-left transition hover:bg-crimson/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-crimson" data-category="extrajudicial" aria-pressed="false"><span class="block truncate font-semibold text-graphite">Extrajudicial</span><span class="mt-1 block truncate text-sm text-gray-500">Cartório, acordo e inventário.</span></button></li>
+            </ul>
+            <p id="costSearchEmpty" class="hidden px-3 py-5 text-sm text-gray-500" role="status">Nenhum processo encontrado.</p>
+          </nav>
 
-        <section class="soft-card rounded-2xl p-6">
-          <h2 class="font-display text-xl text-crimson">Estimativa</h2>
-          <div id="result" class="mt-4 rounded-xl bg-offwhite p-4 text-sm text-gray-700">Preencha os dados para ver uma estimativa.</div>
-          <div id="recomendacao" class="mt-6 rounded-xl border border-crimson/20 bg-crimson/5 p-4 text-sm text-gray-700"></div>
-        </section>
-      </div>
+          <section id="costResult" class="flex items-center justify-center bg-gray-50/70 p-6 sm:p-10" aria-live="polite" aria-atomic="true">
+            <div class="max-w-md text-center text-gray-400">
+              <i class="fas fa-calculator mb-4 text-5xl" aria-hidden="true"></i>
+              <h2 class="font-display text-2xl text-gray-600">Simulação Interativa</h2>
+              <p class="mt-2 text-sm">Selecione uma causa ao lado para detalhar os custos.</p>
+            </div>
+          </section>
+        </div>
+      </section>
+      <p class="mt-4 text-xs leading-5 text-gray-500">Valores apenas ilustrativos, baseados em médias da versão anterior do projeto. Custas e honorários variam conforme o tribunal, o caso e o profissional; consulte fontes oficiais e orientação jurídica antes de tomar decisões.</p>
     </main>
 
     <footer class="rodape">
@@ -142,36 +143,7 @@
       </div>
     </footer>
 
+    <script src="simulador.js"></script>
     <script src="global.js"></script>
-    <script>
-      document.getElementById('calcBtn').addEventListener('click', () => {
-        const tipo = document.getElementById('tipo').value;
-        const valor = Number(document.getElementById('valor').value || 0);
-        const renda = document.getElementById('renda').value;
-        const complexidade = document.getElementById('complexidade').value;
-        const fatores = { civel: 0.025, trabalhista: 0.04, familia: 0.03, consumidor: 0.02 };
-        const multiplicadores = { simples: 1, media: 1.2, complexa: 1.4 };
-        const taxas = valor * fatores[tipo] * multiplicadores[complexidade];
-        const cartorio = valor > 50000 ? 250 : valor > 10000 ? 180 : 150;
-        const honorarios = Math.round(valor * (tipo === 'trabalhista' ? 0.08 : 0.06));
-        const total = taxas + cartorio + honorarios;
-        const isBaixaRenda = renda === 'baixa';
-
-        document.getElementById('result').innerHTML = `
-          <strong>Estimativa aproximada:</strong>
-          <ul class="mt-3 list-disc pl-5 space-y-2">
-            <li>Taxas judiciais: R$ ${taxas.toFixed(2)}</li>
-            <li>Custas cartoriais: R$ ${cartorio.toFixed(2)}</li>
-            <li>Honorários sugeridos: R$ ${honorarios.toFixed(2)}</li>
-            <li><strong>Total estimado:</strong> R$ ${total.toFixed(2)}</li>
-          </ul>
-        `;
-
-        document.getElementById('recomendacao').innerHTML = isBaixaRenda
-          ? '<strong>Recomendação:</strong> a Defensoria Pública ou a gratuidade judiciária pode reduzir ou eliminar esses custos, principalmente em ações de baixa renda.'
-          : '<strong>Recomendação:</strong> vale reunir documentos, organizar prova e avaliar se uma mediação inicial pode reduzir despesas e tempo.';
-      });
-
-    </script>
   </body>
 </html>

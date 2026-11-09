@@ -74,7 +74,7 @@
                 </p>
                 <div class="home-hero__actions flex flex-wrap justify-center gap-3">
                     <a href="cadastro.html" class="home-hero__button home-hero__button--primary">Comece por aqui <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
-                    <a href="tradutor.html" class="home-hero__button home-hero__button--secondary">Explorar ferramentas</a>
+                    <a id="exploreTools" href="tradutor.html" class="home-hero__button home-hero__button--secondary" aria-haspopup="dialog">Explorar ferramentas</a>
                 </div>
             </div>
             <a href="#ferramentas" class="home-hero__scroll" aria-label="Ir para o conteúdo da página">
@@ -138,7 +138,7 @@
                         <i class="fas fa-calculator"></i>
                     </div>
                     <h3 class="font-display text-xl text-graphite">Simulador de Custos</h3>
-                    <p class="mt-2 text-sm text-gray-600">Faça estimativas simples de valores e taxas.</p>
+                    <p class="mt-2 text-sm text-gray-600">Veja exemplos e entenda despesas comuns em processos.</p>
                     <span class="mt-4 inline-block font-semibold text-crimson">Explorar</span>
                 </a>
 
@@ -148,7 +148,7 @@
                         <i class="fas fa-book-open"></i>
                     </div>
                     <h3 class="font-display text-xl text-graphite">Guia de Direitos</h3>
-                    <p class="mt-2 text-sm text-gray-600">Consulte temas jurídicos por fase da vida.</p>
+                    <p class="mt-2 text-sm text-gray-600">Encontre orientações e próximos passos por tema.</p>
                     <span class="mt-4 inline-block font-semibold text-crimson">Explorar</span>
                 </a>
             </div>
@@ -162,7 +162,7 @@
                 <p class="mt-3 max-w-3xl text-gray-600">Encontre profissionais por especialidade ou região para orientação jurídica inicial.</p>
             </div>
 
-            <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            <div class="grid gap-6 md:grid-cols-2">
                 <article class="soft-card rounded-2xl p-6">
                     <div class="flex items-center gap-4">
                         <div class="flex h-12 w-12 items-center justify-center rounded-full bg-crimson/10 text-lg font-semibold text-crimson">AL</div>
@@ -198,41 +198,18 @@
                     <p class="mt-4 text-sm text-gray-700">Atende casos de defesa preliminar e orientação processual.</p>
                     <a href="advogados.html" class="mt-4 inline-flex rounded-full border border-crimson px-4 py-2 text-sm font-medium text-crimson transition hover:bg-crimson hover:text-white">Entrar em contato</a>
                 </article>
-            </div>
-        </section>
-
-        <!-- Quotes Section -->
-        <section class="mx-auto max-w-7xl px-6 pb-16 lg:px-8">
-            <div class="rounded-[2rem] border border-gray-200 bg-white p-8 lg:p-12 shadow-[0_20px_60px_rgba(17,24,39,0.04)]">
-                <div class="mb-10 max-w-4xl">
-                    <p class="text-sm font-semibold uppercase tracking-[0.25em] text-crimson">Citações de destaque</p>
-                    <h2 class="font-display text-3xl text-graphite">A força do direito como presença humana</h2>
-                </div>
-                
-                <div class="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
-                    <div class="rounded-[2rem] border border-gray-200 bg-offwhite p-10">
-                        <div class="grid gap-6 md:grid-cols-[1fr_200px] md:items-center">
-                            <div>
-                                <p class="font-display text-2xl leading-[1.2] text-crimson italic sm:text-3xl">
-                                    "O direito não é um conjunto de regras frias; ele é a forma de organizar a paz e a convivência."
-                                </p>
-                                <p class="mt-6 text-sm uppercase tracking-[0.25em] text-graphite/70">Patrícia Vanzolini</p>
-                                <p class="mt-2 text-sm text-gray-500">Primeira mulher a presidir a OAB-SP.</p>
-                            </div>
-                            <img src="img/direitos.jpeg" alt="Imagem ilustrativa de direitos" class="h-56 w-full rounded-[1.5rem] object-cover shadow-sm md:h-72">
+                <article class="soft-card rounded-2xl p-6">
+                    <div class="flex items-center gap-4">
+                        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-crimson/10 text-lg font-semibold text-crimson">FC</div>
+                        <div>
+                            <h3 class="font-display text-xl text-graphite">Fernanda Bristot Correa</h3>
+                            <p class="text-sm text-gray-600">Sombrio - SC</p>
                         </div>
                     </div>
-                    
-                    <div class="rounded-[2rem] bg-graphite p-8 text-white">
-                        <p class="text-sm uppercase tracking-[0.3em] text-white/70">Editorial acadêmico</p>
-                        <p class="mt-4 font-display text-xl leading-snug">
-                            "O direito é como se fosse um grande amigo... em qualquer circunstância ele estará contigo para te defender."
-                        </p>
-                        <p class="mt-6 text-sm text-white/80">
-                            "A partir dessa leitura, a plataforma assume um papel de explicação e orientação para que cada cidadão entenda sua posição no sistema."
-                        </p>
-                    </div>
-                </div>
+                    <p class="mt-4 text-xs font-semibold uppercase tracking-wide text-crimson">Exemplo de perfil — informações não verificadas</p>
+                    <p class="mt-2 text-sm text-gray-700">Especialidade e dados profissionais não informados.</p>
+                    <a href="advogados.html" class="mt-4 inline-flex rounded-full border border-crimson px-4 py-2 text-sm font-medium text-crimson transition hover:bg-crimson hover:text-white">Ver diretório</a>
+                </article>
             </div>
         </section>
 
@@ -261,58 +238,6 @@
                         <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=900&q=80" alt="Biblioteca acadêmica" class="h-44 w-full rounded-2xl object-cover grayscale md:h-full">
                     </div>
                 </article>
-            </div>
-        </section>
-
-        <!-- News Section -->
-        <section class="mx-auto max-w-7xl px-6 pb-16 lg:px-8">
-            <div class="mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-                <div>
-                    <p class="text-sm font-semibold uppercase tracking-[0.25em] text-crimson">Justiça em destaque</p>
-                    <h2 class="font-display text-3xl text-graphite">Notícias e contextos jurídicos</h2>
-                </div>
-                <p class="rounded-full bg-crimson/10 px-4 py-2 text-sm font-semibold text-crimson self-start md:self-auto">Atualização editorial a cada 2 dias</p>
-            </div>
-            
-            <div class="grid gap-6 lg:grid-cols-3">
-                <!-- Notícia 1 -->
-                <a href="https://www.cnj.jus.br/" target="_blank" rel="noreferrer" class="news-card overflow-hidden rounded-[2rem] border border-gray-200 bg-white shadow-[0_20px_60px_rgba(17,24,39,0.04)] transition hover:-translate-y-1">
-                    <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1200&q=80" alt="Notícia jurídica 1" class="h-52 w-full object-cover">
-                    <div class="p-6">
-                        <span class="rounded-full bg-crimson/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-crimson">Direito Público</span>
-                        <h3 class="mt-4 font-display text-2xl text-graphite">Acesso à justiça e tecnologia</h3>
-                        <p class="mt-2 text-sm text-gray-600 font-normal">
-                            "Leia atualizações do Conselho Nacional de Justiça sobre acesso, eficiência e transformação digital do sistema."
-                        </p>
-                        <span class="mt-4 inline-flex text-sm font-semibold text-crimson">Abrir matéria</span>
-                    </div>
-                </a>
-                
-                <!-- Notícia 2 -->
-                <a href="https://portal.stf.jus.br/" target="_blank" rel="noreferrer" class="news-card overflow-hidden rounded-[2rem] border border-gray-200 bg-white shadow-[0_20px_60px_rgba(17,24,39,0.04)] transition hover:-translate-y-1">
-                    <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80" alt="Notícia jurídica 2" class="h-52 w-full object-cover">
-                    <div class="p-6">
-                        <span class="rounded-full bg-crimson/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-crimson">Consumidor</span>
-                        <h3 class="mt-4 font-display text-2xl text-graphite">Direitos do consumidor em foco</h3>
-                        <p class="mt-2 text-sm text-gray-600">
-                            "Acompanhe decisões, orientações e notícias do Supremo Tribunal Federal relacionadas à proteção do consumidor."
-                        </p>
-                        <span class="mt-4 inline-flex text-sm font-semibold text-crimson">Abrir matéria</span>
-                    </div>
-                </a>
-                
-                <!-- Notícia 3 -->
-                <a href="https://www.oab.org.br/noticias" target="_blank" rel="noreferrer" class="news-card overflow-hidden rounded-[2rem] border border-gray-200 bg-white shadow-[0_20px_60px_rgba(17,24,39,0.04)] transition hover:-translate-y-1">
-                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80" alt="Notícia jurídica 3" class="h-52 w-full object-cover">
-                    <div class="p-6">
-                        <span class="rounded-full bg-crimson/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-crimson">Família</span>
-                        <h3 class="mt-4 font-display text-2xl text-graphite">Mediação familiar e conflito</h3>
-                        <p class="mt-2 text-sm text-gray-600 font-normal">
-                            "Consulte notícias e posicionamentos da OAB sobre mediação, família e resolução de conflitos com maior consciência jurídica."
-                        </p>
-                        <span class="mt-4 inline-flex text-sm font-semibold text-crimson">Abrir matéria</span>
-                    </div>
-                </a>
             </div>
         </section>
 
@@ -490,14 +415,6 @@
                 <ul>
                     <li><a href="index.html">Portal Institucional</a></li>
                     <li><a href="advogados.html">Advogados parceiros</a></li>
-                </ul>
-            </div>
-            <div class="rodape-coluna">
-                <h3>Links Úteis</h3>
-                <ul>
-                    <li><a href="https://www.cnj.jus.br/" target="_blank" rel="noreferrer">Portal do CNJ</a></li>
-                    <li><a href="https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm" target="_blank" rel="noreferrer">Constituição Federal</a></li>
-                    <li><a href="https://www.stf.jus.br/" target="_blank" rel="noreferrer">Supremo Tribunal Federal</a></li>
                 </ul>
             </div>
         </div>

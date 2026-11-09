@@ -11,6 +11,7 @@ const newPasswordForm = document.getElementById('newPasswordForm');
 const professionalFields = document.getElementById('professionalFields');
 const accountRole = document.getElementById('accountRole');
 const avatarInput = document.getElementById('avatar');
+const accountHeading = document.getElementById('accountHeading');
 const tabButtons = Array.from(document.querySelectorAll('.tab-btn'));
 
 function setMessage(message, state = 'info') {
@@ -41,6 +42,7 @@ function showTab(tabName) {
   registerForm.classList.toggle('hidden', !isRegister);
   recoverForm.classList.add('hidden');
   newPasswordForm.classList.add('hidden');
+  accountHeading.textContent = isRegister ? 'Crie sua conta' : 'Acesse sua conta';
   tabButtons.forEach((button) => {
     const active = button.dataset.tab === tabName;
     button.classList.toggle('active', active);
@@ -244,6 +246,14 @@ recoverForm.addEventListener('submit', async (event) => {
 
 registerForm.addEventListener('submit', async (event) => {
   event.preventDefault();
+  const password = document.getElementById('registerPassword').value;
+  const confirmPassword = document.getElementById('confirmPassword').value;
+  if (password !== confirmPassword) {
+    setMessage('As senhas não coincidem. Confira os campos e tente novamente.', 'error');
+    document.getElementById('confirmPassword').focus();
+    return;
+  }
+
   if (!isSupabaseConfigured) {
     setMessage('O cadastro ainda não está configurado. O administrador precisa conectar este site ao projeto Supabase.', 'error');
     return;
@@ -263,7 +273,6 @@ registerForm.addEventListener('submit', async (event) => {
 
   setBusy(registerForm, true);
   const email = document.getElementById('registerEmail').value.trim().toLowerCase();
-  const password = document.getElementById('registerPassword').value;
 
   try {
     let avatarDataUrl = null;

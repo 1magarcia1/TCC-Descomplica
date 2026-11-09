@@ -4,6 +4,7 @@ const list = document.getElementById('professionalList');
 const status = document.getElementById('directoryMessage');
 const search = document.getElementById('professionalSearch');
 const signInPrompt = document.getElementById('directorySignIn');
+const exampleProfessional = document.getElementById('exampleProfessional');
 let professionals = [];
 let currentUser = null;
 
@@ -88,6 +89,8 @@ function renderProfessionals() {
   });
 
   list.replaceChildren(...matches.map(professionalCard));
+  if (!currentUser) return;
+
   if (!matches.length) {
     status.textContent = professionals.length
       ? 'Nenhum profissional corresponde à busca.'
@@ -140,7 +143,11 @@ async function startConversation(professionalId, button) {
   }
 }
 
-search.addEventListener('input', renderProfessionals);
+search.addEventListener('input', () => {
+  const query = search.value.trim().toLocaleLowerCase('pt-BR');
+  exampleProfessional.hidden = !exampleProfessional.dataset.searchText.includes(query);
+  renderProfessionals();
+});
 
 async function initializeDirectory() {
   if (!isSupabaseConfigured) {
