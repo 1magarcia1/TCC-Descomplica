@@ -165,6 +165,7 @@ function showCostExample(button) {
     'Estimativa ilustrativa. Os valores reais dependem do caso, das regras do tribunal e dos honorários acordados.'
   ));
 
+  resultPanel.classList.add('cost-result-active');
   resultPanel.replaceChildren(content);
 }
 

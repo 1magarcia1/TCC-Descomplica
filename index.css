@@ -40,6 +40,181 @@ textarea {
   background: rgba(255, 255, 255, 0.96);
 }
 
+.document-option {
+  display: flex;
+  min-height: 5.25rem;
+  align-items: center;
+  gap: 0.9rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.85rem;
+  background: #fff;
+  padding: 1rem;
+  color: #1a1a1a;
+  text-align: left;
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.document-option:hover {
+  transform: translateY(-1px);
+  border-color: rgba(92, 6, 24, 0.35);
+  background: #fffafa;
+}
+
+.document-option--available {
+  border-color: rgba(92, 6, 24, 0.3);
+}
+
+.document-option > span:nth-child(2) {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.document-option small {
+  color: #6b7280;
+  font-size: 0.75rem;
+}
+
+.document-option__icon {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(92, 6, 24, 0.08);
+  color: var(--crimson);
+}
+
+.document-option__arrow {
+  margin-left: auto;
+  color: var(--crimson);
+}
+
+.nearby-lawyers__map {
+  height: clamp(20rem, 45vw, 32rem);
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.85rem;
+  background: #f3f4f6;
+}
+
+.nearby-lawyers__map iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.lease-field {
+  display: grid;
+  gap: 0.4rem;
+  color: #374151;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.lease-field input,
+.lease-field select,
+.lease-field textarea {
+  width: 100%;
+  min-height: 2.9rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.65rem;
+  background: #fff;
+  padding: 0.7rem 0.85rem;
+  color: #1a1a1a;
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+.lease-field textarea {
+  resize: vertical;
+}
+
+.lease-field input:focus,
+.lease-field select:focus,
+.lease-field textarea:focus {
+  border-color: var(--crimson);
+  outline: 2px solid rgba(92, 6, 24, 0.12);
+}
+
+.contract-preview {
+  min-height: 24rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  background: #fff;
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.contract-empty {
+  display: grid;
+  min-height: 20rem;
+  align-content: center;
+  justify-items: center;
+  color: #6b7280;
+  text-align: center;
+}
+
+.contract-title {
+  margin: 0 0 1.5rem;
+  color: #1a1a1a;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.contract-paragraph,
+.contract-signatures p {
+  margin: 0 0 1rem;
+  color: #374151;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
+.contract-signatures {
+  margin-top: 2rem;
+}
+
+@media print {
+  @page {
+    margin: 2cm;
+  }
+
+  body {
+    background: #fff !important;
+  }
+
+  body * {
+    visibility: hidden !important;
+  }
+
+  #previewPanel,
+  #previewPanel * {
+    visibility: visible !important;
+  }
+
+  #previewPanel {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    border: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+
+  #previewPanel .no-print {
+    display: none !important;
+  }
+
+  #contractPreview {
+    min-height: 0;
+    border: 0;
+    padding: 0;
+  }
+}
+
 .account-page {
   flex: 1;
   background: #f5f3f0;
@@ -866,6 +1041,10 @@ textarea {
   overflow-y: auto;
 }
 
+#costResult.cost-result-active {
+  align-items: flex-start;
+}
+
 @media (max-width: 1023px) {
   .cost-simulator-grid {
     height: auto;
@@ -881,8 +1060,47 @@ textarea {
   }
 }
 
-.news-card img {
+.news-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.news-card__image {
   display: block;
+  width: 100%;
+  height: 13rem;
+  object-fit: cover;
+  background: #f3f4f6;
+}
+
+.news-card__body {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.5rem;
+}
+
+.news-card__category {
+  color: var(--crimson);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.news-card__link {
+  margin-top: auto;
+  padding-top: 1.25rem;
+  color: var(--crimson);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.news-card__link:hover {
+  color: #3f0411;
 }
 
 .site-header {
